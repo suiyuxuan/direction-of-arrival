@@ -1,4 +1,4 @@
-function ANG = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M)
+function ANG = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M,win)
 
 %% --- Geração do Sinal --- %%
 
@@ -19,12 +19,15 @@ noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
 x = s + noise;    % Adicionado ruido
 x = x(:,1:6000);
 
-%% --- Rectangular Window --- %%
-N = length(x(1,:));
-M = N/2;
-w(1:M) = 1; 
+if win == 1
+    % --- Rectangular Window --- %%
+    N = length(x(1,:));
+    M = N/2;
+    w(1:M) = 1; 
+end
 
 %% --- Autocovarience with Window --- %%
+
 for kk = 1:10
     for ii=0:M-1
         aut_cov(kk,ii+1) = 0; 
@@ -61,9 +64,10 @@ for i=1:10
 end
 
 %% --- To find a difference of phases ---%
-
+soma=0;
 for kk = 1:9 
-    dif_ph(kk) = angdiff(phases(1),phases(kk+1)); %diference between first
+    soma = soma + abs(angdiff(phases(kk),phases(kk+1)));
+    dif_ph(kk) = soma; %diference between first
 end
 
 %% --- To find an average of tau ---%%
