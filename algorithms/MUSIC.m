@@ -35,10 +35,4 @@ end
 
 pMusic = 10*log10(pMusic/max(pMusic));
 
-% plot(theta,Pmusic,'-k')
-% xlabel('Angulo \theta')
-% ylabel('Funcao Espectro P(\theta) /dB')
-% title('MUSIC')
-% grid on
-
 end
