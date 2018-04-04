@@ -10,8 +10,6 @@
 
 function [theta,pMusic] = MUSIC(x, P, fc, d)
 
-% Definicao de parametros iniciais
-
 [M,N] = size(x);                % M - numero de elementos, N - total de samples
 u = 340;                        % Velocidade de propagacao
 

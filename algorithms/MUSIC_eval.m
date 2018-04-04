@@ -29,4 +29,7 @@ RMSE = mean( sqrt( immse(angleMusic,correctAngle*ones(1,length(angleMusic))) ) )
 % Calculo do erro medio absoluto
 aboluteError = mean( abs(angleMusic - correctAngle) );
 
+% TODO: Calculo da variancia media
+%variancia = mean( );
+
 end

@@ -11,26 +11,26 @@
 
 function angles = MUSIC_data(data, P, fc, d, snapshot)
 
-% Definicao de parametros iniciais
 x = data.x;
-[M,N] = size(x);                    % M - numero de elementos, N - total de samples
+[M,N] = size(x); % M - numero de elementos, N - total de samples
 if snapshot == 0
     L = 1;
 else
-    L = floor(N/snapshot);          % Numero de janelas
+    L = floor(N/snapshot); % Numero de janelas
 end
-angles = zeros(1,L);                % Prealocando a saida
+angles = zeros(1,L); % Prealocando a saida
 
-% Encontrando o angulo
-for nw = 0:L-1    % Varrendo as janelas
+for nw = 0:L-1 % Varrendo as janelas
     if snapshot == 0
         xw = x;
     else
         xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot); % Sinal em um snapshot
     end
 
+    % TODO: Inserir switch para diferentes algoritmos
     [theta, pMusic] = MUSIC(xw, P, fc, d);
 
+    % TODO: Retornar estrutura com saida adequada para cada algoritmo
     [Max,Ind] = max(pMusic); % Capturando o pico (maximo) valor do pMusic
     angles(nw+1) = (Ind-1)/2;
 end
