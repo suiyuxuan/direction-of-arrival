@@ -20,7 +20,7 @@ u = 340;                        % Velocidade de propagacao
 d = 0.08;                       % Distancia entre os elementos
 alpha = 1.5;                    % Parametro do modelo alpha stable
 gsnr_min = -40;
-gsnr_step = 1;
+gsnr_step = 10;
 gsnr_max = 60;
 
 %%
@@ -43,8 +43,15 @@ end
 A = A';                         % Matriz com P fontes (colunas) e M elementos (linhas)
 
 % Representacao do sinal recebido
-sig = 2*exp(j*(wn*[1:N]));       % Sinal simulado amostrado 1:N
-x = A*sig;                      % Sinal multiplicado pelos atrasos
+sig = exp(1i*(wn*[1:N]));       % Sinal simulado amostrado 1:N
+s = A*sig;                      % Sinal multiplicado pelos atrasos
+%signalPower = (1/N)*s(1,:)*s(1,:)';
+%signalPower_dB = 10*log10(signalPower);
+%noisePower_dB = signalPower_dB - snr;   % Ruido
+%noisePower = 10^(noisePower_dB/10);
+%noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
+%x = s + noise;    % Adicionado ruido
+x = s;
 
 %%
 % Encontrando o angulo
@@ -85,6 +92,7 @@ end
 
 % Plots
 surf(theta, gsnr_min:gsnr_step:gsnr_max, PmusicMatrix)
-xlabel('theta')
+xlabel('\theta')
 ylabel('GSNR')
-zlabel('Pmusic')
+zlabel('p(\theta)')
+colormap('gray')
