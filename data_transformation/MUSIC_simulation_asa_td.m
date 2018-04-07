@@ -15,16 +15,16 @@ close all
 
 delta = 3;
 angles = [20];
-alpha = 1.5;                    % SaS (ex.: 1.5->muito impulsivo, 1.7->medio, 1.9->pouco)
+alpha = 1.7;                    % SaS (ex.: 1.5->muito impulsivo, 1.7->medio, 1.9->pouco)
 gsnr = -40:5:60;
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
 d = 0.08;                       % Distancia entre os sensores
 N = 4000;                       % O numero de samples
-snapshot = 400;                % Tamanho da janela do snapshot
+snapshot = 400;                 % Tamanho da janela do snapshot
 u = 340;                        % Velocidade de propagacao da onda
-nIter = 1:10000;                  % Numero de iteracoes de simulacao
+nIter = 1:10000;                % Numero de iteracoes de simulacao
 
 % Parametros do sinal
 doa = angles/180*pi;            % Angulos
