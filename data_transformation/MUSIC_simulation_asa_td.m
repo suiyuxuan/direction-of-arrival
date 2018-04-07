@@ -15,7 +15,7 @@ close all
 
 delta = 3;
 angles = [20];
-alpha = 1.7;                    % SaS (ex.: 1.5->muito impulsivo, 1.7->medio, 1.9->pouco)
+alpha = 1.5;                    % SaS (ex.: 1.5->muito impulsivo, 1.7->medio, 1.9->pouco)
 gsnr = -40:5:60;
 
 elementNo = 10;                 % Quantidade de microfones
