@@ -1,6 +1,6 @@
 %% --- Parameters ---
 
-AngPar.nEvents = 1:1000;
+AngPar.nEvents = 1:10000;
 AngPar.nArrayElements = 10;                         % Numero de elementos no arranjo
 AngPar.PropagationVelocity = 340;                        % Velocidade de propagacao
 AngPar.DistanceMicrophones = 0.08;   
@@ -12,7 +12,7 @@ AngPar.FsignalNormalized = [pi/100]';            % Frequencia normalizada dos si
 AngPar.Fsignal = (AngPar.Fsample*AngPar.FsignalNormalized)./(2*pi);            % Frequencia dos sinais  em Hz
 AngPar.nSources = length(AngPar.Angles);                 % Numero de fontes de sinais
 %AngPar.SNR = [-15:0.25:15];                        % Relacao sinal ruido
-AngPar.SNR = [-6:1:6];
+AngPar.SNR = [-15:1:15];
 AngPar.Window = 1;                       % Tipo de janela
 
 %% --- Folder to save results ---
