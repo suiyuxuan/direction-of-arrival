@@ -9,9 +9,13 @@
 % d: distancia entre os sensores (microfones)
 % snapshot: tamanho da janela do snapshot
 
-function angles = MUSIC_data(data, P, fc, d, snapshot)
+function angles = MUSIC_data(data)
 
 x = data.x;
+d = data.d; % Distancia entre os sensores
+fc = data.fc; % Frequencia da portadora
+P = data.P; % Numero de fontes
+snapshot = data.snapshot; % Largura da janela de snapshot
 [M,N] = size(x); % M - numero de elementos, N - total de samples
 if snapshot == 0
     L = 1;

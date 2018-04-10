@@ -10,14 +10,11 @@
 function [RMSE, aboluteError, PD] = MUSIC_eval(data, correctAngle, delta)
 
 x = data.x;
-d = data.d; % Distancia entre os sensores
-fc = data.fc; % Frequencia da portadora
-P = data.P; % Numero de fontes
 snapshot = data.snapshot; % Largura da janela de snapshot
 [M,N] = size(x); % Numero de sensores e numero de amostras respectivamente
 L = floor(N/snapshot); % Numero de snapshots
 
-angleMusic = MUSIC_data(data, P, fc, d, snapshot);
+angleMusic = MUSIC_data(data);
 
 % Calculo de PD
 PD = sum((abs(angleMusic-correctAngle))<delta);
