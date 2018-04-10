@@ -5,7 +5,8 @@
 
 clear all
 
-angle = 8;
+angle = 20;
+
 filename = 'Voltage.tdms';
 my_tdms_struct = TDMS_getStruct(filename);
 
