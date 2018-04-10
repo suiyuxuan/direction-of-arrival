@@ -1,20 +1,22 @@
 %% --- Parameters ---
 
+AngPar.nEvents = 1:10;
 AngPar.nArrayElements = 10;                         % Numero de elementos no arranjo
 AngPar.PropagationVelocity = 340;                        % Velocidade de propagacao
 AngPar.DistanceMicrophones = 0.08;   
 AngPar.Angles = [60]/180*pi;           % Angulos
-AngPar.KAngle = 90 - AngPar.Angles*180/pi;
+AngPar.KnowAngle = 90 - AngPar.Angles*180/pi;
 AngPar.Samples = 400000;                     % O numero de samples
 AngPar.Fsample = 200000;                    % Frequencia de amostragem (200kHz)
 AngPar.FsignalNormalized = [pi/100]';            % Frequencia normalizada dos sinais (1kHz)
 AngPar.Fsignal = (AngPar.Fsample*AngPar.FsignalNormalized)./(2*pi);            % Frequencia dos sinais  em Hz
 AngPar.nSources = length(AngPar.Angles);                 % Numero de fontes de sinais
-AngPar.SNR = [-15:0.5:15];                        % Relacao sinal ruido
+%AngPar.SNR = [-15:0.25:15];                        % Relacao sinal ruido
+AngPar.SNR = -6;
 AngPar.Window = 1;                       % Tipo de janela
 
 %% --- Folder to save results ---
-folderName = 'results_teste';
+folderName = 'results';
 
 mkdir(folderName);
 
@@ -34,13 +36,16 @@ for snr = AngPar.SNR
                                 for u = AngPar.PropagationVelocity
                                     for M = AngPar.nArrayElements
                                         for win = AngPar.Window
-                                            for KAng = AngPar.KAngle
+                                            for KnowAng = AngPar.KnowAngle
+                                                for nEvents = AngPar.nEvents
                                                    %% --- Calling the function 
-                                                   ANG = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M,win);
-                                                    %% --- Save folder
-                                                  save([folderName filesep 'Ang_window_' num2str(win) '_SNR_' num2str(snr) '_Fsample_' num2str(fs) '_Fsignal_' num2str(AngPar.Fsignal) '_nSources_'  num2str(P) '_Samples_'  num2str(N) '.mat'],'ANG', 'snr', 'KAng');                                        
-                                                  disp(['Saved in Ang_window_' num2str(win) '_SNR_' num2str(snr) '_Fsample_' num2str(fs) '_Fsignal_' num2str(AngPar.Fsignal) '_nSources_'  num2str(P) '_Samples_'  num2str(N) '.mat'])
-                                                  clear V
+                                                   vec_ang(nEvents) = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M,win);
+                                                end
+                                             ang = mean(vec_ang);
+                                             %% --- Save folder
+                                             save([folderName filesep 'Ang_window_' num2str(win) '_SNR_' num2str(snr) '_Fsample_' num2str(fs) '_Fsignal_' num2str(AngPar.Fsignal) '_nSources_'  num2str(P) '_Samples_'  num2str(N) '.mat'],'ang', 'snr', 'KnowAng');                                        
+                                             disp(['Saved in Ang_window_' num2str(win) '_SNR_' num2str(snr) '_Fsample_' num2str(fs) '_Fsignal_' num2str(AngPar.Fsignal) '_nSources_'  num2str(P) '_Samples_'  num2str(N) '.mat'])
+                                             clear V
                                             end
                                         end
                                     end
