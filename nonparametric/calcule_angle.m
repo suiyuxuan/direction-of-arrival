@@ -1,8 +1,8 @@
 function ANG = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M,win)
 
-%% --- Geração do Sinal --- %%
+%% --- Geraï¿½ï¿½o do Sinal --- %%
 
-A = zeros(P,M);                 % Matriz de direção com P linhas e M colunas
+A = zeros(P,M);                 % Matriz de direï¿½ï¿½o com P linhas e M colunas
 
 for k = 1:P
     A(k,:) = exp(-j*2*pi*f(k)*d*sin(doa(k))/u*[0:M-1]);
@@ -17,7 +17,7 @@ noisePower_dB = signalPower_dB - snr;   % Ruido
 noisePower = 10^(noisePower_dB/10);
 noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
 x = s + noise;    % Adicionado ruido
-x = x(:,1:6000);
+%x = x(:,1:6000);
 
 if win == 1
     % --- Rectangular Window --- %%
@@ -48,7 +48,7 @@ end
 
 
 %% --- To find the index(k_freq) of the maximum peak(mass) for each microphone ---
-tam_mag = length(mag)-1000; %Novo tamanho
+tam_mag = length(mag(:,1:end/2)); %Novo tamanho
 mag_truc = mag(:,1:tam_mag); %Truncamento da magnitude
 
 for i=1:M
@@ -57,7 +57,8 @@ end
 
 %% --- To find the phase of each microphone --- %%
 for ii = 1:M
-     fr(ii,:) = fft(x(ii,1:length(mag_truc(1,:)))); % Correlação cruzada do sinal
+     %fr(ii,:) = fft(x(ii,1:length(mag_truc(1,:)))); % Correlaï¿½ï¿½o cruzada do sinal
+     fr(ii,:) = fft(x(ii,1:end/2)); % Correlaï¿½ï¿½o cruzada do sinal
 end
 
 for i=1:M
@@ -73,7 +74,7 @@ end
 
 %% --- To find an average of tau ---%%
 
-av_tau = 0; %Média do tau
+av_tau = 0; %Mï¿½dia do tau
 
 for ii = 1:(M-1)
     av_tau = av_tau + dif_ph(ii)/ii; %Relation with the first microphone;
