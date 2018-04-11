@@ -21,7 +21,7 @@ PD = sum((abs(angleMusic-correctAngle))<delta);
 PD = PD/L;
 
 % Calculo do RMSE medio
-RMSE = mean( sqrt( immse(angleMusic,correctAngle*ones(1,length(angleMusic))) ) );
+RMSE = sqrt( immse(angleMusic,correctAngle*ones(1,length(angleMusic))) );
 
 % Calculo do erro medio absoluto
 aboluteError = mean( abs(angleMusic - correctAngle) );
