@@ -49,6 +49,11 @@ RMSE = zeros(1,length(snr));
 aboluteError = zeros(1,length(snr));
 PD = zeros(1,length(snr));
 
+data.d = d;
+data.fc = fc;
+data.P = P;
+data.snapshot = snapshot;
+
 n = 1;
 for snrValue = snr
     results = zeros(length(nIter),3);
@@ -60,10 +65,6 @@ for snrValue = snr
         x = s + noise;
 
         data.x = x;
-        data.d = d;
-        data.fc = fc;
-        data.P = P;
-        data.snapshot = snapshot;
 
         correctAngle = angles;
         [RMSE_tmp, aboluteError_tmp, PD_tmp] = MUSIC_eval(data, correctAngle, delta);

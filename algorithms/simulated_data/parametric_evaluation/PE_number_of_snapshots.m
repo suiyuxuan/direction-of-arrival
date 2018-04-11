@@ -15,15 +15,15 @@ close all
 
 delta = 6;
 angles = [20];
-snapshot = [10 100 1000 100000];
+snapshot = 1:20;
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
 d = 0.08;                       % Distancia entre os sensores
-N = 400000;                      % O numero de samples
+N = 20;                      % O numero de samples
 snr = 0;                       % SNR
 u = 340;                        % Velocidade de propagacao da onda
-nIter = 1:1;                  % Numero de iteracoes de simulacao
+nIter = 1:100;                  % Numero de iteracoes de simulacao
 
 % Parametros do sinal
 doa = angles/180*pi;            % Angulos
@@ -54,14 +54,15 @@ RMSE = zeros(1,length(snr));
 aboluteError = zeros(1,length(snr));
 PD = zeros(1,length(snr));
 
+data.x = x;
+data.d = d;
+data.fc = fc;
+data.P = P;
+
 n = 1;
 for snapshotValue = snapshot
     results = zeros(length(nIter),3);
     for iter = nIter
-        data.x = x;
-        data.d = d;
-        data.fc = fc;
-        data.P = P;
         data.snapshot = snapshotValue;
 
         correctAngle = angles;
