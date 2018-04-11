@@ -1,4 +1,4 @@
-function ANG = calcule_angle(x,P,f,d,u,M,win)
+function ANG = calcule_angle_real_data(x,P,f,d,u,M,win)
 
 x(:,1)=0;   %Zerar nivel dc
 
