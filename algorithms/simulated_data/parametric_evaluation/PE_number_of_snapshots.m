@@ -15,12 +15,12 @@ close all
 
 delta = 6;
 angles = [20];
-snapshot = 1:20;
+snapshot = 1:40;
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
 d = 0.08;                       % Distancia entre os sensores
-N = 20;                      % O numero de samples
+N = 40;                      % O numero de samples
 snr = 0;                       % SNR
 u = 340;                        % Velocidade de propagacao da onda
 nIter = 1:100;                  % Numero de iteracoes de simulacao
