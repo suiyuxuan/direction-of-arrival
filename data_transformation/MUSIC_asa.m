@@ -91,8 +91,10 @@ for gsrn = gsnr_min:gsnr_step:gsnr_max
 end
 
 % Plots
-surf(theta, gsnr_min:gsnr_step:gsnr_max, PmusicMatrix)
-xlabel('\theta')
-ylabel('GSNR')
-zlabel('p(\theta)')
-colormap('gray')
+my_surface = surf(theta, gsnr_min:gsnr_step:gsnr_max, PmusicMatrix);
+view(145,30);
+title('MUSIC with impulsive noise (SaS)');
+xlabel('\theta');
+ylabel('GSNR');
+zlabel('p(\theta)');
+print('results/my_surface','-depsc');
