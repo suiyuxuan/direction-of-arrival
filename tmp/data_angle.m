@@ -33,7 +33,7 @@ x = [my_tdms_struct.(variables{2}).Dev1_ai0.data; ...
     my_tdms_struct.(variables{2}).Dev1_ai9.data];
 
 
-% x = flipud(x);                  % Invertendo a ordem dos elementos (pois estão invertidos na mesa)
+x = flipud(x);                  % Invertendo a ordem dos elementos (pois estão invertidos na mesa)
 % for n=1:10
 %     x(n,:) = (x(n,:)-mean(x(n,:))); % Removendo nivel DC
 % end
