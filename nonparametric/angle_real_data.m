@@ -28,7 +28,7 @@ for P = AngPar.nSources
               for cont=1:100                                  
                    snpc = x(:,(1+((cont-1)*800)):(cont*800));
                      %% --- Calling the function 
-                     vec_ang(cont) = calcule_angle(snpc,P,f,d,u,M,win);
+                     vec_ang(cont) = calcule_angle_real_data(snpc,P,f,d,u,M,win);
               end                                   
                 ang = mean(vec_ang);
                 %% --- Save folder

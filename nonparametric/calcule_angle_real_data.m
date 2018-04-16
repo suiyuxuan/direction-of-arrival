@@ -1,7 +1,7 @@
 function ANG = calcule_angle_real_data(x,P,f,d,u,M,win)
 
 x(:,1)=0;   %Zerar nivel dc
-
+%flipud(x); % Inverter os elementos (microfones) para os dados que foram gravados invertidos
 
 for ii=1:M
     x(ii,:) = x(ii,:) - mean(x(ii,:));

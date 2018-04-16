@@ -1,5 +1,5 @@
 function ANG = calcule_angle(snr,P,f,wn,fs,N,doa,d,u,M,win)
-
+% FIXME: Modify the wn parameter of function calcule_angle()
 %% --- Gera��o do Sinal --- %%
 
 A = zeros(P,M);                 % Matriz de dire��o com P linhas e M colunas
