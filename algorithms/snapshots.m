@@ -10,10 +10,9 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles = snapshots(data)
+function angles = snapshots(data, algorithm)
 
 x = data.x;
-algorithm = data.algorithm;
 d = data.d;
 fc = data.fc;
 P = data.P;

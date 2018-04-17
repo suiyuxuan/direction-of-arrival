@@ -8,14 +8,14 @@
 % correctAngle: known angle
 % delta: acceptable angle deviation for detection
 
-function [RMSE, aboluteError, PD] = evaluation(data, correctAngle, delta)
+function [RMSE, aboluteError, PD] = evaluation(data, algorithm, correctAngle, delta)
 
 x = data.x;
 snapshot = data.snapshot;
 [M,N] = size(x);
 L = floor(N/snapshot);
 
-angleAlgorithm = snapshots(data);
+angleAlgorithm = snapshots(data, algorithm);
 
 % Detection Probability calculus
 PD = sum((abs(angleAlgorithm - correctAngle)) < delta);

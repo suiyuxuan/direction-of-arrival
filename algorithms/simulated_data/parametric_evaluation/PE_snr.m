@@ -16,6 +16,7 @@ close all
 delta = 6;
 angles = [20];
 snr = -40:5:40;
+algorithm = "MUSIC";
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
@@ -67,7 +68,7 @@ for snrValue = snr
         data.x = x;
 
         correctAngle = angles;
-        [RMSE_tmp, aboluteError_tmp, PD_tmp] = MUSIC_eval(data, correctAngle, delta);
+        [RMSE_tmp, aboluteError_tmp, PD_tmp] = evaluation(data, algorithm, correctAngle, delta);
         results(iter,:) = [RMSE_tmp; aboluteError_tmp; PD_tmp];
     end
     RMSE(n) = mean(results(:,1));
@@ -77,23 +78,28 @@ for snrValue = snr
     n = n+1;
 end
 
-figure (1)
-plot(snr, RMSE)
-title('Parametric Evaluation - SNR')
-xlabel('SNR')
-ylabel('RMSE')
-grid on
+figure (1);
+plot(snr, RMSE);
+title('Parametric Evaluation - SNR');
+xlabel('SNR');
+ylabel('RMSE');
+grid on;
+print('results/RMSE','-depsc');
 
-figure (2)
-plot(snr, aboluteError)
-title('Parametric Evaluation - SNR')
-xlabel('SNR')
-ylabel('absolute error')
-grid on
+figure (2);
+plot(snr, aboluteError);
+title('Parametric Evaluation - SNR');
+xlabel('SNR');
+ylabel('absolute error');
+grid on;
+print('results/AE','-depsc');
 
-figure (3)
-plot(snr, PD)
-title('Parametric Evaluation - SNR')
-xlabel('SNR')
-ylabel('PD')
-grid on
+figure (3);
+plot(snr, PD);
+title('Parametric Evaluation - SNR');
+xlabel('SNR');
+ylabel('PD');
+grid on;
+print('results/PD','-depsc');
+
+
