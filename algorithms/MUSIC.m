@@ -1,29 +1,30 @@
-% Universidade Federal do Rio Grande do Norte
+% Federal University of Rio Grande do Norte
 % Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
-% MUSIC (MUltiple SIgnal Classification)
-% Descricao: Implementação do MUSIC
+% Title: MUSIC (MUltiple SIgnal Classification)
+% Author: Danilo Pena
+% Description: MUSIC Implementation
 
-% x: sinal de entrada (sinal simulado sintetico ou de cenario real)
-% P: numero de fontes
-% fc: frequencia da fonte
-% d: distancia entre os sensores (microfones)
+% x: synthetic or real signal
+% P: source numbers
+% fc: source frequency
+% d: distance between the elements
 
 function [theta,pMusic] = MUSIC(x, P, fc, d)
 
-[M,N] = size(x);                % M - numero de elementos, N - total de samples
-u = 340;                        % Velocidade de propagacao
+[M,N] = size(x); % M - element number, N - number of samples
+u = 340; % speed of sound
 
-% Calculo dos autovalores e autovetores
-Rx = x*x';                      % Matriz covariancia dos dados
-[AV,V] = eig(Rx);               % Autovetores e Autovalores de R respectivamente
-NN = AV(:,1:M-P);               % Selecionando subespaço do ruido (M - P)
+% Eigenvalues and eigenvectors
+Rx = x*x'; % covariance matrix
+[AV,V] = eig(Rx);
+NN = AV(:,1:M-P); % subspace noise (M - P)
 
 % MUSIC
-theta = 0:0.5:90;               % Varredura do grid de angulo
+theta = 0:0.5:90;
 pMusic = zeros(1,length(theta));
 
 for ii = 1:length(theta)
-    SS = zeros(1,length(M));	% Subespaço do sinal com P dimensoes
+    SS = zeros(1,length(M));
         for jj = 0:M-1
             SS(1+jj) = exp(-(1i*2*jj*pi*fc*d*sin(theta(ii)/180*pi))/u);
         end
