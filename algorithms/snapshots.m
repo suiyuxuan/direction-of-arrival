@@ -10,9 +10,10 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles = MUSIC_data(data)
+function angles = snapshots(data)
 
 x = data.x;
+algorithm = data.algorithm;
 d = data.d;
 fc = data.fc;
 P = data.P;
@@ -36,12 +37,18 @@ for nw = 0:L-1
         xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot);
     end
 
-    % TODO: Inserir switch para diferentes algoritmos
-    [theta, pMusic] = MUSIC(xw, P, fc, d);
-
-    % TODO: Retornar estrutura com saida adequada para cada algoritmo
-    [Max,Ind] = max(pMusic); % Capturando o pico (maximo) valor do pMusic
-    angles(nw+1) = (Ind-1)/2;
+    switch algorithm
+	case "MUSIC"
+            [theta, pMusic] = MUSIC(xw, P, fc, d);
+            [Max,pos_angle] = max(pMusic);
+	    angles(nw+1) = (pos_angle-1)/2;
+	case "ESPRIT"
+	    angles(nw+1) = ESPRIT(xw, P, fc, d);
+%	case "Capon"
+%	    angles(nw+1) = Capon();
+%	case "Root MUSIC"
+%	    angles(nw+1) = Root_MUSIC();
+    end
 end
 
 end

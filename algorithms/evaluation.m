@@ -8,26 +8,26 @@
 % correctAngle: known angle
 % delta: acceptable angle deviation for detection
 
-function [RMSE, aboluteError, PD] = MUSIC_eval(data, correctAngle, delta)
+function [RMSE, aboluteError, PD] = evaluation(data, correctAngle, delta)
 
 x = data.x;
 snapshot = data.snapshot;
 [M,N] = size(x);
 L = floor(N/snapshot);
 
-angleMusic = MUSIC_data(data);
+angleAlgorithm = snapshots(data);
 
 % Detection Probability calculus
-PD = sum((abs(angleMusic-correctAngle))<delta);
+PD = sum((abs(angleAlgorithm - correctAngle)) < delta);
 PD = PD/L;
 
 % Root Mean Square Error calculus
-RMSE = sqrt( immse(angleMusic,correctAngle*ones(1,length(angleMusic))) );
+RMSE = sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) );
 
 % Absolute Error calculus
-aboluteError = mean( abs(angleMusic - correctAngle) );
+aboluteError = mean( abs(angleAlgorithm - correctAngle) );
 
-% TODO: Calculo da variancia media
+% TODO: Variance calculus
 %variancia = var();
 
 end
