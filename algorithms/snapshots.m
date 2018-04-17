@@ -38,15 +38,17 @@ for nw = 0:L-1
 
     switch algorithm
 	case "MUSIC"
-            [theta, pMusic] = MUSIC(xw, P, fc, d);
-            [Max,pos_angle] = max(pMusic);
+            [theta, result] = MUSIC(xw, P, fc, d);
+            [Max,pos_angle] = max(result);
 	    angles(nw+1) = (pos_angle-1)/2;
 	case "ESPRIT"
 	    angles(nw+1) = ESPRIT(xw, P, fc, d);
-%	case "Capon"
-%	    angles(nw+1) = Capon();
-%	case "Root MUSIC"
-%	    angles(nw+1) = Root_MUSIC();
+	case "Capon"
+            [theta, result] = Capon(xw, P, fc, d);
+            [Max,pos_angle] = max(result);
+	    angles(nw+1) = (pos_angle-1)/2;
+	case "Root MUSIC"
+	    angles(nw+1) = Root_MUSIC(xw, P, fc, d);
     end
 end
 
