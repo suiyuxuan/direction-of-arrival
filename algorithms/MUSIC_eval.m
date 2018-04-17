@@ -1,32 +1,33 @@
-% Universidade Federal do Rio Grande do Norte
+% Federal University of Rio Grande do Norte
 % Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
-% Real Scenario - Distance and Angles Evaluation
-% Descricao: Avalia o desempenho do MUSIC em sinais sinteticos ou reais
+% Author: Danilo Pena
+% Title: Evaluation
+% Description: Performace evaluation of algorithms for synthetic or real data
 
-% data: sinal de entrada (sinal de cenario real)
-% correctAngle: angulo conhecido na medicao
-% delta: desvio de angulo aceito para medicao de performance
+% data: struct of data
+% correctAngle: known angle
+% delta: acceptable angle deviation for detection
 
 function [RMSE, aboluteError, PD] = MUSIC_eval(data, correctAngle, delta)
 
 x = data.x;
-snapshot = data.snapshot; % Largura da janela de snapshot
-[M,N] = size(x); % Numero de sensores e numero de amostras respectivamente
-L = floor(N/snapshot); % Numero de snapshots
+snapshot = data.snapshot;
+[M,N] = size(x);
+L = floor(N/snapshot);
 
 angleMusic = MUSIC_data(data);
 
-% Calculo de PD
+% Detection Probability calculus
 PD = sum((abs(angleMusic-correctAngle))<delta);
 PD = PD/L;
 
-% Calculo do RMSE medio
+% Root Mean Square Error calculus
 RMSE = sqrt( immse(angleMusic,correctAngle*ones(1,length(angleMusic))) );
 
-% Calculo do erro medio absoluto
+% Absolute Error calculus
 aboluteError = mean( abs(angleMusic - correctAngle) );
 
 % TODO: Calculo da variancia media
-%variancia = mean( );
+%variancia = var();
 
 end
