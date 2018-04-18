@@ -115,7 +115,8 @@ plot(x(8,7000:7100),'k')
 
 
 %%
-% testes
+% Tentativa de sintetizar dados com angulo conhecido utilizando amostras
+% de dados reais
 
 colorspec = {[0 0 0]; [0.1 0.1 0.1]; [0.2 0.2 0.2]; [0.3 0.3 0.3]; [0.4 0.4 0.4]; [0.5 0.5 0.5]; [0.6 0.6 0.6]; [0.7 0.7 0.7]; [0.8 0.8 0.8]; [0.9 0.9 0.9]};
 hold on
@@ -173,4 +174,6 @@ xn = [ifft(f(1,:)); ifft(f(2,:)); ifft(f(3,:)); ifft(f(4,:)); ifft(f(5,:)); ...
 % f(9,:) = fx(2,:);
 % f(10,:) = fx(1,:);
 
-
+for i = 1:9
+    x(i+1,:) = [zeros(1,47) x(i,1:end-47)];
+end

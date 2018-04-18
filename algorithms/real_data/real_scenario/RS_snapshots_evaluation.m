@@ -21,8 +21,9 @@ clear
 clc
 close all
 
+algorithm = 'MUSIC';
 delta = 6;
-distances = 1:1;
+distances = 1;
 angles = 45;
 elementNo = 10;
 fc = 1000;
@@ -60,7 +61,7 @@ for nSnapshot=snapshots
             data.snapshot = nSnapshot;
 
             correctAngle = 90-k;
-            [RMSE_tmp(n), aboluteError_tmp(n), PD_tmp(n)] = MUSIC_eval(data, correctAngle, delta);
+            [RMSE_tmp(n), aboluteError_tmp(n), PD_tmp(n)] = evaluation(data, algorithm, correctAngle, delta);
             n = n+1;
         end
     end
