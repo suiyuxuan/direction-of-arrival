@@ -17,39 +17,32 @@ d = data.d;
 fc = data.fc;
 P = data.P;
 snapshot = data.snapshot;
+angles = zeros(1,L); % preallocate output
 
 [M,N] = size(x); % M - elements numbers, N - length of samples
-
-if snapshot == 0
-    L = 1;
-else
-    L = floor(N/snapshot); % window number
-end
-
-angles = zeros(1,L); % preallocate output
+L = floor(N/snapshot); % window number
 
 for nw = 0:L-1
 
-    if snapshot == 0
-        xw = x;
-    else
-        xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot);
-    end
+    xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot);
 
     switch algorithm
 	case 'MUSIC'
-        [theta, result(nw+1,:)] = MUSIC(xw, P, fc, d);
-        [Max,pos_angle] = max(result(nw+1,:));
-        angles(nw+1) = (pos_angle-1)/2;
+            [theta, result(nw+1,:)] = MUSIC(xw, P, fc, d);
+            [Max,pos_angle] = max(result(nw+1,:));
+            angles(nw+1) = (pos_angle-1)/2;
 	case 'ESPRIT'
-	    angles(nw+1) = ESPRIT(xw, P, fc, d);
+            angles(nw+1) = ESPRIT(xw, P, fc, d);
 	case 'Capon'
-        [theta, result(nw+1,:)] = Capon(xw, P, fc, d);
-        [Max,pos_angle] = max(result(nw+1,:));
-	    angles(nw+1) = (pos_angle-1)/2;
+            [theta, result(nw+1,:)] = Capon(xw, P, fc, d);
+            [Max,pos_angle] = max(result(nw+1,:));
+            angles(nw+1) = (pos_angle-1)/2;
 	case 'Root MUSIC'
-	    angles(nw+1) = Root_MUSIC(xw, P, fc, d);
+            angles(nw+1) = Root_MUSIC(xw, P, fc, d);
+        otherwise
+            disp('Incorrect algorithm')
     end
+
 end
 
 end
