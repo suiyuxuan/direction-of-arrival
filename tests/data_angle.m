@@ -33,10 +33,10 @@ x = [my_tdms_struct.(variables{2}).Dev1_ai0.data; ...
     my_tdms_struct.(variables{2}).Dev1_ai9.data];
 
 
-x = flipud(x);                  % Invertendo a ordem dos elementos (pois estão invertidos na mesa)
-% for n=1:10
-%     x(n,:) = (x(n,:)-mean(x(n,:))); % Removendo nivel DC
-% end
+x = flipud(x);                  % Invertendo a ordem dos elementos (pois estï¿½o invertidos na mesa)
+for n=1:10
+    x(n,:) = (x(n,:)-mean(x(n,:))); % Removendo nivel DC
+end
 
 %% Espectro de X
 
@@ -173,6 +173,8 @@ xn = [ifft(f(1,:)); ifft(f(2,:)); ifft(f(3,:)); ifft(f(4,:)); ifft(f(5,:)); ...
 % f(8,:) = fx(3,:);
 % f(9,:) = fx(2,:);
 % f(10,:) = fx(1,:);
+
+x(10,:) = [zeros(1,408) x(10,1:end-408)];
 
 for i = 1:9
     x(i+1,:) = [zeros(1,47) x(i,1:end-47)];

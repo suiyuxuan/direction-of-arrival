@@ -9,7 +9,15 @@ Matlab
 
 ### Directories
 - algorithms
-- parameter_evaluation
+DOA algorithms and performance evaluation.
+- hypothesis_test
+Hypothesis test generic implementation.
+- lab
+Experimental codes for development of new algorithms.
+- nonparametric
+Cross-correlation solution of Carlos and Matheus.
+- tests
+Test environment.
 
 ## Running the Tests
 Automatic tests.
@@ -21,7 +29,9 @@ example:
 example:
 
 ## Authors
-Danilo Pena.
+Danilo Pena
+Carlos Lima
+Matheus Fagundes
 
 ## License
 
