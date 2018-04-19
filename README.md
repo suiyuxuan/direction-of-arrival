@@ -38,9 +38,6 @@ example:
 example:
 
 ## Authors
-Danilo Pena
-Carlos Lima
-Matheus Fagundes
 
 ## License
 
