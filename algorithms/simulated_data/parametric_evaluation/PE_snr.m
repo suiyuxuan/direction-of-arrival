@@ -16,7 +16,7 @@ close all
 delta = 6;
 angles = [20];
 snr = -40:5:40;
-algorithm = "MUSIC";
+algorithm = 'MUSIC';
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
@@ -24,7 +24,7 @@ d = 0.08;                       % Distancia entre os sensores
 N = 200;                       % O numero de samples
 snapshot = 200;                % Tamanho da janela do snapshot
 u = 340;                        % Velocidade de propagacao da onda
-nIter = 1:100;                  % Numero de iteracoes de simulacao
+nIter = 1:10000;                  % Numero de iteracoes de simulacao
 
 % Parametros do sinal
 doa = angles/180*pi;            % Angulos
@@ -101,5 +101,4 @@ xlabel('SNR');
 ylabel('PD');
 grid on;
 print('results/PD','-depsc');
-
 

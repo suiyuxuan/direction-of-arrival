@@ -17,10 +17,9 @@ d = data.d;
 fc = data.fc;
 P = data.P;
 snapshot = data.snapshot;
-angles = zeros(1,L); % preallocate output
-
 [M,N] = size(x); % M - elements numbers, N - length of samples
 L = floor(N/snapshot); % window number
+angles = zeros(1,L); % preallocate output
 
 for nw = 0:L-1
 
