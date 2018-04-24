@@ -15,7 +15,7 @@ close all
 
 delta = 6;
 angles = [20];
-snr = -40:5:40;
+snr = -40:1:40;
 algorithm = 'MUSIC';
 
 elementNo = 10;                 % Quantidade de microfones
