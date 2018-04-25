@@ -58,7 +58,7 @@ end
 Np = length(aut_cov(1,:));
 
 for kk =1:M
-      mag(kk,:) = fft(aut_cov(kk,:),lfft)/lfft; %PSD
+      mag(kk,:) = fft(aut_cov(kk,:)); %PSD
 end
 
 
