@@ -12,9 +12,8 @@ wn = [pi/100]';            % Frequencia normalizada dos sinais (1kHz)
 f = (fs*wn)./(2*pi);            % Frequencia dos sinais  em Hz
 P = length(doa);                 % Numero de fontes de sinais
 %AngPar.SNR = [-15:0.25:15];                        % Relacao sinal ruido
-snr = 15;
+snr = 150;
 win = 1;                       % Tipo de janela
-lfft = 2000;
 %% --- Gera��o do Sinal --- %%
 
 A = zeros(P,M);                 % Matriz de dire��o com P linhas e M colunas
@@ -32,12 +31,12 @@ noisePower_dB = signalPower_dB - snr;   % Ruido
 noisePower = 10^(noisePower_dB/10);
 noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
 x = s + noise;    % Adicionado ruido
-%x = x(:,1:6000);
+
 
 if win == 1
     % --- Rectangular Window --- %%
     Nw = length(x(1,:));
-    tam_win = Nw/2; %Tamanho da janela
+    tam_win = Nw; %Tamanho da janela
     w(1:tam_win) = 1; 
 end
 
@@ -63,15 +62,10 @@ end
 
 
 %% ---- Plot do grÃ¡fico --- %%
-tam_mag = 1:(length(mag) - 1000);
-plot_mag = mean(mag(:,tam_mag));
-aux = length(plot_mag)+1;
-aux2=length(mag(1,:));
-plot_mag(:,aux:aux2)=0;
-  
-l2Hz = [0 : fs/lfft : fs - fs/lfft];  
-  
+tam_mag = 1:(length(mag)/2);
+plot_mag = mean(mag(:,tam_mag)); 
 PSD = 10*log(abs(plot_mag));
+l = linspace(1,(fs/2),length(mag)/2);
   
-semilogx(l2Hz,PSD) % Espectro de fourier
+semilogx(l,PSD) % Espectro de fourier
 xlabel('Frequência'); ylabel('Magnitude');
