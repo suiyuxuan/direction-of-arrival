@@ -1,6 +1,6 @@
 %%Parameters
-Fs = 200000; %Frequência de amostragem
-M = 10; %Número de microfones
+Fs = 200000;
+lfft = 2000;
 
 %%Average sinal to extract noise 
 for kk = 1:10
@@ -11,10 +11,10 @@ for kk = 1:10
 end
 %%-------------------------------- Windows tests ------------------------------------------%%
 %% ---------- Rectangular Window ----------%%
-Nw = length(av_sin(1,:));
+N = length(av_sin(1,:));
  
-tam_win = Nw;
-w(1:tam_win) = 1; 
+M = N;
+w(1:M) = 1; 
 
 %% --------- Autocovarience ------------ %%
 % ------------ Autocovariancia com Janela ----------------------%
@@ -22,31 +22,35 @@ w(1:tam_win) = 1;
 % aut_cov ---- vetor da autocovariancia
 % res ------ atraso
 for kk = 1:10
-    for ii=0:tam_win-1
+    for ii=0:M-1
         aut_cov(kk,ii+1) = 0; 
-        for jj = 1:(tam_win-ii)
+        for jj = 1:(M-ii)
             res = ii + jj;
             aut_cov(kk,ii+1) = aut_cov(kk,ii+1) + av_sin(kk,jj)*av_sin(kk,res)*w(jj)*w(res);  % Calculando o vetor da autocovariÃ¢ncia
         end
-        aut_cov(kk,ii+1) = aut_cov(kk,ii+1)/tam_win;
+        aut_cov(kk,ii+1) = aut_cov(kk,ii+1)/M;
     end
 end
  
  
  
 %% --- Periodogram --- %%
-Np = length(aut_cov);    %Tamanho do vetor da autocovariÃ¢ncia
+N = length(aut_cov);    %Tamanho do vetor da autocovariÃ¢ncia
  
-for tt = 1:M
-   mag(tt,:) = fft(aut_cov(tt,:));
+for tt = 1:10
+   mag(tt,:) = fft(aut_cov(tt,:),lfft)/lfft; 
 end
  
 %% ---- Plot do grÃ¡fico --- %%
 
 tam_mag = 1:(length(mag)/2);
 plot_mag = mean(mag(:,tam_mag));
-l = linspace(1,(Fs/2),length(mag)/2); 
+aux = length(plot_mag)+1;
+aux2 = length(mag(1,:));
+plot_mag(:, aux : aux2) = 0;
+
+ 
 PSD = 10*log(abs(plot_mag)); % Power Spectral Density
  
-semilogx(l,PSD) % Espectro de fourier
+%semilogx(l2hz,PSD) % Espectro de fourier
 xlabel('Frequência'); ylabel('Magnitude');
