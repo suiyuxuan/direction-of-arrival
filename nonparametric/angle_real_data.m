@@ -17,19 +17,18 @@ save([folderName filesep 'AngPar_' folderName '.mat'], 'AngPar');
 
 %% --- Code --- 
 
-x = x(:,1:80000);
-
 for P = AngPar.nSources
    for M = AngPar.nArrayElements
      for u = AngPar.PropagationVelocity
        for win = AngPar.Window
          for f = AngPar.Fsignal
            for d = AngPar.DistanceMicrophones
-              for cont=1:100                                  
-                   snpc = x(:,(1+((cont-1)*800)):(cont*800));
+              for cont=1:50                    
+                   tam_vec = (1+((cont-1)*4000)):(cont*4000);
+                   snpc = x(:, tam_vec);
                      %% --- Calling the function 
-                     vec_ang(cont) = calcule_angle(snpc,P,f,d,u,M,win);
-              end                                   
+                     vec_ang(cont) = calcule_angle_real_data(snpc,P,f,d,u,M,win);
+                end                                   
                 ang = mean(vec_ang);
                 %% --- Save folder
                    save([folderName filesep 'Ang_window_' num2str(win) '_Fsignal_' num2str(AngPar.Fsignal) '_nSources_'  num2str(P) '.mat'],'ang');                                        
