@@ -2,13 +2,13 @@
 A collection of DOA algorithms implemented in Matlab.
 
 ## Getting Started
-(...)
+Main code in performance_evaluations.
 
 ### Prerequisites
 Matlab
 
 ### Directories
-- algorithms
+- performance_evaluations
 
 DOA algorithms and performance evaluation.
 

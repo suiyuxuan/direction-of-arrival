@@ -1,13 +1,13 @@
-% Universidade Federal do Rio Grande do Norte
+% Federal University of Rio Grande do Norte
 % Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
-% Parametric Evaluation - SNR
-% Descricao: Avalia o desempenho do MUSIC em dados simulados variando a
-% SNR
+% Title: Parametric Evaluation - SNR
+% Author: Danilo Pena
+% Description: Evaluation of the performance of the MUSIC on simulated data varying SNR
 
-% data: sinal de entrada (sinal simulado)
-% snr: vetor de valores de SNR a serem analisados
-% correctAngle: angulo conhecido na simulacao
-% delta: desvio de angulo aceito para medicao de performance
+% data: input signal (simulate signal)
+% snr: SNR vector to be analyzed
+% correctAngle: the known angle of the simulation
+% delta: deviation of angle accepted for performance measures
 
 clear
 clc
