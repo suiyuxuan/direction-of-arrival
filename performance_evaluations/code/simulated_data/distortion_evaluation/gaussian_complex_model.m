@@ -3,7 +3,6 @@
 % Title: Noise Gaussian Model
 % Author: Danilo Pena
 % Description: Signal generator for known SNR
-
 % Parameters:
 % x: synthetic signal
 % snr: signal-to-noise rate

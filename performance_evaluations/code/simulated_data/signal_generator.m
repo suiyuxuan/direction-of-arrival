@@ -3,7 +3,6 @@
 % Title: Signal Generator
 % Author: Danilo Pena
 % Description: The generator of the simulated signal
-
 % Parameters:
 % angles: angles of DOA (1xP matrix), P is number of sources
 % N: samples number
@@ -12,7 +11,7 @@
 % u: propagation speed
 % f: source frequency
 % fs: sampling frequency
-% - varargin -
+% -varargin -
 % noise model: 'gaussian', 'gaussian mixture', 'alpha-stable'
 % noise parameters: gaussian (snr), gaussian mixture (means, variances), alpha-stable (alpha, g-snr)
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
@@ -21,6 +20,15 @@
 function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
 
 if (nargin > 4), error('parameters number incorrect.'), end
+
+defaultNoiseModel = 'deterministic';
+defaultChannelModel = 'none';
+
+inputs = inputParser;
+addParameter(inputs, 'noise model', defaultNoiseModel);
+addParameter(inputs, 'channel model', defaultChannelModel);
+
+parse(inputs, varargin{:});
 
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
@@ -34,22 +42,19 @@ A = A';
 sig = exp(1i*(wn*[1:N]));
 
 % FIXIT: check difference between length(varargin) and nargin
-if length(varargin) == 0 % deterministic model
-    signal = A*sig;
-elseif length(varargin) == 2 % noise model or channel model
-    if varargin{1} == list_of_noise_model
-        %gaussian_model(); or alpha_stable_model();
-    elseif varargin{1} == list_of_channel_model
-        %reverberation_model();
-    else
-        disp('Error in parameters');
-    end
-elseif length(varargin) == 4 % noise model plus channel model
-    % (...)
-else
-    disp('Error in parameters')
-end
 
+switch defaultNoiseModel
+    case 'deterministic'
+        signal = A*sig;
+    case 'gaussian'
+        signal = gaussian_complex_model(A*sig, snr);
+    case 'alpha-stable'
+        signal = sas_complex(A*sig, alpha, gsnr);
+    case 'gaussian mixture'
+        signal = gaussian_mixture_model(A*sig, means, variances);
+    otherwise
+        error('noise model incorrect.');
+end
 
 %signalPower = (1/N)*s(1,:)*s(1,:)';
 %signalPower_dB = 10*log10(signalPower);
