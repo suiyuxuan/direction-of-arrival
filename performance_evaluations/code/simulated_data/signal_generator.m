@@ -19,23 +19,32 @@
 
 function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
 
-if (nargin > 4), error('parameters number incorrect.'), end
+snr = 10; % TEMPORARY VARIABLE
+
+if (nargin > 11), error('parameters number incorrect.'), end
 
 defaultNoiseModel = 'deterministic';
 defaultChannelModel = 'none';
 
 inputs = inputParser;
-addParameter(inputs, 'noise model', defaultNoiseModel);
-addParameter(inputs, 'channel model', defaultChannelModel);
+addRequired(inputs, 'angles');
+addRequired(inputs, 'N');
+addRequired(inputs, 'M');
+addRequired(inputs, 'd');
+addRequired(inputs, 'u');
+addRequired(inputs, 'f');
+addRequired(inputs, 'fs');
+addParameter(inputs, 'noise', defaultNoiseModel, @ischar);
+addParameter(inputs, 'channel', defaultChannelModel, @ischar);
 
-parse(inputs, varargin{:});
+parse(inputs, angles, N, M, d, u, f, fs, varargin{:});
 
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
 wn = (f.*2.*pi)./fs; % normalized frequency source
 
 for k = 1:P
-    A(k,:) = exp(-1i*2*pi*f(k)*d*sin((angles(k))/u*[0:M-1]);
+    A(k,:) = exp(-1i*2*pi*f(k)*d*sin((angles(k)*(pi/180)))/u*[0:M-1]);
 end
 A = A';
 
