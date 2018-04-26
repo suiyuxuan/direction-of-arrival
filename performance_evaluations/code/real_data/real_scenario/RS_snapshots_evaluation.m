@@ -21,7 +21,6 @@ clear
 clc
 close all
 
-algorithm = 'MUSIC';
 delta = 6;
 distances = 1;
 angles = 45;
@@ -30,6 +29,7 @@ fc = 1000;
 d = 0.08;
 P = 1;
 snapshots = [200 400];
+algorithm = 'MUSIC';
 
 % preallocate array
 RMSE = zeros(1,length(snapshots));

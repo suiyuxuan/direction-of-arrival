@@ -28,6 +28,7 @@ fc = 1000;
 d = 0.08;
 P = 1;
 snapshot = 400;
+algorithm = 'MUSIC';
 
 % preallocate array
 RMSE = zeros(length(distances),length(angles));
@@ -53,7 +54,7 @@ for i=distances % source distance
         data.snapshot = snapshot;
         
         correctAngle = 90-k;
-        [RMSE(i,nk), aboluteError(i,nk), PD(i,nk)] = MUSIC_eval(data, correctAngle, delta);
+        [RMSE(i,nk), aboluteError(i,nk), PD(i,nk)] = evaluation(data, algorithm, correctAngle, delta);
     end
 end
 

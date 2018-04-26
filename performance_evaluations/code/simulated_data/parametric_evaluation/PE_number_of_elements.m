@@ -16,6 +16,7 @@ close all
 delta = 6;
 angles = [20];
 elementNo = [2 4 10];
+algorithm = 'MUSIC';
 
 fc = 1000;                      % Frequência da portadora
 d = 0.08;                       % Distancia entre os sensores
@@ -67,7 +68,7 @@ for elementNoValue = elementNo
         data.x = x;
 
         correctAngle = angles;
-        [RMSE_tmp, aboluteError_tmp, PD_tmp] = MUSIC_eval(data, correctAngle, delta);
+        [RMSE_tmp, aboluteError_tmp, PD_tmp] = evaluation(data, algorithm, correctAngle, delta);
         results(iter,:) = [RMSE_tmp; aboluteError_tmp; PD_tmp];
     end
     RMSE(n) = mean(results(:,1));

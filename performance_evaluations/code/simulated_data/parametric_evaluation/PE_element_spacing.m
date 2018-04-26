@@ -16,6 +16,7 @@ close all
 delta = 6;
 angles = [20];
 d = [0.02 0.08 0.16];
+algorithm = 'MUSIC';
 
 elementNo = 10;                 % Quantidade de microfones
 fc = 1000;                      % Frequência da portadora
@@ -68,7 +69,7 @@ for dValue = d
         data.d = dValue;
 
         correctAngle = angles;
-        [RMSE_tmp, aboluteError_tmp, PD_tmp] = MUSIC_eval(data, correctAngle, delta);
+        [RMSE_tmp, aboluteError_tmp, PD_tmp] = evaluation(data, algorithm, correctAngle, delta);
         results(iter,:) = [RMSE_tmp; aboluteError_tmp; PD_tmp];
     end
     RMSE(n) = mean(results(:,1));
