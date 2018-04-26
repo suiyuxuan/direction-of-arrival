@@ -41,8 +41,6 @@ A = A';
 
 sig = exp(1i*(wn*[1:N]));
 
-% FIXIT: check difference between length(varargin) and nargin
-
 switch defaultNoiseModel
     case 'deterministic'
         signal = A*sig;
@@ -56,12 +54,13 @@ switch defaultNoiseModel
         error('noise model incorrect.');
 end
 
-%signalPower = (1/N)*s(1,:)*s(1,:)';
-%signalPower_dB = 10*log10(signalPower);
-%noisePower_dB = signalPower_dB - snr;
-%noisePower = 10^(noisePower_dB/10);
-%noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
-%signal = (A*sig) + noise;
-
+switch defaultChannelModel
+    case 'none'
+        signal = signal;
+    case 'reverberation'
+        signal = reverberation_model(signal);
+    otherwise
+        error('channel model incorrect.');
+end
 
 end
