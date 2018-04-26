@@ -6,6 +6,7 @@
 
 % Parameters:
 % angles: angles of DOA (1xP matrix), P is number of sources
+% N: samples number
 % M: elements number
 % d: distance betwenn elements
 % u: propagation speed
@@ -17,7 +18,9 @@
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
 % channel parameters: reverberation (a, N)
 
-function [signal] = signal_generator(angles, M, d, u, f, fs, varargin)
+function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
+
+if (nargin > 4), error('parameters number incorrect.'), end
 
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
@@ -30,7 +33,7 @@ A = A';
 
 sig = exp(1i*(wn*[1:N]));
 
-% FIXME: check difference betwenn length(varargin) and nargin
+% FIXIT: check difference between length(varargin) and nargin
 if length(varargin) == 0 % deterministic model
     signal = A*sig;
 elseif length(varargin) == 2 % noise model or channel model
