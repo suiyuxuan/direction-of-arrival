@@ -64,9 +64,7 @@ PmusicMatrix = [];
 
 for gsrn = gsnr_min:gsnr_step:gsnr_max
 
-    for i=1:10
-        y(i,:) = sas_complexo(x(i,:),alpha,gsrn);
-    end
+    y = sas_complex_model(x,alpha,gsrn);
 
     % Calculo dos autovalores e autovetores
     Rx = y*y';                      % Matriz covariancia dos dados
