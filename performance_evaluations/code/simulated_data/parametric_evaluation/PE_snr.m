@@ -27,23 +27,9 @@ u = 340;                        % Velocidade de propagacao da onda
 nIter = 1:10000;                  % Numero de iteracoes de simulacao
 
 % Parametros do sinal
-doa = angles/180*pi;            % Angulos
 fs = 200000;                    % Frequencia de amostragem (200kHz)
 wn = [(2*pi*fc)/fs]';           % Frequencia normalizada dos sinais (1kHz)
-P = length(doa);                % Numero de fontes de sinais
-
-% steering vector
-A = zeros(P,elementNo);         % Matriz com P linhas e M colunas
-for k = 1:P
-    A(k,:) = exp(-j*2*pi*fc*d*sin(doa(k))/u*[0:elementNo-1]);
-end
-A = A';                         % Matriz com P fontes (colunas) e M elementos (linhas)
-
-% Representacao do sinal recebido
-sig = exp(j*(wn*[1:N]));       % Sinal simulado amostrado 1:N
-s = A*sig;                      % Sinal multiplicado pelos atrasos
-signalPower = (1/N)*s(1,:)*s(1,:)';
-signalPower_dB = 10*log10(signalPower);
+P = length(angles);                % Numero de fontes de sinais
 
 % preallocate array
 RMSE = zeros(1,length(snr));
@@ -60,10 +46,7 @@ for snrValue = snr
     results = zeros(length(nIter),3);
     for iter = nIter
         %x = s + awgn(s,snr);
-        noisePower_dB = signalPower_dB - snrValue;
-        noisePower = 10^(noisePower_dB/10);
-        noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
-        x = s + noise;
+        x = signal_generator(angles, N, elementNo, d, u, fc, fs, 'noise', 'gaussian', 'snr', snrValue);
 
         data.x = x;
 
