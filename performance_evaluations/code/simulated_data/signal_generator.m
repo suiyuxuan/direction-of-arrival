@@ -27,8 +27,8 @@ function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
 
 if (nargin > 13), error('parameters number incorrect.'), end
 
-defaultNoiseModel = 'deterministic';
-defaultChannelModel = 'none';
+defaultNoiseModel.model = 'deterministic';
+defaultChannelModel.model = 'none';
 
 defaultSNR = 0;
 defaultAlpha = 1.7;
@@ -45,11 +45,6 @@ addRequired(inputs, 'u');
 addRequired(inputs, 'f');
 addRequired(inputs, 'fs');
 addParameter(inputs, 'noise', defaultNoiseModel, @ischar);
-addOptional(inputs, 'snr', defaultSNR, @isnumeric);
-addOptional(inputs, 'alpha', defaultAlpha, @isnumeric);
-addOptional(inputs, 'gsnr', defaultGSNR, @isnumeric);
-addOptional(inputs, 'means', defaultMeans, @isnumeric);
-addOptional(inputs, 'variances', defaultVariances, @isnumeric);
 addParameter(inputs, 'channel', defaultChannelModel, @ischar);
 
 parse(inputs, angles, N, M, d, u, f, fs, varargin{:});
@@ -65,24 +60,24 @@ A = A';
 
 sig = exp(1i*(wn*[1:N]));
 
-switch inputs.Results.noise
+switch inputs.Results.noise.model
     case 'deterministic'
         signal = A*sig;
     case 'gaussian'
-        signal = gaussian_complex_model(A*sig, inputs.Results.snr);
+        signal = gaussian_complex_model(A*sig, inputs.Results.noise.snr);
     case 'alpha-stable'
-        signal = sas_complex_model(A*sig, inputs.Results.alpha, inputs.Results.gsnr);
+        signal = sas_complex_model(A*sig, inputs.Results.noise.alpha, inputs.Results.noise.gsnr);
     case 'gaussian mixture'
-        signal = gaussian_mixture_model(A*sig, inputs.Results.means, inputs.Results.variances);
+        signal = gaussian_mixture_model(A*sig, inputs.Results.noise.means, inputs.Results.noise.variances);
     otherwise
         error('noise model incorrect.');
 end
 
-switch inputs.Results.channel
+switch inputs.Results.channel.model
     case 'none'
         signal = signal;
     case 'reverberation'
-        signal = reverberation_model(signal, a, R );
+        signal = reverberation_model(signal, inputs.Results.channel.a, inputs.Results.channel.R );
     otherwise
         error('channel model incorrect.');
 end

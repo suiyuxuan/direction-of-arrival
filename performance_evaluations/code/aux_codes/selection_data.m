@@ -15,8 +15,7 @@ if (nargin > 10), error('parameters number incorrect.');, end
 % FIXIT: defaultN attributed before of inputParser
 % defaultN
 defaultU = 340; % speed sound propagation (~340 m/s)
-defaultNoise.noise = 'gaussian';
-defaultNoise.snr = 0; % signal-to-noise ratio (0 dB)
+defaultNoise.noise = 'deterministic';
 defaultChannel.channel = 'none';
 
 inputs = inputParser;
