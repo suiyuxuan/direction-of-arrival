@@ -12,17 +12,9 @@ Matlab
 
 DOA algorithms and performance evaluation.
 
-- hypothesis_test
-
-Hypothesis test generic implementation.
-
 - lab
 
 Experimental codes for development of new algorithms.
-
-- nonparametric
-
-Cross-correlation solution of Carlos and Matheus.
 
 - tests
 
@@ -39,6 +31,20 @@ example:
 
 ## Authors
 
+Danilo Pena (doctoral student)
+
+Prof. Dr. Allan Martins (doctoral advisor)
+
+Prof. Dr. Vicente Sousa (doctoral advisor)
+
+Carlos Lima (collaborator)
+
+Matheus Dória (collaborator)
+
+Mário Guilherme (collaborator)
+
 ## License
 
 ## Acknowledgments
+
+Danilo Pena would like to thank Prof. Dr. Yuri Catunda for the resource support.
