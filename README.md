@@ -5,7 +5,7 @@ A collection of DOA algorithms implemented in Matlab.
 Main code in performance_evaluations.
 
 ### Prerequisites
-Matlab
+Matlab (Min: R2007a)
 
 ### Directories
 - performance_evaluations
