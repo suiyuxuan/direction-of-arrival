@@ -6,10 +6,10 @@
 
 % x: synthetic or real signal
 % P: source numbers
-% fc: source frequency
+% f: source frequency
 % d: distance between the elements
 
-function [theta,pMusic] = MUSIC(x, P, fc, d)
+function [theta,pMusic] = MUSIC(x, P, f, d)
 
 [M,N] = size(x); % M - element number, N - number of samples
 u = 340; % speed of sound
@@ -26,7 +26,7 @@ pMusic = zeros(1,length(theta));
 for ii = 1:length(theta)
     SS = zeros(1,length(M));
         for jj = 0:M-1
-            SS(1+jj) = exp(-(1i*2*jj*pi*fc*d*sin(theta(ii)/180*pi))/u);
+            SS(1+jj) = exp(-(1i*2*jj*pi*f*d*sin(theta(ii)/180*pi))/u);
         end
     PP = SS*NN*NN'*SS';
     pMusic(ii) = abs(1/PP);
