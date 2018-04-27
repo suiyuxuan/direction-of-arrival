@@ -7,13 +7,12 @@
 function [results] = main(varargin)
 
 % TODO: step 1 - selection of simulated or real signal and its parameters
+% TODO: step 1.1 - selection of interference model (noise and channel models)
 
-% TODO: step 2 - selection of interference model (noise and channel models)
+% TODO: step 2 - selection of algorithms
 
-% TODO: step 3 - selection of algorithms
+% TODO: step 3 - selection of performance metrics
 
-% TODO: step 4 - selection of performance metrics
-
-% TODO: step 5 - selection how will be the output
+% TODO: step 4 - selection how will be the output
 
 end
