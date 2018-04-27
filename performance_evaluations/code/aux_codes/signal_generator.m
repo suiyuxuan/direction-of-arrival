@@ -44,8 +44,8 @@ addRequired(inputs, 'd');
 addRequired(inputs, 'u');
 addRequired(inputs, 'f');
 addRequired(inputs, 'fs');
-addParameter(inputs, 'noise', defaultNoise, @ischar);
-addParameter(inputs, 'channel', defaultChannel, @ischar);
+addParameter(inputs, 'noise', defaultNoise);
+addParameter(inputs, 'channel', defaultChannel);
 
 parse(inputs, angles, N, M, d, u, f, fs, varargin{:});
 

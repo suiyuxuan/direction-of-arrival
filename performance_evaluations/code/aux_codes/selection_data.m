@@ -13,7 +13,7 @@ function [signal] = selection_data(type_of_data, varargin)
 if (nargin > 10), error('parameters number incorrect.');, end
 
 % FIXIT: defaultN attributed before of inputParser
-% defaultN
+defaultN = 200;
 defaultU = 340; % speed sound propagation (~340 m/s)
 defaultNoise.model = 'deterministic';
 defaultChannel.model = 'none';

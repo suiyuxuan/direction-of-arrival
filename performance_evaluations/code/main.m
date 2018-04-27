@@ -19,7 +19,12 @@ noise.snr = 0;
 
 % TODO: step 1 - selection of simulated or real signal and its parameters
 % TODO: step 1.1 - selection of interference model (noise and channel models)
-data = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
+signal = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
+
+[theta, pmusic] = MUSIC(signal, 1, 1000, 0.08);
+figure(1);
+plot(theta,pmusic);
+print('test','-depsc'); 
 
 % TODO: step 2 - selection of algorithms
 % TODO: step 2.1 - selection of performance metrics
