@@ -33,7 +33,6 @@ defaultChannelModel = 'none';
 defaultSNR = 0;
 defaultAlpha = 1.7;
 defaultGSNR = 0;
-defaultK = 2;
 defaultMeans = [0 0];
 defaultVariances = [0.01 1];
 
@@ -49,7 +48,6 @@ addParameter(inputs, 'noise', defaultNoiseModel, @ischar);
 addOptional(inputs, 'snr', defaultSNR, @isnumeric);
 addOptional(inputs, 'alpha', defaultAlpha, @isnumeric);
 addOptional(inputs, 'gsnr', defaultGSNR, @isnumeric);
-addOptional(inputs, 'k', defaultK, @isnumeric);
 addOptional(inputs, 'means', defaultMeans, @isnumeric);
 addOptional(inputs, 'variances', defaultVariances, @isnumeric);
 addParameter(inputs, 'channel', defaultChannelModel, @ischar);
@@ -75,7 +73,7 @@ switch inputs.Results.noise
     case 'alpha-stable'
         signal = sas_complex_model(A*sig, inputs.Results.alpha, inputs.Results.gsnr);
     case 'gaussian mixture'
-        signal = gaussian_mixture_model(A*sig, inputs.Results.k, inputs.Results.means, inputs.Results.variances);
+        signal = gaussian_mixture_model(A*sig, inputs.Results.means, inputs.Results.variances);
     otherwise
         error('noise model incorrect.');
 end
