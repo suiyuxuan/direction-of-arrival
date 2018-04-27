@@ -27,8 +27,8 @@ function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
 
 if (nargin > 13), error('parameters number incorrect.'), end
 
-defaultNoiseModel.model = 'deterministic';
-defaultChannelModel.model = 'none';
+defaultNoise.model = 'deterministic';
+defaultChannel.model = 'none';
 
 defaultSNR = 0;
 defaultAlpha = 1.7;
@@ -44,8 +44,8 @@ addRequired(inputs, 'd');
 addRequired(inputs, 'u');
 addRequired(inputs, 'f');
 addRequired(inputs, 'fs');
-addParameter(inputs, 'noise', defaultNoiseModel, @ischar);
-addParameter(inputs, 'channel', defaultChannelModel, @ischar);
+addParameter(inputs, 'noise', defaultNoise, @ischar);
+addParameter(inputs, 'channel', defaultChannel, @ischar);
 
 parse(inputs, angles, N, M, d, u, f, fs, varargin{:});
 
