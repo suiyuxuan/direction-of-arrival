@@ -34,7 +34,7 @@ parse(inputs, type_of_data, varargin{:});
 
 switch inputs.Results.type_of_data
     case 'simulated'
-        signal = signal_generator(inputs.Results.angles, inputs.Results.number_of_samples, inputs.Results.number_of_sensors, inputs.Results.distance_between_sensors, inputs.Results.speed_propagation, inputs.Results.source_frequency, inputs.Results.sampling_frequency, inputs.Results.noise, inputs.Results.channel);
+        signal = signal_generator(inputs.Results.angles, inputs.Results.number_of_samples, inputs.Results.number_of_sensors, inputs.Results.distance_between_sensors, inputs.Results.speed_propagation, inputs.Results.source_frequency, inputs.Results.sampling_frequency, 'noise', inputs.Results.noise, 'channel', inputs.Results.channel);
     case 'real'
         %signal = load();
     otherwise

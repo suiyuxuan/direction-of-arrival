@@ -4,22 +4,33 @@
 % Author: Danilo Pena
 % Description: Main function for performance evaluation
 
-function [results] = main(varargin)
+% FIXIT: function or not?
+%function [results] = main(varargin)
+
+type_of_data = 'simulated';
+angles = [20];
+number_of_sensors = 10;
+distance_between_sensors = 0.08;
+source_frequency = 1000;
+sampling_frequency = 200000;
+number_of_samples = 200;
+noise.model = 'gaussian';
+noise.snr = 0;
 
 % TODO: step 1 - selection of simulated or real signal and its parameters
 % TODO: step 1.1 - selection of interference model (noise and channel models)
-data = selection_data(type, parameters_signal);
+data = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
 
 % TODO: step 2 - selection of algorithms
 % TODO: step 2.1 - selection of performance metrics
-performance_metrics = evaluation(data, algorithm);
+%performance_metrics = evaluation(data, algorithm);
 
 % TODO: step 3 - selection how will be the output
-Name = path_to_output;
-if exist(Name, 'file') == 2 %Initial step
-    plot(file)
-else
+%Name = path_to_output;
+%if exist(Name, 'file') == 2 %Initial step
+%    plot(file)
+%else
     %Run simulation
-end
+%end
 
-end
+%end
