@@ -82,7 +82,7 @@ switch inputs.Results.channel
     case 'none'
         signal = signal;
     case 'reverberation'
-        signal = reverberation_model(signal);
+        signal = reverberation_model(signal, a, R );
     otherwise
         error('channel model incorrect.');
 end
