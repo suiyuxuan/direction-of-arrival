@@ -7,6 +7,7 @@
 % FIXIT: function or not?
 %function [results] = main(varargin)
 
+algorithms = ["MUSIC" "ESPRIT" "Capon" "Root_MUSIC"];
 type_of_data = 'simulated';
 angles = [20];
 number_of_sensors = 10;
@@ -38,7 +39,7 @@ signal = selection_data(type_of_data, angles, number_of_sensors, distance_betwee
 
 % step 2 - selection of algorithms
 % step 2.1 - selection of performance metrics
-performance_metrics = evaluation(signal, algorithm, angles, deviation_of_angle);
+performance_metrics = evaluation(signal, algorithms, angles, deviation_of_angle);
 
 % step 3 - save outputs
 %save_outputs(performance_metrics, algorithm, angles, noise, channel);
