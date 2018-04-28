@@ -22,6 +22,7 @@ PD = sum((abs(angleAlgorithm - correctAngle)) < delta);
 PD = PD/L;
 
 % Root Mean Square Error calculus
+% FIXIT: Check problem with RMSE
 RMSE = sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) );
 
 % Absolute Error calculus

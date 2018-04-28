@@ -10,12 +10,12 @@ function save_outputs(performance_metrics, algorithm, angles, varargin)
 
 % Plots
 figure (1);
-plot(snr, performance_metrics.RMSE);
-title('Parametric Evaluation - SNR');
-xlabel('SNR');
-ylabel('RMSE');
-grid on;
-print('results/RMSE','-depsc');
+%plot(snr, performance_metrics.RMSE);
+%title('Parametric Evaluation - SNR');
+%xlabel('SNR');
+%ylabel('RMSE');
+%grid on;
+%print('results/RMSE','-depsc');
 
 
 
