@@ -17,14 +17,14 @@ d = data.d;
 fc = data.fc;
 P = data.P;
 u = data.u;
-snapshot = data.snapshot;
+length_snapshots = data.snapshots;
 [M,N] = size(x); % M - number of elements, N - length of samples
-L = floor(N/snapshot); % number of windows
+L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
 
 for nw = 0:L-1
 
-    xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot); % window
+    xw = x(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
 
     switch algorithm
 	case 'MUSIC'
