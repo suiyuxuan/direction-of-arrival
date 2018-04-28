@@ -5,7 +5,7 @@
 % Description: Save analysis of output
 % Parameters:
 
-function save_outputs(performance_metrics, algorithm, angles, varargin)
+function save_outputs(performance_metrics, algorithms, angles, varargin)
 
 
 % Plots

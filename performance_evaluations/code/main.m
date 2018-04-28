@@ -42,6 +42,6 @@ signal = selection_data(type_of_data, angles, number_of_sensors, distance_betwee
 performance_metrics = evaluation(signal, algorithms, angles, deviation_of_angle);
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, algorithm, angles, noise, channel);
+%save_outputs(performance_metrics, algorithms, angles, noise, channel);
 
 %end

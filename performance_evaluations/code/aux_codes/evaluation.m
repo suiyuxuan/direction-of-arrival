@@ -15,21 +15,25 @@ snapshot = data.snapshot;
 [M,N] = size(x);
 L = floor(N/snapshot);
 
-while(~isempty(algorithms))
-    angleAlgorithm = snapshots(data, algorithms(end));
-    algorithms(end) = [];
+% FIXIT: Missing add interations of Monte Carlo
 
+PD = [];
+RMSE = [];
+absoluteError = [];
+
+while(~isempty(algorithms))
+    angleAlgorithm = snapshots(data, algorithms(1));
+    algorithms(1) = [];
 
     % Detection Probability calculus
-    PD = sum((abs(angleAlgorithm - correctAngle)) < delta);
-    PD = PD/L;
+    PD = [PD (sum((abs(angleAlgorithm - correctAngle)) < delta))/L];
 
     % Root Mean Square Error calculus
     % FIXIT: Check problem with RMSE
-    RMSE = sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) );
+    RMSE = [RMSE sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) )];
 
     % Absolute Error calculus
-    aboluteError = mean( abs(angleAlgorithm - correctAngle) );
+    aboluteError = [absoluteError mean( abs(angleAlgorithm - correctAngle) )];
 
     % TODO: Variance calculus
     %variancia = var();

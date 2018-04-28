@@ -18,13 +18,13 @@ fc = data.fc;
 P = data.P;
 u = data.u;
 snapshot = data.snapshot;
-[M,N] = size(x); % M - elements numbers, N - length of samples
-L = floor(N/snapshot); % window number
+[M,N] = size(x); % M - number of elements, N - length of samples
+L = floor(N/snapshot); % number of windows
 angles = zeros(1,L); % preallocate output
 
 for nw = 0:L-1
 
-    xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot);
+    xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot); % window
 
     switch algorithm
 	case 'MUSIC'
@@ -40,7 +40,7 @@ for nw = 0:L-1
 	case 'Root MUSIC'
             angles(nw+1) = Root_MUSIC(xw, P, fc, d, u);
         otherwise
-            disp('Incorrect algorithm')
+            error('Incorrect algorithm');
     end
 
 end
