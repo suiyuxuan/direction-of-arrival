@@ -8,7 +8,7 @@
 % correctAngle: known angle
 % delta: acceptable angle deviation for detection
 
-function [RMSE, aboluteError, PD] = evaluation(data, algorithm, correctAngle, delta)
+function performance_metrics = evaluation(data, algorithm, correctAngle, delta)
 
 x = data.x;
 snapshot = data.snapshot;
@@ -29,5 +29,12 @@ aboluteError = mean( abs(angleAlgorithm - correctAngle) );
 
 % TODO: Variance calculus
 %variancia = var();
+
+% TODO: Resolution Probability
+%PR
+
+performance_metrics.RMSE = RMSE;
+performance_metrics.AE = aboluteError;
+performance_metrics_PD =  PD;
 
 end

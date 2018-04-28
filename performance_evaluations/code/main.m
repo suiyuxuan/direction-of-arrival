@@ -16,6 +16,7 @@ sampling_frequency = 200000;
 number_of_samples = 200;
 noise.model = 'gaussian';
 noise.snr = 0;
+deviation_of_angle = 6;
 
 % TODO: step 0 - selection how will be the output
 % TODO: step 0.1 - check if output exist
@@ -35,9 +36,11 @@ signal = selection_data(type_of_data, angles, number_of_sensors, distance_betwee
 %plot(theta,pmusic);
 %print('test','-depsc'); 
 
-% TODO: step 2 - selection of algorithms
-% TODO: step 2.1 - selection of performance metrics
-%performance_metrics = evaluation(data, algorithm);
+% step 2 - selection of algorithms
+% step 2.1 - selection of performance metrics
+performance_metrics = evaluation(signal, algorithm, angles, deviation_of_angle);
 
+% step 3 - save outputs
+save_outputs(performance_metrics, algorithm, angles);
 
 %end
