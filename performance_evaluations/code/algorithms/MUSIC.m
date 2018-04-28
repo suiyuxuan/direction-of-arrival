@@ -9,10 +9,9 @@
 % f: source frequency
 % d: distance between the elements
 
-function [theta,pMusic] = MUSIC(x, P, f, d)
+function [theta,pMusic] = MUSIC(x, P, f, d, u)
 
 [M,N] = size(x); % M - element number, N - number of samples
-u = 340; % speed of sound
 
 % Eigenvalues and eigenvectors
 Rx = x*x'; % covariance matrix

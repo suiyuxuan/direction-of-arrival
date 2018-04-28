@@ -9,10 +9,9 @@
 % fc: source frequency
 % d: distance between the elements
 
-function result = Root_MUSIC(x, P, fc, d)
+function result = Root_MUSIC(x, P, fc, d, u)
 
 [M,N] = size(x); % M - element number, N - number of samples
-u = 340; % speed of sound
 
 % Eigenvalues and eigenvectors
 Rx = (x*x')/N; % covariance matrix
