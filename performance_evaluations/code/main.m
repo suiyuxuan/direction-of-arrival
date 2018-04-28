@@ -30,7 +30,7 @@ deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
-signal = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
+data = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
 
 %[theta, pmusic] = MUSIC(signal, 1, 1000, 0.08);
 %figure(1);
@@ -39,9 +39,9 @@ signal = selection_data(type_of_data, angles, number_of_sensors, distance_betwee
 
 % step 2 - selection of algorithms
 % step 2.1 - selection of performance metrics
-performance_metrics = evaluation(signal, algorithms, angles, deviation_of_angle);
+performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle);
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, algorithms, angles, noise, channel);
+%save_outputs(performance_metrics, algorithms, angles, 'noise', noise, 'channel', channel);
 
 %end

@@ -10,10 +10,10 @@
 
 function performance_metrics = evaluation(data, algorithms, correctAngle, delta)
 
-x = data.x;
-snapshot = data.snapshot;
-[M,N] = size(x);
-L = floor(N/snapshot);
+signal = data.signal;
+length_snapshots = data.snapshots;
+[M,N] = size(signal);
+L = floor(N/length_snapshots);
 
 % FIXIT: Missing add interations of Monte Carlo
 

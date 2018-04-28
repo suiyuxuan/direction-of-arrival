@@ -7,6 +7,14 @@
 
 function save_outputs(performance_metrics, algorithms, angles, varargin)
 
+%if (nargin > 10), error('parameters number incorrect.');, end
+
+inputs = inputParser;
+addRequired(inputs, 'performace_metrics');
+addRequired(inputs, 'algorithms');
+addRequired(inputs, 'angles');
+addParameter(inputs, 'noise');
+addParameter(inputs, 'channel');
 
 % Plots
 figure (1);
