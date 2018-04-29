@@ -22,11 +22,11 @@ deviation_of_angle = 6;
 % TODO: step 0 - selection how will be the output
 % TODO: step 0.1 - check if output exist
 %Name = path_to_output;
-%if exist(Name, 'file') == 2 %Initial step
+if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
 %    plot(file)
-%else
+else
     %Run simulation
-%end
+end
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
