@@ -8,7 +8,7 @@
 % correctAngle: known angle
 % delta: acceptable angle deviation for detection
 
-function performance_metrics = evaluation(data, algorithms, correctAngle, delta)
+function performance_metrics = evaluation(data, algorithms, correct_angle, delta)
 
 signal = data.signal;
 length_snapshots = data.snapshots;
@@ -19,21 +19,21 @@ L = floor(N/length_snapshots);
 
 PD = [];
 RMSE = [];
-absoluteError = [];
+absolute_error = [];
 
 while(~isempty(algorithms))
-    angleAlgorithm = snapshots(data, algorithms(1));
+    angle_of_algorithm = snapshots(data, algorithms(1));
     algorithms(1) = [];
 
     % Detection Probability calculus
-    PD = [PD (sum((abs(angleAlgorithm - correctAngle)) < delta))/L];
+    PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
 
     % Root Mean Square Error calculus
     % FIXIT: Check problem with RMSE
-    RMSE = [RMSE sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) )];
+    RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
 
     % Absolute Error calculus
-    aboluteError = [absoluteError mean( abs(angleAlgorithm - correctAngle) )];
+    abolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
 
     % TODO: Variance calculus
     %variancia = var();
@@ -42,7 +42,7 @@ while(~isempty(algorithms))
     %PR
 
     performance_metrics.RMSE = RMSE;
-    performance_metrics.AE = aboluteError;
+    performance_metrics.AE = abolute_error;
     performance_metrics_PD =  PD;
 
 end
