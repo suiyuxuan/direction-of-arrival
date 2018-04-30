@@ -20,6 +20,9 @@ L = floor(N/length_snapshots);
 PD = [];
 RMSE = [];
 absolute_error = [];
+performance_metrics.RMSE = [];
+performance_metrics.AE = [];
+performance_metrics.PD =  [];
 
 while(~isempty(algorithms))
     angle_of_algorithm = snapshots(data, algorithms(1));
@@ -33,7 +36,7 @@ while(~isempty(algorithms))
     RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
 
     % Absolute Error calculus
-    abolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
+    absolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
 
     % TODO: Variance calculus
     %variancia = var();
@@ -41,10 +44,14 @@ while(~isempty(algorithms))
     % TODO: Resolution Probability
     %PR
 
-    performance_metrics.RMSE = RMSE;
-    performance_metrics.AE = abolute_error;
-    performance_metrics_PD =  PD;
+%    performance_metrics.RMSE = [performance_metrics.RMSE; RMSE];
+%    performance_metrics.AE = [performance_metrics.AE; abolute_error];
+%    performance_metrics.PD = [performance_metrics.PD; PD];
 
 end
+
+performance_metrics.RMSE = RMSE;
+performance_metrics.AE = absolute_error;
+performance_metrics.PD = PD;
 
 end

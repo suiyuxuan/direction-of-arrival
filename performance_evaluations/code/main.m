@@ -7,7 +7,11 @@
 % FIXIT: function or not?
 %function [results] = main(varargin)
 
-algorithms = ["MUSIC" "ESPRIT" "Capon" "Root_MUSIC"];
+clear
+close all
+clc
+
+algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
 type_of_data = 'simulated';
 angles = [20];
 number_of_sensors = 10;
@@ -16,17 +20,16 @@ source_frequency = 1000;
 sampling_frequency = 200000;
 number_of_samples = 200;
 noise.model = 'gaussian';
-noise.snr = 0;
+noise.snr = 20;
 deviation_of_angle = 6;
 
-% TODO: step 0 - selection how will be the output
-% TODO: step 0.1 - check if output exist
+% TODO: step 0 - check if output exist
 %Name = path_to_output;
-if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
+%if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
 %    plot(file)
-else
+%else
     %Run simulation
-end
+%end
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
@@ -40,6 +43,11 @@ data = selection_data(type_of_data, angles, number_of_sensors, distance_between_
 % step 2 - selection of algorithms
 % step 2.1 - selection of performance metrics
 performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle);
+
+performance_metrics.RMSE(:)
+performance_metrics.AE(:)
+performance_metrics.PD(:)
+%print('test','-depsc');
 
 % step 3 - save outputs
 %save_outputs(performance_metrics, algorithms, angles, 'noise', noise, 'channel', channel);

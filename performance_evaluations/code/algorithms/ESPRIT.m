@@ -9,7 +9,7 @@
 % fc: source frequency
 % d: distance between the elements
 
-function result = ESPRIT(x, P, fc, d, u)
+function result = ESPRIT(x, P, f, d, u)
 
 [M,N] = size(x); % M - element number, N - number of samples
 
@@ -17,13 +17,13 @@ function result = ESPRIT(x, P, fc, d, u)
 Rx = (x*x')/N; % covariance matrix
 %[AV,V] = eig(Rx);
 %NN = AV(:,1:M-P); % subspace noise (M - P)
-[AV,D,V]=svd(Rx);
+[AV,D,V] = svd(Rx);
 NN = AV(:,1:P); 
 
 % ESPRIT
 phi = NN(1:M-1,:)\NN(2:M,:);
 w = -angle(eig(phi));
-dwn = d/(u/fc);
-result = asin(w/dwn/pi/2)*180/pi
+dwn = d/(u/f);
+result = asin(w/dwn/pi/2)*180/pi;
 
 end
