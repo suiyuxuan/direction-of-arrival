@@ -1,0 +1,37 @@
+Log name: 22/10/2017 22:20:03
+User: Speaker Tracker
+Project name: C:\Users\Speaker Tracker\Documents\Speaker Tracker\acquisitions\10mic_200ksps.seproj
+File name: C:\Users\Speaker Tracker\Documents\SignalExpress Data\22102017_222003\Voltage.tdms
+File size: 32,0266MB
+Log duration: 3,49414 seconds
+Log dt (s): 5u
+Log iteration length (s): 1
+Number of sample in log: 400000
+Log datatype: Time-WDT-Real
+Unit: V
+Log start time: 22/10/2017 22:20:06,877
+Time zone: Hora Padrão de Buenos Aires
+Writer name: SignalExpress 2015
+Writer version: 15.0
+File format version: 2.1
+Log signal names:
+     22/10/2017 22:20:03 - Voltage - Dev1_ai0
+     22/10/2017 22:20:03 - Voltage - Dev1_ai1
+     22/10/2017 22:20:03 - Voltage - Dev1_ai2
+     22/10/2017 22:20:03 - Voltage - Dev1_ai3
+     22/10/2017 22:20:03 - Voltage - Dev1_ai4
+     22/10/2017 22:20:03 - Voltage - Dev1_ai5
+     22/10/2017 22:20:03 - Voltage - Dev1_ai6
+     22/10/2017 22:20:03 - Voltage - Dev1_ai7
+     22/10/2017 22:20:03 - Voltage - Dev1_ai8
+     22/10/2017 22:20:03 - Voltage - Dev1_ai9
+
+
+Alarms:
+None
+
+Start conditions:
+None
+
+Stop conditions:
+None
