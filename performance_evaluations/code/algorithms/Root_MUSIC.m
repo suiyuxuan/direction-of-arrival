@@ -37,6 +37,6 @@ w = angle(rb(I(1:P)));
 
 % doa
 dwn = d/(u/f);
-result = asin(w/dwn/pi/2)*180/pi;
+result = (-1)*asin(w/dwn/pi/2)*180/pi;
 
 end

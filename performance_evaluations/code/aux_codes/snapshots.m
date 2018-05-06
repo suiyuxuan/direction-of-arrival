@@ -36,7 +36,7 @@ for nw = 0:L-1
 	case 'Capon'
             [theta, result(nw+1,:)] = Capon(xw, P, f, d, u);
             [Max,pos_angle] = max(result(nw+1,:));
-            angles(nw+1) = (pos_angle-1)/2;
+            angles(nw+1) = 90 - ((pos_angle-1)/2);
 	case 'Root MUSIC'
             angles(nw+1) = Root_MUSIC(xw, P, f, d, u);
         otherwise

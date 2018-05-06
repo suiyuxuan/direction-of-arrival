@@ -24,6 +24,6 @@ NN = AV(:,1:P);
 phi = NN(1:M-1,:)\NN(2:M,:);
 w = -angle(eig(phi));
 dwn = d/(u/f);
-result = asin(w/dwn/pi/2)*180/pi;
+result = (-1)*asin(w/dwn/pi/2)*180/pi;
 
 end
