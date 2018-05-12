@@ -1,9 +1,7 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Author: Danilo Pena
 % Title: Evaluation
 % Description: Performace evaluation of algorithms for synthetic or real data
-
 % data: struct of data
 % correctAngle: known angle
 % delta: acceptable angle deviation for detection

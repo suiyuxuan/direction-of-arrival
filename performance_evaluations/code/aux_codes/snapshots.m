@@ -1,9 +1,7 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Author: Danilo Pena
 % Title: Snapshot
 % Description: Snapshot settings  
-
 % data: struct of data
 % P: source numbers
 % fc: source frequency
