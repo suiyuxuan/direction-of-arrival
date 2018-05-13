@@ -1,9 +1,7 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Title: Main function
 % Author: Danilo Pena
 % Description: Main function for performance evaluation
-
 % FIXIT: function or not?
 %function [results] = main(varargin)
 
@@ -49,7 +47,7 @@ data = selection_data(type_of_data, angles, number_of_sensors, distance_between_
 performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle);
 
 figure (1)
-plot(performance_metrics.RMSE(:))
+plot(performance_metrics.algorithms(:).RMSE;
 print('test','-depsc');
 %performance_metrics.AE(:)
 %performance_metrics.PD(:)

@@ -35,10 +35,9 @@ L = floor(N/length_snapshots);
 PD = [];
 RMSE = [];
 absolute_error = [];
-performance_metrics.RMSE = [];
-performance_metrics.AE = [];
-performance_metrics.PD =  [];
 
+% FIXIT: Remove current_algorithm
+current_algorithm = 1;
 while(~isempty(algorithms))
     for i = 1:iterations
         angle_of_algorithm = snapshots(data, algorithms(1));
@@ -58,13 +57,15 @@ while(~isempty(algorithms))
 
         % TODO: Resolution Probability
         %PR
-
-% FIXIT: IMPLEMENT METRICS STORAGE
-        performance_metrics.algorithm(1).RMSE = [performance_metrics.RMSE RMSE];
-        performance_metrics.AE = [performance_metrics.AE absolute_error];
-        performance_metrics.PD = [performance_metrics.PD PD];
     end
+    performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
+    performance_metrics.algorithms(current_algorithm).AE = absolute_error;
+    performance_metrics.algorithms(current_algorithm).PD = PD;
     algorithms(1) = [];
+    RMSE = [];
+    AE = [];
+    PD = [];
+    current_algorithm = current_algorithm + 1;
 end
 
 end

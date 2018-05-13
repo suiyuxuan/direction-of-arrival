@@ -9,7 +9,7 @@
 
 function [data] = selection_data(type_of_data, varargin)
 
-if (nargin > 10), error('parameters number incorrect.');, end
+if (nargin > 13), error('parameters number incorrect.');, end
 
 % FIXIT: defaultN attributed before of inputParser
 defaultN = 200;
