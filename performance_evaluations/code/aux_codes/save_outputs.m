@@ -1,5 +1,4 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Author: Danilo Pena
 % Title: Save Outputs
 % Description: Save analysis of output
@@ -29,14 +28,17 @@ channel = inputs.Results.channel;
 
 % Plots
 %figure (1);
-%plot(snr, performance_metrics.RMSE);
+%plot(noise.snr, performance_metrics.algorithms(1).RMSE);
 %title('Parametric Evaluation - SNR');
 %xlabel('SNR');
 %ylabel('RMSE');
 %grid on;
 %print('results/RMSE','-depsc');
 
-save('../results/general_results.mat','performance_metrics');
+% TODO: Organize the structure before to save
 
+%if (noise.model ~= "deterministic")&&(length(noise.snr)>1))
+
+save('../results/general_results.mat','performance_metrics');
 
 end
