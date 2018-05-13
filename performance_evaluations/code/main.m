@@ -46,13 +46,11 @@ data = selection_data(type_of_data, angles, number_of_sensors, distance_between_
 % step 2.1 - selection of performance metrics
 performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle);
 
-figure (1)
-plot(performance_metrics.algorithms(:).RMSE;
-print('test','-depsc');
-%performance_metrics.AE(:)
-%performance_metrics.PD(:)
+%figure (1)
+%plot(performance_metrics.algorithms(:).RMSE;
+%print('test','-depsc');
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, algorithms, angles, 'noise', noise, 'channel', channel);
+save_outputs(performance_metrics, algorithms, angles, 'noise', noise);
 
 %end
