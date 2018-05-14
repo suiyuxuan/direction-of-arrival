@@ -29,17 +29,13 @@ length_snapshots = data.snapshots;
 [M,N] = size(data.signal);
 L = floor(N/length_snapshots);
 
-% FIXIT: Missing add interations of Monte Carlo
-
 PD = [];
 RMSE = [];
 absolute_error = [];
 
-% FIXIT: Remove current_algorithm
-current_algorithm = 1;
-while(~isempty(algorithms))
+for current_algorithm = 1:length(algorithms)
     for i = 1:iterations
-        angle_of_algorithm = snapshots(data, algorithms(1));
+        angle_of_algorithm = snapshots(data, algorithms(current_algorithm));
 
         % Detection Probability calculus
         PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
@@ -60,11 +56,9 @@ while(~isempty(algorithms))
     performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
     performance_metrics.algorithms(current_algorithm).AE = absolute_error;
     performance_metrics.algorithms(current_algorithm).PD = PD;
-    algorithms(1) = [];
     RMSE = [];
     AE = [];
     PD = [];
-    current_algorithm = current_algorithm + 1;
 end
 
 end

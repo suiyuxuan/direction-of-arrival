@@ -21,8 +21,8 @@ distance_between_sensors = 0.08;
 source_frequency = 1000;
 sampling_frequency = 200000;
 number_of_samples = 200;
-noise.model = 'gaussian';
-noise.snr = -20:1:20;
+noise{1}.model = 'gaussian';
+noise{1}.snr = -20:20;
 deviation_of_angle = 6;
 
 % TODO: step 0 - check if output exist
@@ -51,6 +51,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-save_outputs(performance_metrics, algorithms, angles, 'noise', noise);
+save_outputs(performance_metrics, algorithms, 'noise', noise);
 
 %end

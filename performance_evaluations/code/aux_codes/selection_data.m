@@ -19,6 +19,12 @@ defaultU = 340; % speed sound propagation (~340 m/s)
 defaultNoise.model = 'deterministic';
 defaultChannel.model = 'none';
 
+%defaultSNR = 0;
+%defaultAlpha = 1.7;
+%defaultGSNR = 0;
+%defaultMeans = [0 0];
+%defaultVariances = [0.01 1];
+
 inputs = inputParser;
 addRequired(inputs, 'type_of_data');
 addRequired(inputs, 'angles');
@@ -34,11 +40,18 @@ addParameter(inputs, 'channel', defaultChannel);
 
 parse(inputs, type_of_data, varargin{:});
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 data.d = inputs.Results.distance_between_sensors;
 data.f = inputs.Results.source_frequency;
 data.P = length(inputs.Results.angles);
 data.u = inputs.Results.speed_propagation;
 data.snapshots = inputs.Results.length_snapshots;
+
+%number_of_possibilities = length(inputs.Results.type_of_data) + length(inputs.Results.angles) + length(inputs.Results.number_of_sensors) + length(inputs.Results.distance_between_sensors) + length(inputs.Results.source_frequency) + length(inputs.Results.sampling_frequency) + length(inputs.Results.number_of_samples) + length(inputs.Results.speed_propagation) + length(inputs.Results.length_snapshots) + length(inputs.Results.noise)
+
+%for ii = 1:length(inputs.Results.type_of_data)
 
 switch inputs.Results.type_of_data
     case 'simulated'

@@ -22,31 +22,16 @@
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
 % channel parameters: reverberation (a, N)
 
-function [signal] = signal_generator(angles, N, M, d, u, f, fs, varargin)
+function [signal] = signal_generator(data)
 
-if (nargin > 13), error('parameters number incorrect.'), end
-
-defaultNoise.model = 'deterministic';
-defaultChannel.model = 'none';
-
-%defaultSNR = 0;
-%defaultAlpha = 1.7;
-%defaultGSNR = 0;
-%defaultMeans = [0 0];
-%defaultVariances = [0.01 1];
-
-inputs = inputParser;
-addRequired(inputs, 'angles');
-addRequired(inputs, 'N');
-addRequired(inputs, 'M');
-addRequired(inputs, 'd');
-addRequired(inputs, 'u');
-addRequired(inputs, 'f');
-addRequired(inputs, 'fs');
-addParameter(inputs, 'noise', defaultNoise);
-addParameter(inputs, 'channel', defaultChannel);
-
-parse(inputs, angles, N, M, d, u, f, fs, varargin{:});
+angles = data.properties.angles;
+N = data.properties.M;
+M = data.properties.M;
+d = data.properties.d;
+u = data.properties.u;
+f = data.properties.f;
+noise = data.properties.noise;
+channel = data.properties.channel;
 
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
