@@ -35,7 +35,7 @@ channel = inputs.Results.channel;
 %grid on;
 %print('results/RMSE','-depsc');
 
-% TODO: Organize the structure before to save
+% TODO: Organize the structure before to save and conditions
 
 %if (noise.model ~= "deterministic")&&(length(noise.snr)>1))
 

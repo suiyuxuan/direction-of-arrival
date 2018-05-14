@@ -22,7 +22,7 @@ source_frequency = 1000;
 sampling_frequency = 200000;
 number_of_samples = 200;
 noise.model = 'gaussian';
-noise.snr = 20;
+noise.snr = -20:1:20;
 deviation_of_angle = 6;
 
 % TODO: step 0 - check if output exist
@@ -44,7 +44,7 @@ data = selection_data(type_of_data, angles, number_of_sensors, distance_between_
 
 % step 2 - selection of algorithms
 % step 2.1 - selection of performance metrics
-performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle);
+performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, 'repeat', 10000);
 
 %figure (1)
 %plot(performance_metrics.algorithms(:).RMSE;

@@ -1,5 +1,4 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Title: Signal Generator
 % Author: Danilo Pena
 % Description: The generator of the simulated signal
@@ -30,11 +29,11 @@ if (nargin > 13), error('parameters number incorrect.'), end
 defaultNoise.model = 'deterministic';
 defaultChannel.model = 'none';
 
-defaultSNR = 0;
-defaultAlpha = 1.7;
-defaultGSNR = 0;
-defaultMeans = [0 0];
-defaultVariances = [0.01 1];
+%defaultSNR = 0;
+%defaultAlpha = 1.7;
+%defaultGSNR = 0;
+%defaultMeans = [0 0];
+%defaultVariances = [0.01 1];
 
 inputs = inputParser;
 addRequired(inputs, 'angles');

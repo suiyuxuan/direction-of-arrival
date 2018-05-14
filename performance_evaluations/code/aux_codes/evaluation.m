@@ -25,9 +25,8 @@ parse(inputs, data, algorithms, correct_angle, varargin{:});
 delta = inputs.Results.delta;
 iterations = inputs.Results.repeat;
 
-signal = data.signal;
 length_snapshots = data.snapshots;
-[M,N] = size(signal);
+[M,N] = size(data.signal);
 L = floor(N/length_snapshots);
 
 % FIXIT: Missing add interations of Monte Carlo
