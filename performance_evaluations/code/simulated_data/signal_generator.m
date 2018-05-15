@@ -25,7 +25,7 @@
 function [signal] = signal_generator(data)
 
 angles = data.properties.angles;
-N = data.properties.M;
+N = data.properties.N;
 M = data.properties.M;
 d = data.properties.d;
 u = data.properties.u;

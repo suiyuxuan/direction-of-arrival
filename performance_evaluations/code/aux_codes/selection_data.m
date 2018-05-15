@@ -41,25 +41,35 @@ addParameter(inputs, 'channel', defaultChannel);
 parse(inputs, type_of_data, varargin{:});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First, brute force solution
 
+id = 1;
+for ii1 = 1:length(inputs.Results.type_of_data)
+for ii2 = 1:length(inputs.Results.angles)
+for ii3 = 1:length(inputs.Results.number_of_sensors)
+for ii4 = 1:length(inputs.Results.distance_between_sensors)
+for ii5 = 1:length(inputs.Results.source_frequency)
+for ii6 = 1:length(inputs.Results.sampling_frequency)
+for ii7 = 1:length(inputs.Results.number_of_samples)
+for ii8 = 1:length(inputs.Results.speed_propagation)
+for ii9 = 1:length(inputs.Results.length_snapshots)
+for ii10 = 1:length(inputs.Results.noise)
 
-data.d = inputs.Results.distance_between_sensors;
-data.f = inputs.Results.source_frequency;
-data.P = length(inputs.Results.angles);
-data.u = inputs.Results.speed_propagation;
-data.snapshots = inputs.Results.length_snapshots;
+data(id).properties.type_of_data = inputs.Results.type_of_data(ii1);
+data(id).properties.angle = inputs.Results.angles(ii2);
+data(id).properties.M = inputs.Results.number_of_sensors(ii3);
+data(id).properties.d = inputs.Results.distance_between_sensors(ii4);
+data(id).properties.f = inputs.Results.source_frequency(ii5);
+data(id).properties.fs = inputs.Results.sampling_frequency(ii6);
+data(id).properties.N = inputs.Results.number_of_samples(ii7);
+data(id).properties.u = inputs.Results.speed_propagation(ii8);
+data(id).properties.snapshots = inputs.Results.length_snapshots(ii9);
+%data(id).properties.noise = inputs.Results.noise;
+id = id + 1;
 
 %number_of_possibilities = length(inputs.Results.type_of_data) + length(inputs.Results.angles) + length(inputs.Results.number_of_sensors) + length(inputs.Results.distance_between_sensors) + length(inputs.Results.source_frequency) + length(inputs.Results.sampling_frequency) + length(inputs.Results.number_of_samples) + length(inputs.Results.speed_propagation) + length(inputs.Results.length_snapshots) + length(inputs.Results.noise)
 
 %for ii = 1:length(inputs.Results.type_of_data)
 
-switch inputs.Results.type_of_data
-    case 'simulated'
-        data.signal = signal_generator(inputs.Results.angles, inputs.Results.number_of_samples, inputs.Results.number_of_sensors, inputs.Results.distance_between_sensors, inputs.Results.speed_propagation, inputs.Results.source_frequency, inputs.Results.sampling_frequency, 'noise', inputs.Results.noise, 'channel', inputs.Results.channel);
-    case 'real'
-        %data.signal = load();
-    otherwise
-        error('Type of data invalid.');
-end
 
 end
