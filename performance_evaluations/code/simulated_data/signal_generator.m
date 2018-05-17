@@ -45,22 +45,22 @@ A = A';
 sig = exp(1i*(wn*[1:N]));
 
 switch inputs.Results.noise.model
-    case 'deterministic'
+    case "deterministic"
         signal = A*sig;
-    case 'gaussian'
+    case "gaussian"
         signal = gaussian_complex_model(A*sig, inputs.Results.noise.snr);
-    case 'alpha-stable'
+    case "alpha-stable"
         signal = sas_complex_model(A*sig, inputs.Results.noise.alpha, inputs.Results.noise.gsnr);
-    case 'gaussian mixture'
+    case "gaussian mixture"
         signal = gaussian_mixture_model(A*sig, inputs.Results.noise.means, inputs.Results.noise.variances);
     otherwise
         error('noise model incorrect.');
 end
 
 switch inputs.Results.channel.model
-    case 'none'
+    case "none"
         signal = signal;
-    case 'reverberation'
+    case "reverberation"
         signal = reverberation_model(signal, inputs.Results.channel.a, inputs.Results.channel.R );
     otherwise
         error('channel model incorrect.');

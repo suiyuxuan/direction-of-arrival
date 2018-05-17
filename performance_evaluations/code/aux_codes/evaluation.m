@@ -3,10 +3,10 @@
 % Title: Evaluation
 % Description: Performace evaluation of algorithms for synthetic or real data
 % data: struct of data
-% correctAngle: known angle
+% angles: known angle (correct angles)
 % delta: acceptable angle deviation for detection
 
-function performance_metrics = evaluation(data, algorithms, correct_angle, varargin)
+function performance_metrics = evaluation(data, algorithms, angles, varargin)
 
 defaultDelta = 6;
 defaultRepeat = 1;
@@ -16,11 +16,11 @@ if (nargin > 10), error('parameters number incorrect.');, end
 inputs = inputParser;
 addRequired(inputs, 'data');
 addRequired(inputs, 'algorithms');
-addRequired(inputs, 'correct_angle');
+addRequired(inputs, 'angles');
 addOptional(inputs, 'delta', defaultDelta);
 addParameter(inputs, 'repeat', defaultRepeat);
 
-parse(inputs, data, algorithms, correct_angle, varargin{:});
+parse(inputs, data, algorithms, angles, varargin{:});
 
 delta = inputs.Results.delta;
 iterations = inputs.Results.repeat;
@@ -33,9 +33,18 @@ PD = [];
 RMSE = [];
 absolute_error = [];
 
-for current_algorithm = 1:length(algorithms)
+for id = 1:numel(data)
+    switch data(id).properties.type_of_data
+        case "simulated"
+            signal = signal_generator(data(id));    
+        case "real"
+            signal = load_data(data(id)); % missing implement
+        otherwise
+            error("Type of data invalid");
+    end
+
     for i = 1:iterations
-        angle_of_algorithm = snapshots(data, algorithms(current_algorithm));
+        angle_algorithm = snapshots(data(id), signal);
 
         % Detection Probability calculus
         PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
