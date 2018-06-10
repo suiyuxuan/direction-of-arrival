@@ -14,7 +14,7 @@ clc
 %addpath(genpath(fullfile(current_directory, folders);
 
 algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
-type_of_data = 'simulated';
+type_of_data = "simulated";
 angles = [20];
 number_of_sensors = 10;
 distance_between_sensors = 0.08;

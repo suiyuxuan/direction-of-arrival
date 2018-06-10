@@ -25,9 +25,6 @@ parse(inputs, data, algorithms, angles, varargin{:});
 delta = inputs.Results.delta;
 iterations = inputs.Results.repeat;
 
-length_snapshots = data.snapshots;
-[M,N] = size(data.signal);
-L = floor(N/length_snapshots);
 
 PD = [];
 RMSE = [];
@@ -43,11 +40,16 @@ for id = 1:numel(data)
             error("Type of data invalid");
     end
 
+%length_snapshots = data.properties.snapshots;
+%[M,N] = size(data.signal);
+%L = floor(N/length_snapshots);
+
     for i = 1:iterations
         angle_algorithm = snapshots(data(id), signal);
 
         % Detection Probability calculus
-        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
+%        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
+        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))];
 
         % Root Mean Square Error calculus
         % FIXIT: Check problem with RMSE

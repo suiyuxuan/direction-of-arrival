@@ -66,10 +66,10 @@ if inputs.Results.noise{ii10}.model == "gaussian"
 
 for ii11 = 1:length(inputs.Results.noise{ii10}.snr)
 
-data(id).properties.noise{ii11}.snr = inputs.Results.noise{ii11}.snr;
+data(id).properties.noise{ii10}.snr(ii11) = inputs.Results.noise{ii10}.snr(ii11);
 
 data(id).properties.type_of_data = inputs.Results.type_of_data(ii1);
-data(id).properties.angle = inputs.Results.angles(ii2);
+data(id).properties.angles = inputs.Results.angles(ii2);
 data(id).properties.M = inputs.Results.number_of_sensors(ii3);
 data(id).properties.d = inputs.Results.distance_between_sensors(ii4);
 data(id).properties.f = inputs.Results.source_frequency(ii5);
@@ -89,7 +89,7 @@ data(id).properties.noise{ii12}.alpha = inputs.Results.noise{ii12}.alpha;
 data(id).properties.noise{ii13}.gsnr = inputs.Results.noise{ii13}.gsnr;
 
 data(id).properties.type_of_data = inputs.Results.type_of_data(ii1);
-data(id).properties.angle = inputs.Results.angles(ii2);
+data(id).properties.angles = inputs.Results.angles(ii2);
 data(id).properties.M = inputs.Results.number_of_sensors(ii3);
 data(id).properties.d = inputs.Results.distance_between_sensors(ii4);
 data(id).properties.f = inputs.Results.source_frequency(ii5);
@@ -104,7 +104,7 @@ end
 end
 
 data(id).properties.type_of_data = inputs.Results.type_of_data(ii1);
-data(id).properties.angle = inputs.Results.angles(ii2);
+data(id).properties.angles = inputs.Results.angles(ii2);
 data(id).properties.M = inputs.Results.number_of_sensors(ii3);
 data(id).properties.d = inputs.Results.distance_between_sensors(ii4);
 data(id).properties.f = inputs.Results.source_frequency(ii5);
