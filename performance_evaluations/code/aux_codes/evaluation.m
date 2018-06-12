@@ -11,7 +11,7 @@ function performance_metrics = evaluation(data, algorithms, angles, varargin)
 defaultDelta = 6;
 defaultRepeat = 1;
 
-if (nargin > 10), error('parameters number incorrect.');, end
+%if (nargin > 10), error('parameters number incorrect.');, end
 
 inputs = inputParser;
 addRequired(inputs, 'data');
@@ -25,10 +25,13 @@ parse(inputs, data, algorithms, angles, varargin{:});
 delta = inputs.Results.delta;
 iterations = inputs.Results.repeat;
 
-
 PD = [];
 RMSE = [];
 absolute_error = [];
+
+%%%%%%%%%%%%%%%%%%%%%%
+% FORCE BRUTE SOLUTION
+%%%%%%%%%%%%%%%%%%%%%%
 
 for id = 1:numel(data)
     switch data(id).properties.type_of_data
