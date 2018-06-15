@@ -29,50 +29,40 @@ PD = [];
 RMSE = [];
 absolute_error = [];
 
-%%%%%%%%%%%%%%%%%%%%%%
-% FORCE BRUTE SOLUTION
-%%%%%%%%%%%%%%%%%%%%%%
-
-for id = 1:numel(data)
-    switch data(id).properties.type_of_data
-        case "simulated"
-            signal = signal_generator(data(id));    
-        case "real"
-            signal = load_data(data(id)); % missing implement
-        otherwise
-            error("Type of data invalid");
-    end
+signal = create_signal(data);
 
 %length_snapshots = data.properties.snapshots;
 %[M,N] = size(data.signal);
 %L = floor(N/length_snapshots);
 
-    for i = 1:iterations
-        angle_algorithm = snapshots(data(id), signal);
+for i = 1:iterations
+    angle_algorithm = snapshots(data, signal);
 
-        % Detection Probability calculus
+    % Detection Probability calculus
 %        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
-        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))];
+    PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))];
 
-        % Root Mean Square Error calculus
-        % FIXIT: Check problem with RMSE
-        RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
+    % Root Mean Square Error calculus
+    % FIXIT: Check problem with RMSE
+    RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
 
-        % Absolute Error calculus
-        absolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
+    % Absolute Error calculus
+    absolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
 
-        % TODO: Variance calculus
-        %variancia = var();
+    % TODO: Variance calculus
+    %variancia = var();
 
-        % TODO: Resolution Probability
-        %PR
-    end
-    performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
-    performance_metrics.algorithms(current_algorithm).AE = absolute_error;
-    performance_metrics.algorithms(current_algorithm).PD = PD;
-    RMSE = [];
-    AE = [];
-    PD = [];
+    % TODO: Resolution Probability
+    %PR
 end
+
+performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
+performance_metrics.algorithms(current_algorithm).AE = absolute_error;
+performance_metrics.algorithms(current_algorithm).PD = PD;
+RMSE = [];
+AE = [];
+PD = [];
+
+%end
 
 end
