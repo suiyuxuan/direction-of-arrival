@@ -29,13 +29,13 @@ PD = [];
 RMSE = [];
 absolute_error = [];
 
-signal = create_signal(data);
-
 %length_snapshots = data.properties.snapshots;
 %[M,N] = size(data.signal);
 %L = floor(N/length_snapshots);
 
 for i = 1:iterations
+    signal = create_signal(data);
+    
     angle_algorithm = snapshots(data, signal);
 
     % Detection Probability calculus

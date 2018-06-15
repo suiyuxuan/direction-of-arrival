@@ -21,7 +21,6 @@ for n_fs = 1:length(data.properties.fs)
 for n_n = 1:length(data.properties.N)
 for n_u = 1:length(data.properties.u)
 for n_s = 1:length(data.properties.snapshots)
-for n_noise = 1:
 
 switch data.properties.type_of_data(n_tod)
     case "simulated"
