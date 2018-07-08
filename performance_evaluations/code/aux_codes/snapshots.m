@@ -10,17 +10,19 @@
 
 function angles = snapshots(data, signal)
 
-d = data.properties.d;
-f = data.properties.f;
-P = data.properties.P;
-u = data.properties.u;
-length_snapshots = data.properties.snapshots;
+d = data.d;
+f = data.f;
+P = data.P;
+u = data.u;
+length_snapshots = data.snapshots;
 [M,N] = size(signal); % M - number of elements, N - length of samples
 L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
 
 for nw = 0:L-1
     xw = signal(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
+
+    for i = 1:data.iterations
 
     switch data.properties.algorithms
         case 'MUSIC'
@@ -38,6 +40,9 @@ for nw = 0:L-1
         otherwise
             error('Incorrect algorithm');
     end
+
+    end
+
 end
 
 end

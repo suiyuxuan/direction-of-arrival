@@ -22,8 +22,8 @@ addParameter(inputs, 'repeat', defaultRepeat);
 
 parse(inputs, data, algorithms, angles, varargin{:});
 
-delta = inputs.Results.delta;
-iterations = inputs.Results.repeat;
+data.delta = inputs.Results.delta;
+data.iterations = inputs.Results.repeat;
 
 PD = [];
 RMSE = [];
@@ -33,7 +33,17 @@ absolute_error = [];
 %[M,N] = size(data.signal);
 %L = floor(N/length_snapshots);
 
-for i = 1:iterations
+for n_tod = 1:length(data.type_of_data)
+for n_a = 1:length(data.angles)
+for n_m = 1:length(data.M)
+for n_d = 1:length(data.d)
+for n_f = 1:length(data.f)
+for n_fs = 1:length(data.fs)
+for n_n = 1:length(data.N)
+for n_u = 1:length(data.u)
+for n_s = 1:length(data.snapshots)
+
+%for i = 1:iterations
     signal = create_signal(data);
     
     angle_algorithm = snapshots(data, signal);
@@ -54,7 +64,8 @@ for i = 1:iterations
 
     % TODO: Resolution Probability
     %PR
-end
+
+%end
 
 performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
 performance_metrics.algorithms(current_algorithm).AE = absolute_error;

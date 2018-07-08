@@ -50,17 +50,18 @@ parse(inputs, type_of_data, varargin{:});
 %data.properties.angles = inputs.Results.angles;
 %data = struct('angles', num2cell(inputs.Results.
 
-data.properties.type_of_data = inputs.Results.type_of_data;
-data.properties.angles = inputs.Results.angles;
-data.properties.M = inputs.Results.number_of_sensors;
-data.properties.d = inputs.Results.distance_between_sensors;
-data.properties.f = inputs.Results.source_frequency;
-data.properties.fs = inputs.Results.sampling_frequency;
-data.properties.N = inputs.Results.number_of_samples;
-data.properties.u = inputs.Results.speed_propagation;
-data.properties.snapshots = inputs.Results.length_snapshots;
+data.type_of_data = inputs.Results.type_of_data;
+data.angles = inputs.Results.angles;
+data.M = inputs.Results.number_of_sensors;
+data.d = inputs.Results.distance_between_sensors;
+data.f = inputs.Results.source_frequency;
+data.fs = inputs.Results.sampling_frequency;
+data.N = inputs.Results.number_of_samples;
+data.u = inputs.Results.speed_propagation;
+data.snapshots = inputs.Results.length_snapshots;
 
-data.properties.noise = inputs.Results.noise;
-data.properties.channel = inputs.Results.channel;
+% substruct
+data.noise = inputs.Results.noise;
+data.channel = inputs.Results.channel;
 
 end
