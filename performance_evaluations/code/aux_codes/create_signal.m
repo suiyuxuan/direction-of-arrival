@@ -6,13 +6,9 @@
 % angles: known angle (correct angles)
 % delta: acceptable angle deviation for detection
 
-function signal = create_signal(data)
+function signal = create_signal(type_of_data, angles, M, d, f, fs, N, u, snapshots)
 
-%%%%%%%%%%%%%%%%%%%%%%
-% FORCE BRUTE SOLUTION
-%%%%%%%%%%%%%%%%%%%%%%
-
-switch data.type_of_data(n_tod)
+switch type_of_data
     case "simulated"
         signal = signal_generator(data);
     case "real"

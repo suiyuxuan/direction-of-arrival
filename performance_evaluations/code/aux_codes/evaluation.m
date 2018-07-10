@@ -44,7 +44,7 @@ for n_u = 1:length(data.u)
 for n_s = 1:length(data.snapshots)
 
 %for i = 1:iterations
-    signal = create_signal(data);
+    signal = create_signal(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.snapshots.(n_s));
     
     angle_algorithm = snapshots(data, signal);
 
@@ -75,5 +75,14 @@ AE = [];
 PD = [];
 
 %end
+end
+end
+end
+end
+end
+end
+end
+end
+end
 
 end

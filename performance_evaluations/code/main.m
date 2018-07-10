@@ -15,7 +15,7 @@ clc
 
 algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
 type_of_data = "simulated";
-angles = [20];
+angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
 distance_between_sensors = 0.08;
 source_frequency = 1000;
