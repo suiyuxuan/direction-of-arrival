@@ -6,11 +6,11 @@
 % angles: known angle (correct angles)
 % delta: acceptable angle deviation for detection
 
-function signal = create_signal(type_of_data, angles, M, d, f, fs, N, u, snapshots)
+function signal = create_signal(type_of_data, angles, M, d, f, fs, N, u, snapshots, noise, channel)
 
 switch type_of_data
     case "simulated"
-        signal = signal_generator(data);
+        signal = signal_generator(angles, M, d, f, fs, N, u, noise, channel);
     case "real"
         signal = load_data(data); % missing implement
     otherwise

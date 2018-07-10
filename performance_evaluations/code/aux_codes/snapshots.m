@@ -8,13 +8,15 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles = snapshots(data, signal)
+function angles = snapshots(data, signal, snapshots, d, f, u)
 
-d = data.d;
-f = data.f;
-P = data.P;
-u = data.u;
-length_snapshots = data.snapshots;
+%d = data.d;
+%f = data.f;
+%P = data.P;
+P = 1; % check the dimension of angles
+%u = data.u;
+length_snapshots = snapshots;
+%length_snapshots = data.snapshots;
 [M,N] = size(signal); % M - number of elements, N - length of samples
 L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
@@ -24,7 +26,7 @@ for nw = 0:L-1
 
     for i = 1:data.iterations
 
-    switch data.properties.algorithms
+    switch data.algorithms
         case 'MUSIC'
             [theta, result(nw+1,:)] = MUSIC(xw, P, f, d, u);
             [Max,pos_angle] = max(result(nw+1,:));

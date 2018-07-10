@@ -22,16 +22,16 @@
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
 % channel parameters: reverberation (a, N)
 
-function [signal] = signal_generator(data)
+function [signal] = signal_generator(angles, M, d, f, fs, N, u, noise, channel)
 
-angles = data.properties.angles;
-N = data.properties.N;
-M = data.properties.M;
-d = data.properties.d;
-u = data.properties.u;
-f = data.properties.f;
-noise = data.properties.noise;
-channel = data.properties.channel;
+%angles = data.properties.angles;
+%N = data.properties.N;
+%M = data.properties.M;
+%d = data.properties.d;
+%u = data.properties.u;
+%f = data.properties.f;
+%noise = data.properties.noise;
+%channel = data.properties.channel;
 
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
@@ -44,32 +44,26 @@ A = A';
 
 sig = exp(1i*(wn*[1:N]));
 
-for i_noise = 1:numel(noise)
-    for i_channel = 1:numel(channel)
-    
-        switch noise{i_noise}.model
-            case "deterministic"
-                signal = A*sig;
-            case "gaussian"
-                signal = gaussian_complex_model(A*sig, inputs.Results.noise.snr);
-            case "alpha-stable"
-                signal = sas_complex_model(A*sig, inputs.Results.noise.alpha, inputs.Results.noise.gsnr);
-            case "gaussian mixture"
-                signal = gaussian_mixture_model(A*sig, inputs.Results.noise.means, inputs.Results.noise.variances);
-            otherwise
-                error('noise model incorrect.');
-        end
+switch noise.model
+    case "deterministic"
+        signal = A*sig;
+    case "gaussian"
+        signal = gaussian_complex_model(A*sig, noise.snr);
+    case "alpha-stable"
+        signal = sas_complex_model(A*sig, noise.alpha, noise.gsnr);
+    case "gaussian mixture"
+        signal = gaussian_mixture_model(A*sig, noise.means, noise.variances);
+    otherwise
+        error('noise model incorrect.');
+end
 
-        switch channel{i_channel}.model
-            case "none"
-                signal = signal;
-            case "reverberation"
-                signal = reverberation_model(signal, inputs.Results.channel.a, inputs.Results.channel.R );
-            otherwise
-                error('channel model incorrect.');
-        end
-
-    end
+switch channel.model
+    case "none"
+        signal = signal;
+    case "reverberation"
+        signal = reverberation_model(signal, channel.a, channel.R);
+    otherwise
+        error('channel model incorrect.');
 end
 
 end
