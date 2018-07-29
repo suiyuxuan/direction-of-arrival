@@ -50,7 +50,7 @@ for n_channel = 1:numel(data.channel)
 % TODO: create a variable "parameters" for the current parameters
 
 %for i = 1:iterations
-    signal = create_signal(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.snapshots.(n_s), data.noise{n_noise}, data.channel{n_channel});
+    signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.snapshots.(n_s), data.noise{n_noise}, data.channel{n_channel});
     
     angle_algorithm = snapshots(data, signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
 

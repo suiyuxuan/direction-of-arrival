@@ -2,8 +2,6 @@
 % Title: Main function
 % Author: Danilo Pena
 % Description: Main function for performance evaluation
-% FIXIT: function or not?
-%function [results] = main(varargin)
 
 clear
 close all
@@ -35,7 +33,7 @@ deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
-data = selection_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
+data = check_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
 
 %[theta, pmusic] = MUSIC(signal, 1, 1000, 0.08);
 %figure(1);
