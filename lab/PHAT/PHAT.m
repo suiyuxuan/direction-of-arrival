@@ -7,20 +7,44 @@
 % f: source frequency
 % d: distance between the elements
 
-function [theta,pMusic] = PHAT(x, P, f, d)
+function [output] = PHAT(x)
 
-[M,N] = size(x); % M - element number, N - number of samples
-u = 340; % speed of sound
+[nChannels nSamples] = size(x);
 
-% Eigenvalues and eigenvectors
-Rx = x*x'; % covariance matrix
-[AV,V] = eig(Rx);
-NN = AV(:,1:M-P); % subspace noise (M - P)
+output = zeros(1,nSamples);
+delays = zeros(1,nChannels);
 
-% MUSIC
-theta = 0:0.5:90;
-pMusic = zeros(1,length(theta));
+%margin = 1;
+%fs = 1000;
+%marginSamples = round(margin*fs);
 
-pMusic = 10*log10(pMusic/max(pMusic));
+for k = 1:nChannels
+    %[c,lags] = xcorr(x(k,:), x(1,:), marginSamples, 'coeff');
+    [c,lags] = xcorr(x(k,:), x(1,:));
+    [maxVal, maxIdx] = max(c);
+    delays(k) = lags(maxIdx);
+    
+    mtxMatchSamples(k,1) = delays(k) + 1;
+    if (mtxMatchSamples(k,1)<1)
+        disp('Pre-padding')
+        padLen = 1 - delays(k);
+        x = [zeros(nChannels,padLen) x];
+        mtxMatchSamples(k,1) = 1;
+        mtxMatchSamples(k,2) = mtxMatchSamples(k,2) + padLen;
+    end
+
+    mtxMatchSamples(k,2) =  mtxMatchSamples(k,1) + nSamples - 1;
+    if (mtxMatchSamples(k,2) > nSamples)
+        disp('Post-padding');
+        padLen = mtxMatchSamples(k,2) - nSamples + 1; 
+        x = [x zeros(nChannels,padLen)];    
+    end
+    
+    alignedWave = x(k,mtxMatchSamples(k,1):mtxMatchSamples(k,2));
+    output = output + alignedWave ;
+end
+
+delays
+output = 0.8*output./max(abs(output));
 
 end
