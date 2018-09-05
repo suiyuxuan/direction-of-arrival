@@ -1,13 +1,13 @@
 % Federal University of Rio Grande do Norte
 % Title: Phase Transformation
 % Author: Danilo Pena
-% Description: Phase Transformation
-% x: synthetic or real signal
-% P: source numbers
-% f: source frequency
-% d: distance between the elements
+% Description: Delay-and-Sum (DS) operates by coherently averaging the 
+% multi-microphone speech signals. Coherence is achieved by focusing on an 
+% acoustic source, which is specified by the estimated Time-Differences of 
+% Arrival (TDOA). Incoherent averaging attenuates sources not focused by 
+% these TDOAs.
 
-function [output] = PHAT(x)
+function [output] = NW-DS(x)
 
 [nChannels nSamples] = size(x);
 
