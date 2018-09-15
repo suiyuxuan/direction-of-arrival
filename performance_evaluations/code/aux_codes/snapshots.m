@@ -8,15 +8,10 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles = snapshots(data, signal, snapshots, d, f, u)
+function angles_algorithms = snapshots(algorithms, signal, snapshots, d, f, u)
 
-%d = data.d;
-%f = data.f;
-%P = data.P;
 P = 1; % check the dimension of angles
-%u = data.u;
 length_snapshots = snapshots;
-%length_snapshots = data.snapshots;
 [M,N] = size(signal); % M - number of elements, N - length of samples
 L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
@@ -28,23 +23,26 @@ for nw = 0:L-1
 
     switch data.algorithms
         case 'MUSIC'
-            [theta, result(nw+1,:)] = MUSIC(xw, P, f, d, u);
-            [Max,pos_angle] = max(result(nw+1,:));
-            angles(nw+1) = (pos_angle-1)/2;
+            [theta, result(i,:)] = MUSIC(xw, P, f, d, u);
+            [Max,pos_angle] = max(result(i,:));
+            angles(i) = (pos_angle-1)/2;
         case 'ESPRIT'
-            angles(nw+1) = ESPRIT(xw, P, f, d, u);
+            angles(i) = ESPRIT(xw, P, f, d, u);
         case 'Capon'
-            [theta, result(nw+1,:)] = Capon(xw, P, f, d, u);
-            [Max,pos_angle] = max(result(nw+1,:));
-            angles(nw+1) = 90 - ((pos_angle-1)/2);
+            [theta, result(i,:)] = Capon(xw, P, f, d, u);
+            [Max,pos_angle] = max(result(i,:));
+            angles(i) = 90 - ((pos_angle-1)/2);
         case 'Root MUSIC'
-            angles(nw+1) = Root_MUSIC(xw, P, f, d, u);
+            angles(i) = Root_MUSIC(xw, P, f, d, u);
         otherwise
             error('Incorrect algorithm');
     end
 
     end
 
+    angles_of_interations(nw+1) = mean(angles);
 end
+
+angles_algorithms = mean(angles_of_interations);
 
 end
