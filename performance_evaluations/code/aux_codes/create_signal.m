@@ -24,15 +24,6 @@
 
 function [signal] = create_signal(angles, M, d, f, fs, N, u, noise, channel)
 
-%angles = data.properties.angles;
-%N = data.properties.N;
-%M = data.properties.M;
-%d = data.properties.d;
-%u = data.properties.u;
-%f = data.properties.f;
-%noise = data.properties.noise;
-%channel = data.properties.channel;
-
 P = length(angles); % source number
 A = zeros(P,M); % steering matrix
 wn = (f.*2.*pi)./fs; % normalized frequency source
