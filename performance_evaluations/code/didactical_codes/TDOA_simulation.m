@@ -17,7 +17,8 @@ d = 0.08;                       % Distancia entre os elementos
 
 % Parametros
 doa = [20]/180*pi;           % Angulos
-N = 200;                     % O numero de samples
+N = 1000;                     % O numero de samples
+Nt = 10*N;
 fs = 200000;                    % Frequencia de amostragem
 wn = [pi/100]';                 % Frequencia normalizada dos sinais
 fc = (fs*wn)/(2*pi);            % Frequencia dos sinais  em Hz
@@ -32,7 +33,7 @@ delays = tau*fs;
 
 for k = 1:M
 %    A(k,:) = exp(-1i*2*pi*fc*d*sin(doa(k))/u*[0:M-1]);
-    s(k,:) = cos(wn*[1:N]);
+    s(k,:) = cos(wn*[k*N:(k+1)*N]);
 end
 %s = s';                         % Matriz com P fontes (colunas) e M elementos (linhas)
 
@@ -44,9 +45,13 @@ signalPower_dB = 10*log10(signalPower);
 noisePower_dB = signalPower_dB - snr;   % Ruido
 noisePower = 10^(noisePower_dB/10);
 %noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
-noise = sqrt(noisePower) * randn(size(s));
+noise = sqrt(noisePower) * randn(size(1,Nt));
 %x = s + noise;    % Adicionado ruido
-x = s;
+%x = s;
+
+for k = 1:M
+    s(k,:) = s(k,:) + noise(1,k*N:(k+1)*N);
+end
 
 % Plots
 %plot(theta,Pmusic,'-k')
