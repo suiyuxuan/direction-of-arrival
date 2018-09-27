@@ -31,7 +31,7 @@ example:
 
 ## Authors
 
-Danilo Pena (doctoral student)
+Danilo Pena (PhD student)
 
 Prof. Dr. Allan Martins (doctoral advisor)
 
@@ -42,6 +42,8 @@ Carlos Lima (collaborator)
 Matheus Dória (collaborator)
 
 Mário Guilherme (collaborator)
+
+Luan Pena (collaborator)
 
 ## License
 
