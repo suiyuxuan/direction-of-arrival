@@ -46,6 +46,9 @@ for n_s = 1:length(data.snapshots)
 for n_noise = 1:numel(data.noise)
 for n_channel = 1:numel(data.channel)
 
+parameters.type_of_data = data.type_of_data(n_tod);
+parameters.angles = data.angles(n_a);
+% ...
 
 % TODO: create a variable "parameters" for the current parameters
 
@@ -73,6 +76,7 @@ for n_channel = 1:numel(data.channel)
 
 %end
 
+performance_metrics.parameters = parameters;
 performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
 performance_metrics.algorithms(current_algorithm).AE = absolute_error;
 performance_metrics.algorithms(current_algorithm).PD = PD;
