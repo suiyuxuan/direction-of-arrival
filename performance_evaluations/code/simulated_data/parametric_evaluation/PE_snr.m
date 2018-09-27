@@ -39,6 +39,7 @@ PD = zeros(1,length(snr));
 data.d = d;
 data.fc = fc;
 data.P = P;
+data.u = u;
 data.snapshot = snapshot;
 
 n = 1;

@@ -1,47 +1,48 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Author: Danilo Pena
 % Title: Snapshot
 % Description: Snapshot settings  
-
 % data: struct of data
 % P: source numbers
 % fc: source frequency
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles = snapshots(data, algorithm)
+function angles_algorithms = snapshots(algorithms, signal, snapshots, d, f, u)
 
-x = data.x;
-d = data.d;
-fc = data.fc;
-P = data.P;
-snapshot = data.snapshot;
-[M,N] = size(x); % M - elements numbers, N - length of samples
-L = floor(N/snapshot); % window number
+P = 1; % check the dimension of angles
+length_snapshots = snapshots;
+[M,N] = size(signal); % M - number of elements, N - length of samples
+L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
 
 for nw = 0:L-1
+    xw = signal(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
 
-    xw = x(:,(nw*snapshot)+1:(nw*snapshot)+snapshot);
+    for i = 1:data.iterations
 
-    switch algorithm
-	case 'MUSIC'
-            [theta, result(nw+1,:)] = MUSIC(xw, P, fc, d);
-            [Max,pos_angle] = max(result(nw+1,:));
-            angles(nw+1) = (pos_angle-1)/2;
-	case 'ESPRIT'
-            angles(nw+1) = ESPRIT(xw, P, fc, d);
-	case 'Capon'
-            [theta, result(nw+1,:)] = Capon(xw, P, fc, d);
-            [Max,pos_angle] = max(result(nw+1,:));
-            angles(nw+1) = (pos_angle-1)/2;
-	case 'Root MUSIC'
-            angles(nw+1) = Root_MUSIC(xw, P, fc, d);
+    switch data.algorithms
+        case 'MUSIC'
+            [theta, result(i,:)] = MUSIC(xw, P, f, d, u);
+            [Max,pos_angle] = max(result(i,:));
+            angles(i) = (pos_angle-1)/2;
+        case 'ESPRIT'
+            angles(i) = ESPRIT(xw, P, f, d, u);
+        case 'Capon'
+            [theta, result(i,:)] = Capon(xw, P, f, d, u);
+            [Max,pos_angle] = max(result(i,:));
+            angles(i) = 90 - ((pos_angle-1)/2);
+        case 'Root MUSIC'
+            angles(i) = Root_MUSIC(xw, P, f, d, u);
         otherwise
-            disp('Incorrect algorithm')
+            error('Incorrect algorithm');
     end
 
+    end
+
+    angles_of_interations(nw+1) = mean(angles);
 end
+
+angles_algorithms = mean(angles_of_interations);
 
 end

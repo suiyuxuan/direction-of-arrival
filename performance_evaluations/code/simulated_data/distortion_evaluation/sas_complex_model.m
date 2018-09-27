@@ -1,5 +1,4 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Authors: Arthur Diego de Lira Lima / Danilo de Santana Pena
 % Description: Additive channel complex symmetric alpha-stable (SaS)
 % Parameters:
@@ -12,6 +11,7 @@
 % alpha: tail of the distribution, 0<alpha<=2. (tip: 1<=alpha<=2)
 % alpha=2 => Gaussian; alpha=1 => Cauchy
 
+% FIXIT: multidimensional function
 function y = sas_complex_model(x, alpha, GSNR_dB)
 
 % Second shape parameter: the skewness of the distribution. If beta = 0, then the distribution is symmetric, -1<=beta<=1

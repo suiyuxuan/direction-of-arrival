@@ -1,5 +1,5 @@
 # direction-of-arrival
-A collection of DOA algorithms implemented in Matlab.
+direction-of-arrival is my doctoral project. A collection of DOA algorithms implemented in Matlab, with noise and channel models implemented. It's analyzed the performance of synthetic and real data.
 
 ## Getting Started
 Main code in performance_evaluations.

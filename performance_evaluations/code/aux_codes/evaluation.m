@@ -1,33 +1,101 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Author: Danilo Pena
 % Title: Evaluation
 % Description: Performace evaluation of algorithms for synthetic or real data
-
 % data: struct of data
-% correctAngle: known angle
+% angles: known angle (correct angles)
 % delta: acceptable angle deviation for detection
 
-function [RMSE, aboluteError, PD] = evaluation(data, algorithm, correctAngle, delta)
+function performance_metrics = evaluation(data, algorithms, angles, varargin)
 
-x = data.x;
-snapshot = data.snapshot;
-[M,N] = size(x);
-L = floor(N/snapshot);
+defaultDelta = 6;
+defaultRepeat = 1;
 
-angleAlgorithm = snapshots(data, algorithm);
+%if (nargin > 10), error('parameters number incorrect.');, end
 
-% Detection Probability calculus
-PD = sum((abs(angleAlgorithm - correctAngle)) < delta);
-PD = PD/L;
+inputs = inputParser;
+addRequired(inputs, 'data');
+addRequired(inputs, 'algorithms');
+addRequired(inputs, 'angles');
+addOptional(inputs, 'delta', defaultDelta);
+addParameter(inputs, 'repeat', defaultRepeat);
 
-% Root Mean Square Error calculus
-RMSE = sqrt( immse(angleAlgorithm,correctAngle*ones(1,length(angleAlgorithm))) );
+parse(inputs, data, algorithms, angles, varargin{:});
 
-% Absolute Error calculus
-aboluteError = mean( abs(angleAlgorithm - correctAngle) );
+data.delta = inputs.Results.delta;
+data.iterations = inputs.Results.repeat;
 
-% TODO: Variance calculus
-%variancia = var();
+PD = [];
+RMSE = [];
+absolute_error = [];
+
+%length_snapshots = data.properties.snapshots;
+%[M,N] = size(data.signal);
+%L = floor(N/length_snapshots);
+
+for n_al = 1:length(algorithms)
+for n_tod = 1:length(data.type_of_data)
+for n_a = 1:length(data.angles)
+for n_m = 1:length(data.M)
+for n_d = 1:length(data.d)
+for n_f = 1:length(data.f)
+for n_fs = 1:length(data.fs)
+for n_n = 1:length(data.N)
+for n_u = 1:length(data.u)
+for n_s = 1:length(data.snapshots)
+
+for n_noise = 1:numel(data.noise)
+for n_channel = 1:numel(data.channel)
+
+parameters.type_of_data = data.type_of_data(n_tod);
+parameters.angles = data.angles(n_a);
+% ...
+
+% TODO: create a variable "parameters" for the current parameters
+
+%for i = 1:iterations
+    signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
+    
+    angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
+
+    % Detection Probability calculus
+%        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
+
+    % Root Mean Square Error calculus
+    % FIXIT: Check problem with RMSE
+    RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
+
+    % Absolute Error calculus
+    absolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
+
+    % TODO: Variance calculus
+    %variancia = var();
+
+    % TODO: Resolution Probability
+    %PR
+
+%end
+
+performance_metrics.parameters = parameters;
+performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
+performance_metrics.algorithms(current_algorithm).AE = absolute_error;
+performance_metrics.algorithms(current_algorithm).PD = PD;
+RMSE = [];
+AE = [];
+PD = [];
+
+%end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+
+end
+end
 
 end

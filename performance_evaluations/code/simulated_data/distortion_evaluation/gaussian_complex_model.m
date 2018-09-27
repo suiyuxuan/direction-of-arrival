@@ -1,10 +1,9 @@
 % Federal University of Rio Grande do Norte
-% Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Title: Noise Gaussian Model
 % Author: Danilo Pena
 % Description: Signal generator for known SNR
 % Parameters:
-% x: synthetic signal
+% x: steering vector signal
 % snr: signal-to-noise ratio
 
 function [signal] = gaussian_complex_model(x, snr)
