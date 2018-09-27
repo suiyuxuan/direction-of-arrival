@@ -33,6 +33,7 @@ absolute_error = [];
 %[M,N] = size(data.signal);
 %L = floor(N/length_snapshots);
 
+for n_al = 1:length(algorithms)
 for n_tod = 1:length(data.type_of_data)
 for n_a = 1:length(data.angles)
 for n_m = 1:length(data.M)
@@ -53,13 +54,12 @@ parameters.angles = data.angles(n_a);
 % TODO: create a variable "parameters" for the current parameters
 
 %for i = 1:iterations
-    signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.snapshots.(n_s), data.noise{n_noise}, data.channel{n_channel});
+    signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
-    angle_algorithm = snapshots(data, signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
+    angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
 
     % Detection Probability calculus
 %        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
-    PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))];
 
     % Root Mean Square Error calculus
     % FIXIT: Check problem with RMSE
