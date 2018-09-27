@@ -1,0 +1,15 @@
+Aquisição feita no hall do CTEC, em que utilizamos uma trena para medir as distancias, 
+acabamos tendo uma imprecisão nas medições.
+
+instrumentos utilizados: 1)USB-6361
+			 2)Notebook Sony Vaio:
+                               -Modelo: PCG-61A11X
+			       -Processador: Intel core i3-2350M 
+			       -CPU: 2,30 GHz
+                               -RAM: 4 Gb 
+                         3)10 Microfones:
+                               -Modelo: FC-109
+
+Obs: Especificações da fonte são desconhecidas.
+
+Estavam presentes: Matheus, Carlos, Danilo.
