@@ -18,7 +18,7 @@
 % x(1,:) = refsig';
 % x(2,:) = sig2';
 
-%function [theta] = PHAT(x, fs, d)
+function [theta] = PHAT(x, fs, d)
 
 u = 340; % sound speed
 [M,N] = size(x);
@@ -47,4 +47,4 @@ tdoa = tau / fs;
 
 theta = asin(tdoa / (d/u)) * (180/pi);
 
-%end
+end
