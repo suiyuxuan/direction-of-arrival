@@ -11,7 +11,7 @@ clc
 %folders = dir;
 %addpath(genpath(fullfile(current_directory, folders);
 
-algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
+algorithms = ["BeamScan" "Capon" "MUSIC" "ESPRIT" "Root MUSIC"];
 type_of_data = "simulated";
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
