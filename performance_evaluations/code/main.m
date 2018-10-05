@@ -11,7 +11,7 @@ clc
 %folders = dir;
 %addpath(genpath(fullfile(current_directory, folders);
 
-algorithms = ["BeamScan" "Capon" "MUSIC" "ESPRIT" "Root MUSIC"];
+algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
 type_of_data = "simulated";
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
@@ -49,6 +49,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-save_outputs(performance_metrics, algorithms, 'noise', noise);
+%save_outputs(performance_metrics, algorithms, 'noise', noise);
 
 %end

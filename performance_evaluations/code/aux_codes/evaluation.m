@@ -47,42 +47,30 @@ for n_s = 1:length(data.snapshots)
 for n_noise = 1:numel(data.noise)
 for n_channel = 1:numel(data.channel)
 
-parameters.type_of_data = data.type_of_data(n_tod);
-parameters.angles = data.angles(n_a);
-% ...
 
 % TODO: create a variable "parameters" for the current parameters
 
-%for i = 1:iterations
     signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
     angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
 
-    % Detection Probability calculus
-%        PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L];
-
-    % Root Mean Square Error calculus
-    % FIXIT: Check problem with RMSE
-    RMSE = [RMSE sqrt( immse(angle_of_algorithm,correct_angle*ones(1,length(angle_of_algorithm))) )];
-
-    % Absolute Error calculus
-    absolute_error = [absolute_error mean( abs(angle_of_algorithm - correct_angle) )];
-
-    % TODO: Variance calculus
+    performance_metrics.algorithms = algorithms(n_al);
+    performance_metrics.type_of_data = data.type_of_data(n_tod);
+    performance_metrics.angles = data.angles(n_a);
+    performance_metrics.M = data.M(n_m);
+    performance_metrics.d = data.d(n_d);
+    performance_metrics.f = data.f(n_f);
+    performance_metrics.fs = data.fs(n_fs);
+    performance_metrics.N = data.N(n_n);
+    performance_metrics.u = data.u(n_u);
+    performance_metrics.snapshots = data.snapshots(n_s);
+    performance_metrics.noise = data.noise{n_noise};
+    performance_metrics.channel = data.channel{n_channel};
+    performance_metrics.RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
+    performance_metrics.absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
+    %PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L]; % Detection Probability
     %variancia = var();
-
-    % TODO: Resolution Probability
-    %PR
-
-%end
-
-performance_metrics.parameters = parameters;
-performance_metrics.algorithms(current_algorithm).RMSE = RMSE;
-performance_metrics.algorithms(current_algorithm).AE = absolute_error;
-performance_metrics.algorithms(current_algorithm).PD = PD;
-RMSE = [];
-AE = [];
-PD = [];
+    %PR % Resolution Probability
 
 %end
 end
