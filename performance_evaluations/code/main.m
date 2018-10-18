@@ -11,15 +11,15 @@ clc
 %folders = dir;
 %addpath(genpath(fullfile(current_directory, folders);
 
-algorithms = ['MUSIC' 'ESPRIT' 'Capon' 'Root MUSIC'];
-type_of_data = 'simulated';
+algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
+type_of_data = "simulated";
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
 distance_between_sensors = 0.08;
 source_frequency = 1000;
 sampling_frequency = 200000;
 number_of_samples = 200;
-noise{1}.model = 'gaussian';
+noise{1}.model = "gaussian";
 noise{1}.snr = -20:20;
 deviation_of_angle = 6;
 
