@@ -52,27 +52,27 @@ for n_channel = 1:numel(data.channel)
 
     signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
-    angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
+%     angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u));
+% 
+%     performance_metrics.algorithms = algorithms(n_al);
+%     performance_metrics.type_of_data = data.type_of_data(n_tod);
+%     performance_metrics.angles = data.angles(n_a);
+%     performance_metrics.M = data.M(n_m);
+%     performance_metrics.d = data.d(n_d);
+%     performance_metrics.f = data.f(n_f);
+%     performance_metrics.fs = data.fs(n_fs);
+%     performance_metrics.N = data.N(n_n);
+%     performance_metrics.u = data.u(n_u);
+%     performance_metrics.snapshots = data.snapshots(n_s);
+%     performance_metrics.noise = data.noise{n_noise};
+%     performance_metrics.channel = data.channel{n_channel};
+%     performance_metrics.RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
+%     performance_metrics.absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
+%     
+%     %PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L]; % Detection Probability
+%     %variancia = var();
+%     %PR % Resolution Probability
 
-    performance_metrics.algorithms = algorithms(n_al);
-    performance_metrics.type_of_data = data.type_of_data(n_tod);
-    performance_metrics.angles = data.angles(n_a);
-    performance_metrics.M = data.M(n_m);
-    performance_metrics.d = data.d(n_d);
-    performance_metrics.f = data.f(n_f);
-    performance_metrics.fs = data.fs(n_fs);
-    performance_metrics.N = data.N(n_n);
-    performance_metrics.u = data.u(n_u);
-    performance_metrics.snapshots = data.snapshots(n_s);
-    performance_metrics.noise = data.noise{n_noise};
-    performance_metrics.channel = data.channel{n_channel};
-    performance_metrics.RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
-    performance_metrics.absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
-    %PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L]; % Detection Probability
-    %variancia = var();
-    %PR % Resolution Probability
-
-%end
 end
 end
 end
@@ -83,6 +83,7 @@ end
 end
 end
 
+end
 end
 end
 

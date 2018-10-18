@@ -9,12 +9,12 @@
 function signal = selection_data(type_of_data, angles, M, d, f, fs, N, u, noise, channel)
 
 switch type_of_data
-    case "simulated"
+    case 'simulated'
         signal = create_signal(angles, M, d, f, fs, N, u, noise, channel);
-    case "real"
+    case 'real'
         signal = load_data(angles, M, d, fs, N, noise, channel); % missing implement
     otherwise
-        error("Type of data invalid");
+        error('Type of data invalid');
 end
 
 end

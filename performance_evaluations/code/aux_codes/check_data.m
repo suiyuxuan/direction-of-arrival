@@ -16,8 +16,8 @@ defaultN = 200;
 % FIXIT: defaultSnapshots attributed before of inputParser
 defaultSnapshots = 200;
 defaultU = 340; % speed sound propagation (~340 m/s)
-defaultNoise.model = 'deterministic';
-defaultChannel.model = 'none';
+defaultNoise{1}.model = 'deterministic';
+defaultChannel{1}.model = 'none';
 
 %defaultSNR = 0;
 %defaultAlpha = 1.7;
