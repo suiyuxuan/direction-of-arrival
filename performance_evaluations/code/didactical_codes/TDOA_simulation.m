@@ -14,7 +14,8 @@ snr_min = -40;
 snr_step = 1;
 snr_max = 20;
 
-n_iter = 10;
+n_iter = 100;
+M = 2;
 
 load gong;
 refsig = y;
@@ -27,21 +28,27 @@ s = [refsig'; sig'];
 
 %tau = zeros(1, length(snr_min:snr_step:snr_max));
 k = 0;
-for snr = snr_min:snr_step:snr_max
+for snr_i = snr_min:snr_step:snr_max
 
     k = k + 1;
-    tau_tmp = zeros(1,n_iter);
+    %tau_tmp = zeros(1,n_iter);
     for iter = 1:n_iter
-        signalPower = (1/N)*s(1,:)*s(1,:)';
-        signalPower_dB = 10*log10(signalPower);
-        noisePower_dB = signalPower_dB - snr;   % Ruido
-        noisePower = 10^(noisePower_dB/10);
-        %noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
-        noise = sqrt(noisePower) * randn(size(s));
-        x = s + noise;    % Adicionado ruido
+        for n_source = 1:M
+            signalPower = (1/N)*s(n_source,:)*s(n_source,:)';
+            signalPower_dB = 10*log10(signalPower);
+            noisePower_dB = signalPower_dB - snr_i;   % Ruido
+            noisePower = 10^(noisePower_dB/10);
+            %noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
+            noise = sqrt(noisePower) * randn(size(s(n_source,:)));
+            x(n_source,:) = s(n_source,:) + noise;    % Adicionado ruido
+        end
     
         tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
+        %tau(k) = mean(tau_tmp);
     end
-    tau(k) = mean(tau_tmp);
-
+    
+    error(k) = immse(tau_tmp, delay*ones(1,n_iter));
+    
 end
+
+plot(snr_min:snr_step:snr_max,abs(error))
