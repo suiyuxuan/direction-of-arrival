@@ -45,13 +45,13 @@ switch noise.model
     case "gaussian mixture"
         signal = gaussian_mixture_model(A*sig, noise.means, noise.variances);
     otherwise
-        error('noise model incorrect.');
+        error("noise model incorrect.");
 end
 
 switch channel.model
-    case "none"
+    case 'none'
         signal = signal;
-    case "reverberation"
+    case 'reverberation'
         signal = reverberation_model(signal, channel.a, channel.R);
     otherwise
         error('channel model incorrect.');
