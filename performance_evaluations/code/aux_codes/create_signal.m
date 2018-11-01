@@ -33,17 +33,22 @@ for k = 1:P
 end
 A = A';
 
-sig = exp(1i*(wn*[1:N]));
+sig = A*exp(1i*(wn*[1:N]));
+
+R = 25;
+for i=1:278
+    sig(i) = exp(-1i*pi*R*(i-1)*(i)/278);
+end
 
 switch noise.model
     case "deterministic"
-        signal = A*sig;
+        signal = sig;
     case "gaussian"
-        signal = gaussian_complex_model(A*sig, noise.snr);
+        signal = gaussian_complex_model(sig, noise.snr);
     case "alpha-stable"
-        signal = sas_complex_model(A*sig, noise.alpha, noise.gsnr);
+        signal = sas_complex_model(sig, noise.alpha, noise.gsnr);
     case "gaussian mixture"
-        signal = gaussian_mixture_model(A*sig, noise.means, noise.variances);
+        signal = gaussian_mixture_model(sig, noise.means, noise.variances);
     otherwise
         error("noise model incorrect.");
 end
