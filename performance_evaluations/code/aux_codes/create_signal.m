@@ -29,7 +29,7 @@ A = zeros(P,M); % steering matrix
 wn = (f.*2.*pi)./fs; % normalized frequency source
 
 for k = 1:P
-    A(k,:) = exp(-1i*2*pi*f(k)*d*sin((angles(k)*(pi/180)))/u*[0:M-1]);
+    A(k,:) = exp(-1i*2*pi*f(k)*d.*sin((angles(k).*(pi/180)))./u.*[0:M-1]);
 end
 A = A';
 
