@@ -58,7 +58,8 @@ end
 
 switch noise.model
     case "deterministic"
-        signal = sig;
+        signal.x = sig;
+        signal.snr = 0; % FIXIT: think in a better solution for this
     case "gaussian real"
         signal = gaussian_real_model(sig, noise.snr);
     case "gaussian complex"

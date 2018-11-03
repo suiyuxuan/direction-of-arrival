@@ -22,8 +22,11 @@ addParameter(inputs, 'repeat', defaultRepeat);
 
 parse(inputs, data, algorithms, angles, varargin{:});
 
-data.delta = inputs.Results.delta;
-data.iterations = inputs.Results.repeat;
+data.delta = 6;
+data.iterations = 100;
+% FIXIT:
+%data.delta = inputs.Results.delta;
+%data.iterations = inputs.Results.repeat;
 
 PD = [];
 RMSE = [];
@@ -52,8 +55,8 @@ for n_channel = 1:numel(data.channel)
 
     signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
-%     angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
-% 
+    angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
+
 %     performance_metrics.algorithms = algorithms(n_al);
 %     performance_metrics.type_of_data = data.type_of_data(n_tod);
 %     performance_metrics.angles = data.angles(n_a);

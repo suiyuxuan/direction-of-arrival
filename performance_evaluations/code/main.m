@@ -14,7 +14,7 @@ clc
 %folders = dir;
 %addpath(genpath(fullfile(current_directory, folders);
 
-algorithms = ["MUSIC" "ESPRIT" "Capon" "Root MUSIC"];
+algorithms = ["MUSIC"];
 type_of_data = "simulated-zadoff-chu";
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
@@ -22,6 +22,7 @@ distance_between_sensors = 0.08;
 source_frequency = 1000;
 sampling_frequency = 40000;
 number_of_samples = 278;
+number_of_iterations = 100;
 noise{1}.model = "gaussian complex";
 noise{1}.snr = -20:20;
 deviation_of_angle = 6;
@@ -36,7 +37,7 @@ deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
-data = check_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, 'noise', noise);
+data = check_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, number_of_iterations, 'noise', noise);
 
 %[theta, pmusic] = MUSIC(signal, 1, 1000, 0.08);
 %figure(1);
@@ -45,7 +46,7 @@ data = check_data(type_of_data, angles, number_of_sensors, distance_between_sens
 
 % step 2 - selection of algorithms
 % step 2.1 - selection of performance metrics
-performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, 'repeat', 10000);
+performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, 'repeat', number_of_iterations);
 
 %figure (1)
 %plot(performance_metrics.algorithms(:).RMSE;
