@@ -20,19 +20,23 @@ beta = 0;
 % delta=0;
 % Scale parameter, 0<gam<infty
 Cg = 1.7810724179901979852365041031071795491696452143034302053;
-A = rms(x);
 
+[M,N] = size(x);
+y = zeros(M,N);
 
-gam = sqrt( A^2 / ( 4 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % complex noise
-%gam = sqrt( A^2 / ( 2 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) );
-%gam = (norm(modulated_signal).^2)/length(modulated_signal)
+for i=1:M
+    A = rms(x(i,:));
 
-pd1 = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
+    %gam = sqrt( A^2 / ( 4 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % complex noise
+    gam = sqrt( A^2 / ( 2 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % real noise
+    %gam = (norm(modulated_signal).^2)/length(modulated_signal)
 
-n = random(pd1,size(x)) + 1j*random(pd1,size(x));
-%n = random(pd1, size(x));
+    pd1 = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
 
+    %n = random(pd1,size(x(i,:))) + 1j*random(pd1,size(x(i,:)));
+    n = random(pd1, size(x(i,:)));
 
-y = x + n;
-
+    y(i,:) = x(i,:) + n;
+end
+ 
 end

@@ -35,6 +35,7 @@ A = A';
 
 sig = A*exp(1i*(wn*[1:N]));
 
+% Zadoff-Chu Sequence
 R = 25;
 for i=1:278
     sig(i) = exp(-1i*pi*R*(i-1)*(i)/278);
