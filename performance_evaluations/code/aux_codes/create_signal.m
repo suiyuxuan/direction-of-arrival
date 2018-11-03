@@ -22,31 +22,50 @@
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
 % channel parameters: reverberation (a, N)
 
-function [signal] = create_signal(angles, M, d, f, fs, N, u, noise, channel)
+function [signal] = create_signal(type_of_simulation, angles, M, d, f, fs, N, u, noise, channel)
 
-P = length(angles); % source number
-A = zeros(P,M); % steering matrix
-wn = (f.*2.*pi)./fs; % normalized frequency source
+sig = zeros(M,N);
 
-for k = 1:P
-    A(k,:) = exp(-1i*2*pi*f(k)*d.*sin((angles(k).*(pi/180)))./u.*[0:M-1]);
-end
-A = A';
-
-sig = A*exp(1i*(wn*[1:N]));
-
-% Zadoff-Chu Sequence
-R = 25;
-for i=1:278
-    sig(i) = exp(-1i*pi*R*(i-1)*(i)/278);
+switch type_of_simulation
+    case "sine"
+        P = length(angles); % source number
+        A = zeros(P,M); % steering matrix
+        wn = (f.*2.*pi)./fs; % normalized frequency source
+        for k = 1:P
+            A(k,:) = exp(-1i*2*pi*f(k)*d.*sin((angles(k).*(pi/180)))./u.*[0:M-1]);
+        end
+        A = A';
+        sig = A*exp(1i*(wn*[1:N]));
+    case "zadoff-chu"
+        % Zadoff-Chu Sequence
+        R = 25;
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*fs);
+        sig_tmp = zeros(1,N);
+        for i=1:N
+            sig_tmp(i) = exp(-1i*pi*R*(i-1)*(i)/N);
+        end
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
+    case "voice"
+        % TODO: Find a demo voice signal
+    case "gong"
+        % TODO: load gong
+    otherwise
+        error("Type of simulation invalid");
 end
 
 switch noise.model
     case "deterministic"
         signal = sig;
-    case "gaussian"
+    case "gaussian real"
+        signal = gaussian_real_model(sig, noise.snr);
+    case "gaussian complex"
         signal = gaussian_complex_model(sig, noise.snr);
-    case "alpha-stable"
+    case "alpha-stable real"
+        signal = sas_real_model(sig, noise.alpha, noise.gsnr);
+    case "alpha-stable complex"
         signal = sas_complex_model(sig, noise.alpha, noise.gsnr);
     case "gaussian mixture"
         signal = gaussian_mixture_model(sig, noise.means, noise.variances);
