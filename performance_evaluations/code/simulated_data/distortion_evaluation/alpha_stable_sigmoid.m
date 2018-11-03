@@ -4,21 +4,22 @@ function v = alpha_stable_sigmoid(s, alpha0, GSNR_dB, s_function, s_parameter)
 % s_function: sigmoid function
 % s_parameter: parameter of the sigmoid function (if parameterized)
 
-% Scale parameter, 0<gam<infty
-Cg = 1.7810724179901979852365041031071795491696452143034302053;
-A = rms(s);
+% % Scale parameter, 0<gam<infty
+% Cg = 1.7810724179901979852365041031071795491696452143034302053;
+% A = rms(s);
+% 
+% %gam = sqrt( A^2 / ( 4 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % complex noise
+% gam = sqrt( A^2 / ( 2 * 10^(GSNR_dB/10) * Cg^(2/alpha0-1) ) );
+% 
+% pd1 = makedist('Stable', 'alpha', alpha0, 'gam', gam);
+% 
+% %imp_noise=random(pd1,size(s)) + 1j*random(pd1,size(s)); % complex noise
+% imp_noise=random(pd1,size(s));
+% 
+% % additive lpha-stable noise
+% noisy_signal = s + imp_noise;
 
-%gam = sqrt( A^2 / ( 4 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % complex noise
-gam = sqrt( A^2 / ( 2 * 10^(GSNR_dB/10) * Cg^(2/alpha0-1) ) );
-
-pd1 = makedist('Stable', 'alpha', alpha0, 'gam', gam);
-
-%imp_noise=random(pd1,size(s)) + 1j*random(pd1,size(s)); % complex noise
-imp_noise=random(pd1,size(s));
-
-% additive lpha-stable noise
-noisy_signal = s + imp_noise;
-
+noisy_signal = sas_real_model(s, alpha0, GSNR_dB);
 
 % See https://en.wikipedia.org/wiki/Sigmoid_function
 % https://en.wikipedia.org/wiki/File:Gjl-t(x).svg

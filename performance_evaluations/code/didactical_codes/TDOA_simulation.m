@@ -10,12 +10,12 @@ close all
 %tau = (d*sin(doa)/u);
 %delay = round(tau*fs);
 
-snr_min = -40;
+snr_min = -30;
 snr_step = 1;
-snr_max = 20;
-gsnr_min = -40;
+snr_max = 30;
+gsnr_min = -30;
 gsnr_step = 1;
-gsnr_max = 20;
+gsnr_max = 30;
 
 alpha = 1.7;
 n_iter = 1000;
@@ -87,7 +87,27 @@ for gsnr_i = gsnr_min:gsnr_step:gsnr_max
     error_as_nlt(k) = immse(tau_tmp, delay*ones(1,n_iter)); 
 end
 
-plot(snr_min:snr_step:snr_max,abs(error))
+k = 0;
+for gsnr_i = gsnr_min:gsnr_step:gsnr_max
+
+    k = k + 1;
+    %tau_tmp = zeros(1,n_iter);
+    for iter = 1:n_iter
+        for n_source = 1:M
+            x(n_source,:) = alpha_stable_sigmoid(s(n_source,:), alpha, gsnr_i, 1, -1);
+            %x(n_source,:) = s(n_source,:) + noise;    % Adicionado ruido
+        end
+    
+        tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
+        %tau(k) = mean(tau_tmp);
+    end
+    error_as_mod(k) = immse(tau_tmp, delay*ones(1,n_iter)); 
+end
+
+plot(snr_min:snr_step:snr_max,sqrt(abs(error)),'b')
 hold on
-plot(gsnr_min:gsnr_step:gsnr_max,abs(error_as),'r')
-plot(gsnr_min:gsnr_step:gsnr_max,abs(error_as_nlt),'k')
+plot(gsnr_min:gsnr_step:gsnr_max,sqrt(abs(error_as)),'r')
+plot(gsnr_min:gsnr_step:gsnr_max,sqrt(abs(error_as_nlt)),'k')
+plot(gsnr_min:gsnr_step:gsnr_max,sqrt(abs(error_as_mod)),'g')
+
+legend('AWGN', 'alpha-stable', 'tanh transform', 'modulus transform')
