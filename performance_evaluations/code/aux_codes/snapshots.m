@@ -8,7 +8,7 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles_algorithms = snapshots(algorithms, signal, snapshots, d, f, u)
+function angles_algorithms = snapshots(algorithms, signal, snapshots, d, f, u, fs)
 
 P = 1; % check the dimension of angles
 length_snapshots = snapshots;
@@ -34,6 +34,8 @@ for nw = 0:L-1
             angles(i) = 90 - ((pos_angle-1)/2);
         case 'Root MUSIC'
             angles(i) = Root_MUSIC(xw, P, f, d, u);
+        case 'PHAT'
+            angles(i) = PHAT(xw, fs, d);
         otherwise
             error('Incorrect algorithm');
     end
