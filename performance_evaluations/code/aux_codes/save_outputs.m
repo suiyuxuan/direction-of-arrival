@@ -4,18 +4,15 @@
 % Description: Save analysis of output
 % Parameters:
 
-function save_outputs(performance_metrics, algorithms, varargin)
+function save_outputs(performance_metrics, algorithms, noise, channel)
 
 %if (nargin > 10), error('parameters number incorrect.');, end
-
-defaultNoise.model = 'deterministic';
-defaultChannel.model = 'none';
 
 inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
 addRequired(inputs, 'algorithms');
-addParameter(inputs, 'noise', defaultNoise);
-addParameter(inputs, 'channel', defaultChannel);
+addRequired(inputs, 'noise');
+addRequired(inputs, 'channel');
 
 parse(inputs, performance_metrics, algorithms, varargin{:});
 
