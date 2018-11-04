@@ -36,8 +36,10 @@ for snr_i = 1:length(signal.snr)
                     angles(i) = 90 - ((pos_angle-1)/2);
                 case 'Root MUSIC'
                     angles(i) = Root_MUSIC(xw, P, f, d, u);
-                case 'PHAT'
-                    angles(i) = PHAT(xw, fs, d);
+                case 'GCC-PHAT'
+                    angles(i) = GCC_PHAT(xw, fs, d);
+		case 'GCC-NLT'
+		    angles(i) = GCC_NLT(xw, fs, d);
                 otherwise
                     error('Incorrect algorithm');
             end

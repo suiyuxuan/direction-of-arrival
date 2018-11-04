@@ -1,7 +1,7 @@
 % Federal University of Rio Grande do Norte
 % Title: Phase Transformation
 % Author: Danilo Pena
-% Description: Phase Transform
+% Description: Non-Linear Transform
 % x: synthetic or real signal
 % P: source numbers
 % fs: sampling frequency
@@ -18,13 +18,15 @@
 % x(1,:) = refsig';
 % x(2,:) = sig2';
 
-function [theta] = PHAT(x, fs, d)
+function [theta] = GCC_NLT(x, fs, d)
+
+xt = tanh(x);
 
 u = 340; % sound speed
-[M,N] = size(x);
+[M,N] = size(xt);
 
-X1 = fft(x(1,:));
-X2 = fft(x(2,:));
+X1 = fft(xt(1,:));
+X2 = fft(xt(2,:));
 NUM = (X1 .* conj(X2));
 W = max(abs(NUM),0.01); % max(abs(X1.*X2c), epsilon)
 R = ifft(NUM./W);
