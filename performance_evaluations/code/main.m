@@ -14,7 +14,7 @@ clc
 %folders = dir;
 %addpath(genpath(fullfile(current_directory, folders);
 
-algorithms = ["MUSIC"];
+algorithms = ["GCC-PHAT"];
 type_of_data = "simulated-zadoff-chu";
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
