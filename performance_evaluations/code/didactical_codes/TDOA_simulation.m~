@@ -71,6 +71,8 @@ k = 0;
 tau_as = zeros(1,n_iter);
 tau_as_nlt = zeros(1,n_iter);
 tau_as_mod = zeros(1,n_iter);
+tau_as_ts = zeros(1,n_iter);
+tau_as_erf = zeros(1,n_iter);
 for gsnr_i = gsnr_min:gsnr_step:gsnr_max
     k = k + 1;
     for iter = 1:n_iter
@@ -78,15 +80,18 @@ for gsnr_i = gsnr_min:gsnr_step:gsnr_max
         x_as_nlt = alpha_stable_sigmoid(s, alpha, gsnr_i, 4, -1);
         x_as_mod = alpha_stable_sigmoid(s, alpha, gsnr_i, 1, -1);
         x_as_ts = alpha_stable_sigmoid(s, alpha, gsnr_i, 3, -1);
+        x_as_erf = alpha_stable_sigmoid(s, alpha, gsnr_i, 5, -1);
         tau_as(iter) = gccphat(x_as(2,:)',x_as(1,:)');
         tau_as_nlt(iter) = gccphat(x_as_nlt(2,:)',x_as_nlt(1,:)');
         tau_as_mod(iter) = gccphat(x_as_mod(2,:)',x_as_mod(1,:)');
         tau_as_ts(iter) = gccphat(x_as_ts(2,:)',x_as_ts(1,:)');
+        tau_as_erf(iter) = gccphat(x_as_erf(2,:)',x_as_erf(1,:)');
     end
     error_as(k) = sqrt( sum( (tau_as-delay).^2 )/n_iter );
     error_as_nlt(k) = sqrt( sum( (tau_as_nlt-delay).^2 )/n_iter );
     error_as_mod(k) = sqrt( sum( (tau_as_mod-delay).^2 )/n_iter );
     error_as_ts(k) = sqrt( sum( (tau_as_ts-delay).^2 )/n_iter );
+    error_as_erf(k) = sqrt( sum( (tau_as_erf-delay).^2 )/n_iter );
 end
 
 plot(snr_min:snr_step:snr_max,error_awgn,'k-')
@@ -95,7 +100,7 @@ plot(gsnr_min:gsnr_step:gsnr_max,error_as,'k-x')
 plot(gsnr_min:gsnr_step:gsnr_max,error_as_nlt,'k-o')
 plot(gsnr_min:gsnr_step:gsnr_max,error_as_mod,'k--+')
 plot(gsnr_min:gsnr_step:gsnr_max,error_as_ts,'k-.')
-
+plot(gsnr_min:gsnr_step:gsnr_max,error_as_erf,'k-.')
 
 grid on
-legend('AWGN', 'alpha-stable', 'tanh transform', 'modulus transform')
+legend('AWGN', 'alpha-stable', 'tanh transform', 'modulus transform', 'tansig', 'erf')
