@@ -12,23 +12,35 @@ close all
 
 snr_min = -40;
 snr_step = 1;
-snr_max = 20;
+snr_max = 40;
 gsnr_min = -40;
 gsnr_step = 1;
-gsnr_max = 20;
+gsnr_max = 40;
 
-alpha = 1.8;
-n_iter = 100;
+alpha = 1.7;
+n_iter = 1000;
 M = 2;
+d = 0.08;
+angle = 20;
+u = 340;
+fs = 40000;
+N = 278;
 
-load gong;
-refsig = y;
-N = length(y);
-delay = 25;
-sig = delayseq(refsig,delay);
-tau_est = gccphat(sig,refsig);
-
-s = [refsig'; sig'];
+%load gong;
+%delay = 25;
+R = 25;
+tau = (d*sin(angle/180*pi)/u);
+delay = round(tau*fs);
+sig_tmp = zeros(1,N);
+for i=1:N
+    sig_tmp(i) = real(exp(-1i*pi*R*(i-1)*(i)/N));
+end
+for n = 1:M
+    s(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+end
+%sig = delayseq(refsig,delay);
+tau_est = gccphat(s(2,:)', s(1,:)');
+%s = [refsig'; sig'];
 
 %tau = zeros(1, length(snr_min:snr_step:snr_max));
 k = 0;
@@ -48,58 +60,39 @@ for snr_i = snr_min:snr_step:snr_max
         end
     
         tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
-        %tau(k) = mean(tau_tmp);
+
     end
     error(k) = immse(tau_tmp, delay*ones(1,n_iter));
 end
 
 k = 0;
 for gsnr_i = gsnr_min:gsnr_step:gsnr_max
-
     k = k + 1;
-    %tau_tmp = zeros(1,n_iter);
     for iter = 1:n_iter
-        for n_source = 1:M
-            x(n_source,:) = sas_real_model(s(n_source,:), alpha, gsnr_i);
-            %x(n_source,:) = s(n_source,:) + noise;    % Adicionado ruido
-        end
-    
+        x = sas_real_model(s, alpha, gsnr_i);
+        x_as_nlt = alpha_stable_sigmoid(s, alpha, gsnr_i, 4, -1);
         tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
-        %tau(k) = mean(tau_tmp);
+        tau_as_nlt(iter) = gccphat(x_as_nlt(2,:)',x_as_nlt(1,:)');
     end
     error_as(k) = immse(tau_tmp, delay*ones(1,n_iter)); 
 end
 
 k = 0;
 for gsnr_i = gsnr_min:gsnr_step:gsnr_max
-
     k = k + 1;
-    %tau_tmp = zeros(1,n_iter);
     for iter = 1:n_iter
-        for n_source = 1:M
-            x(n_source,:) = alpha_stable_sigmoid(s(n_source,:), alpha, gsnr_i, 4, -1);
-            %x(n_source,:) = s(n_source,:) + noise;    % Adicionado ruido
-        end
-    
-        tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
-        %tau(k) = mean(tau_tmp);
+        
+        
     end
     error_as_nlt(k) = immse(tau_tmp, delay*ones(1,n_iter)); 
 end
 
 k = 0;
 for gsnr_i = gsnr_min:gsnr_step:gsnr_max
-
     k = k + 1;
-    %tau_tmp = zeros(1,n_iter);
     for iter = 1:n_iter
-        for n_source = 1:M
-            x(n_source,:) = alpha_stable_sigmoid(s(n_source,:), alpha, gsnr_i, 1, -1);
-            %x(n_source,:) = s(n_source,:) + noise;    % Adicionado ruido
-        end
-    
+        x(n_source,:) = alpha_stable_sigmoid(s(n_source,:), alpha, gsnr_i, 1, -1);
         tau_tmp(iter) = gccphat(x(2,:)',x(1,:)');
-        %tau(k) = mean(tau_tmp);
     end
     error_as_mod(k) = immse(tau_tmp, delay*ones(1,n_iter)); 
 end
