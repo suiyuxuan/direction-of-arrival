@@ -57,6 +57,7 @@ for n_channel = 1:numel(data.channel)
     
     angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
 
+    save_outputs(performance_metrics, algorithms, noise, channel);
 %     performance_metrics.algorithms = algorithms(n_al);
 %     performance_metrics.type_of_data = data.type_of_data(n_tod);
 %     performance_metrics.angles = data.angles(n_a);
