@@ -57,20 +57,21 @@ for n_channel = 1:numel(data.channel)
     
     angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
 
-    save_outputs(performance_metrics, algorithms, noise, channel);
-%     performance_metrics.algorithms = algorithms(n_al);
-%     performance_metrics.type_of_data = data.type_of_data(n_tod);
-%     performance_metrics.angles = data.angles(n_a);
-%     performance_metrics.M = data.M(n_m);
-%     performance_metrics.d = data.d(n_d);
-%     performance_metrics.f = data.f(n_f);
-%     performance_metrics.fs = data.fs(n_fs);
-%     performance_metrics.N = data.N(n_n);
-%     performance_metrics.u = data.u(n_u);
-%     performance_metrics.snapshots = data.snapshots(n_s);
-%     performance_metrics.noise = data.noise{n_noise};
-%     performance_metrics.channel = data.channel{n_channel};
-%     performance_metrics.RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
+    performance_metrics.algorithms = algorithms(n_al);
+    performance_metrics.type_of_data = data.type_of_data(n_tod);
+    performance_metrics.angles = data.angles(n_a);
+    performance_metrics.M = data.M(n_m);
+    performance_metrics.d = data.d(n_d);
+    performance_metrics.f = data.f(n_f);
+    performance_metrics.fs = data.fs(n_fs);
+    performance_metrics.N = data.N(n_n);
+    performance_metrics.u = data.u(n_u);
+    performance_metrics.snapshots = data.snapshots(n_s);
+    performance_metrics.noise = data.noise{n_noise};
+    performance_metrics.channel = data.channel{n_channel};
+    
+    % RMSE
+    performance_metrics.RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
 %     performance_metrics.absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
 %     
 %     %PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L]; % Detection Probability

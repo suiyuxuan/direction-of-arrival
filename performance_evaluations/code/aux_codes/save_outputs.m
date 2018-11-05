@@ -14,12 +14,24 @@ addRequired(inputs, 'algorithms');
 addRequired(inputs, 'noise');
 addRequired(inputs, 'channel');
 
-parse(inputs, performance_metrics, algorithms, varargin{:});
+parse(inputs, performance_metrics, algorithms, noise, channel);
 
 performance_metrics = inputs.Results.performance_metrics;
 algorithms = inputs.Results.algorithms;
 noise = inputs.Results.noise;
 channel = inputs.Results.channel;
+
+%current_directory = pwd;
+%folders = dir;
+%addpath(genpath(fullfile(current_directory, folders);
+
+% TODO: step 0 - check if output exist
+%Name = path_to_output;
+%if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
+%    plot(file)
+%else
+    %Run simulation
+%end
 
 % Plots
 %figure (1);
