@@ -2,7 +2,11 @@
 % Programa de Pos-Graduacao em Engenharia Eletrica e de Computacao
 % Gaussian Mixture Model
 % Descricao: Realiza a modelagem de misturas de Gaussianas
-function [signal] = gaussian_mixture_model(x, means, variances)
+% 
+% mean, variance, p
+% SNR
+
+function [signal] = gaussian_mixture_model(x, varargin)
 
 % Mu = [1 2;-3 -5];
 % Sigma = cat(3,[2 0;0 .5],[1 0;0 1]);
