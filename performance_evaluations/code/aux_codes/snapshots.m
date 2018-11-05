@@ -36,6 +36,10 @@ for snr_i = 1:length(signal.snr)
                     angles(i) = 90 - ((pos_angle-1)/2);
                 case 'Root MUSIC'
                     angles(i) = Root_MUSIC(xw, P, f, d, u);
+                case 'Beamscan'
+                    angles(i) = BeamScan(x, P, f, d, u);
+                case 'Root MVDR'
+                    angles(i) = Root_MVDR(x, P, d, u);
                 case 'GCC-PHAT'
                     angles(i) = GCC_PHAT(xw, fs, d);
 		case 'GCC-NLT'

@@ -10,30 +10,21 @@ clear
 close all
 clc
 
-%current_directory = pwd;
-%folders = dir;
-%addpath(genpath(fullfile(current_directory, folders);
-
-algorithms = ["GCC-PHAT"];
-type_of_data = "simulated-zadoff-chu";
+algorithms = ["GCC-PHAT" "GCC-NLT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
+type_of_data = "simulated-zadoff-chu"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
 distance_between_sensors = 0.08;
-source_frequency = 1000;
+source_frequency = [1000];
 sampling_frequency = 40000;
 number_of_samples = 278;
 number_of_iterations = 100;
-noise{1}.model = "gaussian complex";
-noise{1}.snr = -20:20;
+noise{1}.model = "gaussian complex"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"
+noise{1}.snr = -40:40;
+noise{2}.model = "alpha-stable complex";
+noise{2}.gsnr = -40:40;
+noise{2}.alpha = 1.7;
 deviation_of_angle = 6;
-
-% TODO: step 0 - check if output exist
-%Name = path_to_output;
-%if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
-%    plot(file)
-%else
-    %Run simulation
-%end
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
@@ -49,10 +40,10 @@ data = check_data(type_of_data, angles, number_of_sensors, distance_between_sens
 performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, 'repeat', number_of_iterations);
 
 %figure (1)
-%plot(performance_metrics.algorithms(:).RMSE;
+%plot(performance_metrics.algorithms(:).RMSE)
 %print('test','-depsc');
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, algorithms, 'noise', noise);
+%save_outputs(performance_metrics, algorithms, noise, channel);
 
 %end
