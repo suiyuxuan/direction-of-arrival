@@ -1,0 +1,38 @@
+Creating information file ...
+
+
+
+ Audio Info d_10.0_a_20_speech 
+================================
+
+
+
+Input File     : 'd_10.0_a_20_speech.wav'
+Channels       : 4
+Sample Rate    : 48000
+Precision      : 32-bit
+Duration       : 00:00:05.00 = 240000 samples ~ 375 CDDA sectors
+File Size      : 3.84M
+Bit Rate       : 6.14M
+Sample Encoding: 32-bit Signed Integer PCM
+
+
+
+Detail audio information: 
+Samples read:            960000
+Length (seconds):      5.000000
+Scaled by:         2147483647.0
+Maximum amplitude:     0.103834
+Minimum amplitude:    -0.088485
+Midline amplitude:     0.007674
+Mean    norm:          0.004725
+Mean    amplitude:     0.000041
+RMS     amplitude:     0.007744
+Maximum delta:         0.126943
+Minimum delta:         0.000000
+Mean    delta:         0.003587
+RMS     delta:         0.005091
+Rough   frequency:         5022
+Volume adjustment:        9.631
+
+

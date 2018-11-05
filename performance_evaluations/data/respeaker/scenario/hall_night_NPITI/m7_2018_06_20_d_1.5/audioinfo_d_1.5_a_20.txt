@@ -1,0 +1,37 @@
+Creating information file ...
+
+
+
+ Audio Info d_1.5_a_20 
+================================
+
+
+
+Input File     : 'd_1.5_a_20.wav'
+Channels       : 4
+Sample Rate    : 48000
+Precision      : 32-bit
+Duration       : 00:00:05.00 = 240000 samples ~ 375 CDDA sectors
+File Size      : 3.84M
+Bit Rate       : 6.14M
+Sample Encoding: 32-bit Signed Integer PCM
+
+
+
+Detail audio information: 
+Samples read:            960000
+Length (seconds):      5.000000
+Scaled by:         2147483647.0
+Maximum amplitude:     0.086537
+Minimum amplitude:    -0.085978
+Midline amplitude:     0.000280
+Mean    norm:          0.036340
+Mean    amplitude:     0.000042
+RMS     amplitude:     0.041671
+Maximum delta:         0.062589
+Minimum delta:         0.000000
+Mean    delta:         0.019894
+RMS     delta:         0.024096
+Rough   frequency:         4417
+Volume adjustment:       11.556
+
