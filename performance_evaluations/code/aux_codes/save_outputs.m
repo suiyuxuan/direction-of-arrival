@@ -38,7 +38,7 @@ save(char(strcat("../../results/", output_name, "/results.mat")), 'performance_m
 %% Ploting
 
 if (axis_x ==  "snr") || (axis_x == "gsnr")
-    axisX = performance_metrics(k).noise{1}.snr;
+    axisX = performance_metrics(1).noise.snr;
 elseif (axis_x == "M")
     % TODO
 elseif (axis_x == "snapshots")
@@ -49,16 +49,18 @@ else
     error('Axis X invalid.');
 end
 
-
+axisY = performance_metrics(1).RMSE;
 
 % Plots
-%figure (1);
-%plot(noise.snr, performance_metrics.algorithms(1).RMSE);
-%title('Parametric Evaluation - SNR');
-%xlabel('SNR');
-%ylabel('RMSE');
-%grid on;
-%print('results/RMSE','-depsc');
+figure (1);
+plot(axisX, axisY);
+title('Parametric Evaluation - SNR');
+xlabel('SNR');
+ylabel('RMSE');
+grid on;
+legend(char(performance_metrics(1).algorithms));
+print(char(strcat("../../results/", output_name, "/results")),'-depsc');
+print(char(strcat("../../results/", output_name, "/results")),'-dpng');
 
 % TODO: Organize the structure before to save and conditions
 
