@@ -12,7 +12,7 @@ clc
 
 output_name = "teste";
 axis_x = "SNR"; % SNR/GSNR, d, M, ...
-algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
+algorithms = ["MUSIC" "ESPRIT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
 type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
@@ -20,7 +20,7 @@ distance_between_sensors = 0.08;
 source_frequency = [1000];
 sampling_frequency = 40000;
 number_of_samples = 400;
-number_of_iterations = 100;
+number_of_iterations = 1000;
 noise{1}.model = "gaussian complex"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"
 noise{1}.snr = -40:40;
 noise{2}.model = "alpha-stable complex";
