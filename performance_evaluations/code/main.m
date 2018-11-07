@@ -44,6 +44,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, algorithms, noise, channel);
+save_outputs(performance_metrics, analysis, axis_x, axis_y);
 
 %end

@@ -12,7 +12,7 @@ inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
 addRequired(inputs, 'analysis');
 addRequired(inputs, 'axis_x');
-addRequired(inputs, 'axis_y');
+addRequired(inputs, 'axis');
 
 parse(inputs, performance_metrics, analysis, axis_x, axis_y);
 
