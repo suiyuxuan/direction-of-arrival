@@ -36,11 +36,13 @@ axis_y = inputs.Results.axis_y;
 %end
 
 if (axis_x ==  "snr") || (axis_x == "gsnr")
-    disp("SNR")
+    axisX = performance_metrics(k).noise{1}.snr;
+elseif (axis_x == "M")
+    % TODO
 elseif (axis_x == "snapshots")
-    
-elseif (axis_x == "snapshots")
-    %
+    % TODO
+elseif (axis_x == "d")
+    % TODO
 else
     error('Axis X invalid.');
 end

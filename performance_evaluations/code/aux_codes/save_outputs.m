@@ -36,7 +36,7 @@ axis_y = inputs.Results.axis_y;
 %end
 
 if (axis_x ==  "snr") || (axis_x == "gsnr")
-    axisX = performance_metrics(k).noise{n}.snr;
+    axisX = performance_metrics(k).noise{1}.snr;
 elseif (axis_x == "M")
     % TODO
 elseif (axis_x == "snapshots")

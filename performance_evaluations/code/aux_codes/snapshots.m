@@ -16,7 +16,7 @@ length_snapshots = snapshots;
 L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
 
-for snr_i = 1:length(signal.snr)
+for snr_i = 1:length(signal.snr) % SNR or GSNR
 
     for nw = 0:L-1
         xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window

@@ -22,7 +22,7 @@ number_of_iterations = 100;
 noise{1}.model = "gaussian complex"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"
 noise{1}.snr = -40:40;
 noise{2}.model = "alpha-stable complex";
-noise{2}.gsnr = -40:40;
+noise{2}.snr = -40:40; % GSNR
 noise{2}.alpha = 1.7;
 deviation_of_angle = 6;
 
