@@ -56,7 +56,7 @@ for n_channel = 1:numel(data.channel)
 
     signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
-    angles_algorithms = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
+    [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms(n_al), signal, data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
 
     performance_metrics(k).algorithms = algorithms(n_al);
     performance_metrics(k).type_of_data = data.type_of_data(n_tod);
@@ -71,9 +71,11 @@ for n_channel = 1:numel(data.channel)
     performance_metrics(k).noise = data.noise{n_noise};
     performance_metrics(k).channel = data.channel{n_channel};
     
-    % RMSE
-    performance_metrics(k).RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
-%     performance_metrics.absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
+    % Metrics
+    performance_metrics(k).RMSE = RMSE;
+    performance_metrics(k).absolute_error = absolute_error;
+    %performance_metrics(k).RMSE = sqrt( mean((angles_algorithms - correct_angle).^2) ); % Root Mean Square Error
+    %performance_metrics(k).absolute_error = mean( abs(angles_algorithms - correct_angle) ); % Absolute Error
 %     
 %     %PD = [PD (sum((abs(angle_of_algorithm - correct_angle)) < delta))/L]; % Detection Probability
 %     %variancia = var();
