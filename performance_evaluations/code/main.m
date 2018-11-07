@@ -10,7 +10,7 @@ clear
 close all
 clc
 
-algorithms = ["GCC-PHAT" "GCC-NLT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
+algorithms = ["GCC-PHAT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
 type_of_data = "simulated-zadoff-chu"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
@@ -21,9 +21,9 @@ number_of_samples = 278;
 number_of_iterations = 100;
 noise{1}.model = "gaussian complex"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"
 noise{1}.snr = -40:40;
-noise{2}.model = "alpha-stable complex";
-noise{2}.snr = -40:40; % GSNR
-noise{2}.alpha = 1.7;
+%noise{2}.model = "alpha-stable complex";
+%noise{2}.snr = -40:40; % GSNR
+%noise{2}.alpha = 1.7;
 deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
@@ -44,6 +44,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-save_outputs(performance_metrics, analysis, axis_x, axis_y);
+%save_outputs(performance_metrics, analysis, axis_x, axis_y);
 
 %end

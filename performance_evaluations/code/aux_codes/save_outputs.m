@@ -47,6 +47,8 @@ else
     error('Axis X invalid.');
 end
 
+
+
 % Plots
 %figure (1);
 %plot(noise.snr, performance_metrics.algorithms(1).RMSE);
