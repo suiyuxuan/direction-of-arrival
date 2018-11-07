@@ -55,11 +55,12 @@ title('Parametric Evaluation');
 xlabel(char(axis_x));
 ylabel('RMSE');
 grid on;
-legend(char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model)));
+legend_names{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
 hold on
 
 end
 
+legend(legend_names);
 print(char(strcat("../../results/", output_name, "/results")),'-depsc');
 print(char(strcat("../../results/", output_name, "/results")),'-dpng');
 
