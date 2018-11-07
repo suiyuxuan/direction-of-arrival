@@ -9,8 +9,7 @@
 function [signal] = gaussian_complex_model(x, snrValues)
 
 N = length(x);
-N_param = length(snrValues);
-%signal.snr = snrValues;
+%N_param = length(snrValues);
 
 signalPower = (1/N)*x(1,:)*x(1,:)';
 signalPower_dB = 10*log10(signalPower);
@@ -22,7 +21,7 @@ for snr = snrValues
     noise = sqrt(noisePower/2) * (randn(size(x)) + 1j*randn(size(x)));
 
     signal.x{k} = x + noise;
-    signal.snr{k} = snrValues(k);
+    signal.snr{k} = snr;
     k = k + 1;
 end
 
