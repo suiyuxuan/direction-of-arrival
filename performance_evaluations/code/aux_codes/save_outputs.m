@@ -23,9 +23,17 @@ analysis = inputs.Results.analysis;
 axis_x = inputs.Results.axis_x;
 axis_y = inputs.Results.axis_y;
 
+%% Creating the folder and save the mat-file
+
 %current_directory = pwd;
 %folders = dir;
-%addpath(genpath(fullfile(current_directory, folders);s
+%addpath(genpath(fullfile(current_directory,folders);s
+
+if ~exist(strcat("../../results/", output_name), 'dir') %Initial step, 2 (file), 7 (folder)
+    mkdir(char(strcat("../../results/", output_name)));
+end
+
+%% Ploting
 
 if (axis_x ==  "snr") || (axis_x == "gsnr")
     axisX = performance_metrics(k).noise{1}.snr;

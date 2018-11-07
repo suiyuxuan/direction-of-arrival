@@ -50,7 +50,7 @@ parse(inputs, type_of_data, varargin{:});
 
 %% Checking the output
 
-if exist(strcat("../../results", output_name, "/results.mat"), 'file') == 2 %Initial step, 2 (file), 7 (folder)
+if exist(strcat("../../results/", output_name, "/results.mat"), 'file') == 2 %Initial step, 2 (file), 7 (folder)
     error('The output name already exist, please choose another name.');
 end
 
