@@ -8,6 +8,8 @@ function save_outputs(performance_metrics, analysis, axis_x, axis_y)
 
 %if (nargin > 10), error('parameters number incorrect.');, end
 
+% Initializing
+
 inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
 addRequired(inputs, 'analysis');
@@ -32,6 +34,18 @@ axis_y = inputs.Results.axis_y;
 %else
     %Run simulation
 %end
+
+if (axis_x ==  "snr") || (axis_x == "gsnr")
+    axisX = performance_metrics(k).noise{n}.snr;
+elseif (axis_x == "M")
+    % TODO
+elseif (axis_x == "snapshots")
+    % TODO
+elseif (axis_x == "d")
+    % TODO
+else
+    error('Axis X invalid.');
+end
 
 % Plots
 %figure (1);
