@@ -18,8 +18,9 @@ angles = zeros(1,L); % preallocate output
 
 for snr_i = 1:length(signal.snr) % SNR or GSNR
 
-    for nw = 0:L-1
-        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
+    % TODO: Analysis of snapshots
+%    for nw = 0:L-1
+%        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
 
         for i = 1:iterations
 
@@ -50,8 +51,10 @@ for snr_i = 1:length(signal.snr) % SNR or GSNR
 
         end
 
-        angles_of_snapshots(nw+1) = mean(angles);
-    end
+%        angles_of_snapshots(nw+1) = mean(angles);
+%    end
+
+    angles_of_snapshots = angles;
 
     angles_algorithms(snr_i) = mean(angles_of_snapshots);
     RMSE(snr_i) = sqrt( mean((angles_of_snapshots - correct_angle).^2) ); % Root Mean Square Error

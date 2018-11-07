@@ -10,8 +10,8 @@ clear
 close all
 clc
 
-algorithms = ["GCC-PHAT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
-type_of_data = "simulated-zadoff-chu"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
+algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
+type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
 number_of_sensors = 10;
 distance_between_sensors = 0.08;

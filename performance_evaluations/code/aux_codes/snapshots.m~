@@ -8,7 +8,7 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function angles_algorithms = snapshots(algorithms, signal, snapshots, iterations, d, f, u, fs)
+function [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms, signal, correct_angle, snapshots, iterations, d, f, u, fs)
 
 P = 1; % check the dimension of angles
 length_snapshots = snapshots;
@@ -16,10 +16,10 @@ length_snapshots = snapshots;
 L = floor(N/length_snapshots); % number of windows
 angles = zeros(1,L); % preallocate output
 
-for snr_i = 1:length(signal.snr)
+for snr_i = 1:length(signal.snr) % SNR or GSNR
 
-    for nw = 0:L-1
-        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
+%    for nw = 0:L-1
+%        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
 
         for i = 1:iterations
 
@@ -50,11 +50,14 @@ for snr_i = 1:length(signal.snr)
 
         end
 
-        angles_of_snapshots(nw+1) = mean(angles);
-    end
+%        angles_of_snapshots(nw+1) = mean(angles);
+%    end
+
+    angles_of_snapshots = angles;
 
     angles_algorithms(snr_i) = mean(angles_of_snapshots);
-    RMSE(snr_i) = sqrt( mean((angles_snapshots - correct_angle).^2) ); % Root Mean Square Error
+    RMSE(snr_i) = sqrt( mean((angles_of_snapshots - correct_angle).^2) ); % Root Mean Square Error
+    absolute_error = mean( abs(angles_of_snapshots - correct_angle) ); % Absolute Error
 end
 
 end
