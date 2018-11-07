@@ -29,7 +29,7 @@ axis_y = inputs.Results.axis_y;
 
 % TODO: step 0 - check if output exist
 %Name = path_to_output;
-%if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
+%if exist('../../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
 %    plot(file)
 %else
     %Run simulation
@@ -46,6 +46,8 @@ elseif (axis_x == "d")
 else
     error('Axis X invalid.');
 end
+
+
 
 % Plots
 %figure (1);

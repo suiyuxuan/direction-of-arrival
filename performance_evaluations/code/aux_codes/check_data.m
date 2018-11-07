@@ -47,16 +47,14 @@ parse(inputs, type_of_data, varargin{:});
 %%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% It creates and organizes the structure "data"
 
-% First, brute force solution
+%% Checking the output
 
-% Idea:
-% pp = @(noise) prod(structfun(@numel, noise));
-% pp(noise{1})
+if exist(strcat("../../results", output_name, "/results.mat"), 'file') == 2 %Initial step, 2 (file), 7 (folder)
+    error('The output name already exist, please choose another name.');
+end
 
-%data.properties.angles = inputs.Results.angles;
-%data = struct('angles', num2cell(inputs.Results.
+%% Creating structure for data
 
 data.type_of_data = inputs.Results.type_of_data;
 data.angles = inputs.Results.angles;

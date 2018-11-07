@@ -10,6 +10,7 @@ clear
 close all
 clc
 
+output_name = "teste";
 algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
 type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
@@ -44,6 +45,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-%save_outputs(performance_metrics, analysis, axis_x, axis_y);
+%save_outputs(output_name, performance_metrics, analysis, axis_x, axis_y);
 
 %end

@@ -4,7 +4,7 @@
 % Description: Save analysis of output
 % Parameters:
 
-function save_outputs(performance_metrics, analysis, axis_x, axis_y)
+function save_outputs(output_name, performance_metrics, analysis, axis_x, axis_y)
 
 %if (nargin > 10), error('parameters number incorrect.');, end
 
@@ -25,15 +25,7 @@ axis_y = inputs.Results.axis_y;
 
 %current_directory = pwd;
 %folders = dir;
-%addpath(genpath(fullfile(current_directory, folders);
-
-% TODO: step 0 - check if output exist
-%Name = path_to_output;
-%if exist('../results/results.mat', 'file') == 2 %Initial step, 2 (file), 7 (folder)
-%    plot(file)
-%else
-    %Run simulation
-%end
+%addpath(genpath(fullfile(current_directory, folders);s
 
 if (axis_x ==  "snr") || (axis_x == "gsnr")
     axisX = performance_metrics(k).noise{1}.snr;
