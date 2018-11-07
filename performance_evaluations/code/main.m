@@ -11,6 +11,7 @@ close all
 clc
 
 output_name = "teste";
+axis_x = "SNR"; % SNR/GSNR, d, M, ...
 algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
 type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
@@ -29,7 +30,7 @@ deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
 % step 1.1 - selection of interference model (noise and channel models)
-data = check_data(type_of_data, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, number_of_iterations, 'noise', noise);
+data = check_data(type_of_data, output_name, angles, number_of_sensors, distance_between_sensors, source_frequency, sampling_frequency, number_of_samples, number_of_iterations, 'noise', noise);
 
 %[theta, pmusic] = MUSIC(signal, 1, 1000, 0.08);
 %figure(1);
@@ -45,6 +46,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-%save_outputs(output_name, performance_metrics, analysis, axis_x, axis_y);
+save_outputs(output_name, performance_metrics, axis_x);
 
 %end

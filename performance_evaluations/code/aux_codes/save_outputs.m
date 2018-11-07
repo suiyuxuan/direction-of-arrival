@@ -4,7 +4,7 @@
 % Description: Save analysis of output
 % Parameters:
 
-function save_outputs(output_name, performance_metrics, analysis, axis_x, axis_y)
+function save_outputs(output_name, performance_metrics, axis_x)
 
 %if (nargin > 10), error('parameters number incorrect.');, end
 
@@ -12,16 +12,12 @@ function save_outputs(output_name, performance_metrics, analysis, axis_x, axis_y
 
 inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
-addRequired(inputs, 'analysis');
 addRequired(inputs, 'axis_x');
-addRequired(inputs, 'axis_y');
 
-parse(inputs, performance_metrics, analysis, axis_x, axis_y);
+parse(inputs, performance_metrics, axis_x);
 
 performance_metrics = inputs.Results.performance_metrics;
-analysis = inputs.Results.analysis;
 axis_x = inputs.Results.axis_x;
-axis_y = inputs.Results.axis_y;
 
 %% Creating the folder and saving the mat-file
 
@@ -37,10 +33,12 @@ save(char(strcat("../../results/", output_name, "/results.mat")), 'performance_m
 
 %% Ploting
 
-if (axis_x ==  "snr") || (axis_x == "gsnr")
-    axisX = performance_metrics(1).noise.snr;
+for k = 1:length(performance_metrics)
+
+if (axis_x ==  "SNR") || (axis_x == "GSNR")
+    axisX = performance_metrics(k).noise.snr;
 elseif (axis_x == "M")
-    % TODO
+    axisX = performance_metrics(:).M;
 elseif (axis_x == "snapshots")
     % TODO
 elseif (axis_x == "d")
@@ -49,23 +47,21 @@ else
     error('Axis X invalid.');
 end
 
-axisY = performance_metrics(1).RMSE;
-
 % Plots
+axisY = performance_metrics(k).RMSE;
 figure (1);
 plot(axisX, axisY);
-title('Parametric Evaluation - SNR');
-xlabel('SNR');
+title('Parametric Evaluation');
+xlabel(char(axis_x));
 ylabel('RMSE');
 grid on;
-legend(char(performance_metrics(1).algorithms));
+legend(char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model)));
+hold on
+
+end
+
 print(char(strcat("../../results/", output_name, "/results")),'-depsc');
 print(char(strcat("../../results/", output_name, "/results")),'-dpng');
 
-% TODO: Organize the structure before to save and conditions
-
-%if (noise.model ~= "deterministic")&&(length(noise.snr)>1))
-
-save('../results/general_results.mat','performance_metrics');
 
 end
