@@ -79,8 +79,6 @@ for n_channel = 1:numel(data.channel)
 %     %variancia = var();
 %     %PR % Resolution Probability
 
-    k = k + 1;
-
 end
 end
 end
