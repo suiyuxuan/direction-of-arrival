@@ -5,6 +5,8 @@
 % 
 % mean, variance, p
 % SNR
+%
+% 
 
 function [signal] = gaussian_mixture_model(x, varargin)
 
@@ -19,15 +21,30 @@ function [signal] = gaussian_mixture_model(x, varargin)
 % histogram(X(:,1)')
 % histogram(X(:,2)')
 
+mu1 = 0;
+mu2 = 0;
+
 [M,N] = size(x);
 signal = zeros(M,N);
 
-for i=1:M
-    gm = gmdistribution(means, variances);
-    n = random(gm,N)';
-    %n = mvnrnd(means, diag(variances),N);
+signalPower = (1/N)*x(1,:)*x(1,:)';
+signalPower_dB = 10*log10(signalPower);
+
+for snr = snrValues
+%for i=1:M
+    noisePower_dB = signalPower_dB - snr;
+    noisePower = 10^(noisePower_dB/10);
+ 
+%    gm = gmdistribution(means, variances, p);
+%    n = random(gm,N)';
+
+    noise1 = normrnd(mu1, sigma1, [N,1]);
+    noise2 = normrnd(mu2, sigma2, [N,1]);
+    n = [noise1 noise2];
     noise = n(randperm(N));
+
     signal(i,:) = x(i,:) + noise;
+%end
 end
 
 end
