@@ -8,7 +8,7 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms, signal, correct_angle, snapshots, iterations, d, f, u, fs)
+function [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms, signal, correct_angle, snapshots, iterations, d, f, u, fs, type_of_data, P, Nt, noise, channel)
 
 P = 1; % check the dimension of angles
 length_snapshots = snapshots;
@@ -21,10 +21,12 @@ for snr_i = 1:length(signal.snr) % SNR or GSNR
     % TODO: Analysis of snapshots
 %    for nw = 0:L-1
 %        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
-        xw = signal.x{snr_i};
+        %xw = signal.x{snr_i};
 
         for i = 1:iterations
 
+            signal = selection_data(type_of_data, correct_angle, P, d, f, fs, Nt, u, noise, channel);
+            xw = signal.x{snr_i};
             switch algorithms
                 case 'MUSIC'
                     [theta, result(i,:)] = MUSIC(xw, P, f, d, u);

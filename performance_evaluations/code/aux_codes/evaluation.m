@@ -54,9 +54,12 @@ for n_channel = 1:numel(data.channel)
 
 % TODO: create a variable "parameters" for the current parameters
 
-    signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
+    %signal = selection_data(data.type_of_data(n_tod), data.angles(n_a), data.M(n_m), data.d(n_d), data.f(n_f), data.fs(n_fs), data.N(n_n), data.u(n_u), data.noise{n_noise}, data.channel{n_channel});
     
-    [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms(n_al), signal, data.angles(n_a), data.snapshots(n_s), data.iterations, data.d(n_d), data.f(n_f), data.u(n_u), data.fs(n_fs));
+    [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms(n_al), signal, ...
+    data.angles(n_a), data.snapshots(n_s), data.iterations, data.d(n_d), ...
+    data.f(n_f), data.u(n_u), data.fs(n_fs), data.type_of_data(n_tod), ...
+    data.M(n_m), data.N(n_n), data.noise{n_noise}, data.channel{n_channel});
 
     performance_metrics(k).algorithms = algorithms(n_al);
     performance_metrics(k).type_of_data = data.type_of_data(n_tod);
