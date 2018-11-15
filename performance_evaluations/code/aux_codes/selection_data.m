@@ -6,19 +6,19 @@
 % angles: known angle (correct angles)
 % delta: acceptable angle deviation for detection
 
-function signal = selection_data(type_of_data, angles, M, d, f, fs, N, u, noise, channel)
+function signal = selection_data(type_of_data, angles, M, d, f, fs, N, u, noise, channel, snr)
 
 switch type_of_data
     case "simulated-sine"
-        signal = create_signal("sine", angles, M, d, f, fs, N, u, noise, channel);
+        signal = create_signal("sine", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "real"
         signal = load_data(angles, M, d, fs, N, noise, channel); % missing implement
     case "simulated-zadoff-chu"
-        signal = create_signal("zadoff-chu", angles, M, d, f, fs, N, u, noise, channel);
+        signal = create_signal("zadoff-chu", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "simulated-voice"
-        signal = create_signal("voice", angles, M, d, f, fs, N, u, noise, channel);
+        signal = create_signal("voice", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "demo-gong"
-        signal = create_signal("gong", angles, M, d, f, fs, N, u, noise, channel);
+        signal = create_signal("gong", angles, M, d, f, fs, N, u, noise, channel, snr);
     otherwise
         error("Type of data invalid");
 end

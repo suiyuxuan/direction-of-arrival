@@ -22,7 +22,7 @@
 % channel model: 'reverberation', 'echo', 'multiple echos', 'flanging', 'statistical'
 % channel parameters: reverberation (a, N)
 
-function [signal] = create_signal(type_of_simulation, angles, M, d, f, fs, N, u, noise, channel)
+function [signal] = create_signal(type_of_simulation, angles, M, d, f, fs, N, u, noise, channel, snr)
 
 sig = zeros(M,N);
 
@@ -61,13 +61,13 @@ switch noise.model
         signal = sig;
         %signal.snr = 0; % FIXIT: think in a better solution for this
     case "gaussian real"
-        signal = gaussian_real_model(sig, noise.snr);
+        signal = gaussian_real_model(sig, snr);
     case "gaussian complex"
-        signal = gaussian_complex_model(sig, noise.snr);
+        signal = gaussian_complex_model(sig, snr);
     case "alpha-stable real"
-        signal = sas_real_model(sig, noise.alpha, noise.snr); % GSNR
+        signal = sas_real_model(sig, noise.alpha, snr); % GSNR
     case "alpha-stable complex"
-        signal = sas_complex_model(sig, noise.alpha, noise.snr); % GSNR
+        signal = sas_complex_model(sig, noise.alpha, snr); % GSNR
     case "gaussian mixture"
         signal = gaussian_mixture_model(sig, noise.means, noise.variances);
     otherwise
