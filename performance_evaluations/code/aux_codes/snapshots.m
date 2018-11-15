@@ -26,7 +26,7 @@ for snr_i = 1:length(noise.snr) % SNR or GSNR
         for i = 1:iterations
 
             signal = selection_data(type_of_data, correct_angle, M, d, f, fs, N, u, noise, channel);
-            xw = signal.x{snr_i};
+            xw = signal;
             switch algorithms
                 case 'MUSIC'
                     [theta, result(i,:)] = MUSIC(xw, P, f, d, u);
