@@ -8,7 +8,7 @@
 % d: distance between the elements (microphones)
 % snapshot: length of window of snapshot
 
-function [angles_algorithms, RMSE, absolute_error] = snapshots(algorithms, correct_angle, snapshots, iterations, d, f, u, fs, type_of_data, M, N, noise, channel)
+function [mean_angles, RMSE, absolute_error] = snapshots(algorithms, correct_angle, snapshots, iterations, d, f, u, fs, type_of_data, M, N, noise, channel)
 
 P = 1; % check the dimension of angles
 %length_snapshots = snapshots;
@@ -26,28 +26,27 @@ for snr_i = 1:length(noise.snr) % SNR or GSNR
         for i = 1:iterations
 
             signal = selection_data(type_of_data, correct_angle, M, d, f, fs, N, u, noise, channel, snr_i);
-            xw = signal;
             switch algorithms
                 case 'MUSIC'
-                    [theta, result(i,:)] = MUSIC(xw, P, f, d, u);
+                    [theta, result(i,:)] = MUSIC(signal, P, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
                     angles(i) = (pos_angle-1)/2;
                 case 'ESPRIT'
-                    angles(i) = ESPRIT(xw, P, f, d, u);
+                    angles(i) = ESPRIT(signal, P, f, d, u);
                 case 'Capon'
-                    [theta, result(i,:)] = Capon(xw, P, f, d, u);
+                    [theta, result(i,:)] = Capon(signal, P, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
                     angles(i) = 90 - ((pos_angle-1)/2);
                 case 'Root MUSIC'
-                    angles(i) = Root_MUSIC(xw, P, f, d, u);
+                    angles(i) = Root_MUSIC(signal, P, f, d, u);
                 case 'Beamscan'
-                    angles(i) = BeamScan(x, P, f, d, u);
+                    angles(i) = BeamScan(signal, P, f, d, u);
                 case 'Root MVDR'
-                    angles(i) = Root_MVDR(x, P, d, u);
+                    angles(i) = Root_MVDR(signal, P, d, u);
                 case 'GCC-PHAT'
-                    angles(i) = GCC_PHAT(xw, fs, d);
+                    angles(i) = GCC_PHAT(signal, fs, d);
                 case 'GCC-NLT'
-                    angles(i) = GCC_NLT(xw, fs, d);
+                    angles(i) = GCC_NLT(signal, fs, d);
                 otherwise
                     error('Incorrect algorithm');
             end
@@ -57,11 +56,11 @@ for snr_i = 1:length(noise.snr) % SNR or GSNR
 %        angles_of_snapshots(nw+1) = mean(angles);
 %    end
 
-    angles_of_snapshots = angles;
+%    angles_of_snapshots = angles;
 
-    angles_algorithms(snr_i) = mean(angles_of_snapshots);
-    RMSE(snr_i) = sqrt( mean((angles_of_snapshots - correct_angle).^2) ); % Root Mean Square Error
-    absolute_error(snr_i) = mean( abs(angles_of_snapshots - correct_angle) ); % Absolute Error
+    mean_angles(snr_i) = mean(angles);
+    RMSE(snr_i) = sqrt( mean((angles - correct_angle).^2) ); % Root Mean Square Error
+    absolute_error(snr_i) = mean( abs(angles - correct_angle) ); % Absolute Error
 end
 
 end
