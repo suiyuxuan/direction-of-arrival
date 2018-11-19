@@ -16,16 +16,23 @@ P = 1; % check the dimension of angles
 %L = floor(N/length_snapshots); % number of windows
 %angles = zeros(1,L); % preallocate output
 
-for snr_i = 1:length(noise.snr) % SNR or GSNR
+mean_angles = zeros(1,length(noise.snr));
+RMSE = zeros(1,length(noise.snr));
+absolute_error = zeros(1,length(noise.snr));
+
+k = 1;
+for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
 
     % TODO: Analysis of snapshots
 %    for nw = 0:L-1
 %        xw = signal.x{snr_i}(:,(nw*length_snapshots)+1:(nw*length_snapshots)+length_snapshots); % window
         %xw = signal.x{snr_i};
-
+        angles = zeros(1,iterations);
+        
         for i = 1:iterations
 
             signal = selection_data(type_of_data, correct_angle, M, d, f, fs, N, u, noise, channel, snr_i);
+            
             switch algorithms
                 case 'MUSIC'
                     [theta, result(i,:)] = MUSIC(signal, P, f, d, u);
@@ -58,9 +65,10 @@ for snr_i = 1:length(noise.snr) % SNR or GSNR
 
 %    angles_of_snapshots = angles;
 
-    mean_angles(snr_i) = mean(angles);
-    RMSE(snr_i) = sqrt( mean((angles - correct_angle).^2) ); % Root Mean Square Error
-    absolute_error(snr_i) = mean( abs(angles - correct_angle) ); % Absolute Error
+    mean_angles(k) = mean(angles);
+    RMSE(k) = sqrt( mean((angles - correct_angle).^2) ); % Root Mean Square Error
+    absolute_error(k) = mean( abs(angles - correct_angle) ); % Absolute Error
+    k = k + 1;
 end
 
 end
