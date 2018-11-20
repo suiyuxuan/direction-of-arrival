@@ -25,11 +25,11 @@ axis_x = inputs.Results.axis_x;
 %folders = dir;
 %addpath(genpath(fullfile(current_directory,folders);s
 
-if ~exist(strcat("../../results/", output_name), 'dir') %Initial step, 2 (file), 7 (folder)
-    mkdir(char(strcat("../../results/", output_name)));
+if ~exist(strcat("../results/", output_name), 'dir') %Initial step, 2 (file), 7 (folder)
+    mkdir(char(strcat("../results/", output_name)));
 end
 
-save(char(strcat("../../results/", output_name, "/results.mat")), 'performance_metrics');
+save(char(strcat("../results/", output_name, "/results.mat")), 'performance_metrics');
 
 %% Ploting
 
@@ -48,22 +48,36 @@ else
 end
 
 % Plots
+hR = figure (1);
 axisY = performance_metrics(k).RMSE;
-figure (1);
 plot(axisX, axisY);
-title('Parametric Evaluation');
+title('Parametric Evaluation - RMSE');
 %xlabel(char(axis_x));
 xlabel('SNR - GSNR');
 ylabel('RMSE');
 grid on;
-legend_names{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
+%legend_namesR{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
+%legend(hR,legend_namesR);
+hold on
+
+hA = figure (2);
+axisY = performance_metrics(k).absolute_error;
+plot(axisX, axisY);
+title('Parametric Evaluation - Absolute Error');
+%xlabel(char(axis_x));
+xlabel('SNR - GSNR');
+ylabel('Absolute Error');
+grid on;
+%legend_namesA{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
+%legend(hA,legend_namesA);
 hold on
 
 end
 
-legend(legend_names);
-print(char(strcat("../../results/", output_name, "/results")),'-depsc');
-print(char(strcat("../../results/", output_name, "/results")),'-dpng');
+print(hR, char(strcat("../results/", output_name, "/RMSE")),'-depsc');
+print(hA, char(strcat("../results/", output_name, "/AE")),'-depsc');
+print(hR, char(strcat("../results/", output_name, "/RMSE")),'-dpng');
+print(hA, char(strcat("../results/", output_name, "/AE")),'-dpng');
 
 
 end

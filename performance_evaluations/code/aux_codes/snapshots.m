@@ -67,9 +67,12 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
 
 %    angles_of_snapshots = angles;
 
-    mean_angles(k) = mean(angles);
-    RMSE(k) = sqrt( mean((angles - correct_angle).^2) ); % Root Mean Square Error
-    absolute_error(k) = mean( abs(angles - correct_angle) ); % Absolute Error
+    error_angle = angles - correct_angle;
+    
+    mean_angles(k) = mean(angles); % Mean Angle
+    RMSE(k) = sqrt( mean((error_angle).^2) ); % Root Mean Square Error
+    absolute_error(k) = mean( abs(error_angle) ); % Absolute Error
+    
     k = k + 1;
 end
 
