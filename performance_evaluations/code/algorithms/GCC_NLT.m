@@ -35,14 +35,14 @@ R = ifft(NUM./W);
 [argvalue, argmax] = max(abs(R));
 %%[argvalue, argmax] = max(abs(fftshift(R)));
 %[argvalue, argmax] = max(fftshift(R));
-% half = length(x(2,:))/2;
+half = length(x(2,:))/2;
 % if argmax>half
 %    tau = argmax - 2*half - 1;
 % elseif argmax<half
 %    tau = argmax - half - 1; % it's necessary subtract maxshift
 % end
-%tau = argmax - 2*half - 1;
-tau = argmax - 1;
+tau = -(argmax - 2*half - 1);
+%tau = argmax - 1;
 
 %tau = gccphat(x(2,:)', x(1,:)', 200000);
 tdoa = tau / fs;
