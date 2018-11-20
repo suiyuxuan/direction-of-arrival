@@ -50,29 +50,30 @@ end
 % Plots
 hR = figure (1);
 axisY = performance_metrics(k).RMSE;
-plot(axisX, axisY);
+pR(k) = plot(axisX, axisY);
 title('Parametric Evaluation - RMSE');
 %xlabel(char(axis_x));
 xlabel('SNR - GSNR');
 ylabel('RMSE');
 grid on;
-%legend_namesR{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
-%legend(hR,legend_namesR);
+legend_namesR{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
 hold on
 
 hA = figure (2);
 axisY = performance_metrics(k).absolute_error;
-plot(axisX, axisY);
+pA(k) = plot(axisX, axisY);
 title('Parametric Evaluation - Absolute Error');
 %xlabel(char(axis_x));
 xlabel('SNR - GSNR');
 ylabel('Absolute Error');
 grid on;
-%legend_namesA{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
-%legend(hA,legend_namesA);
+legend_namesA{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
 hold on
 
 end
+
+legend(pR,legend_namesR);
+legend(pA,legend_namesA);
 
 print(hR, char(strcat("../results/", output_name, "/RMSE")),'-depsc');
 print(hA, char(strcat("../results/", output_name, "/AE")),'-depsc');
