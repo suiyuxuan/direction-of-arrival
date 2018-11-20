@@ -51,9 +51,11 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                 case 'Root MVDR'
                     angles(i) = Root_MVDR(signal, P, d, u);
                 case 'GCC-PHAT'
-                    angles(i) = GCC_PHAT(signal, fs, d);
+                    pos_angle = GCC_PHAT(signal, fs, d);
+                    angles(i) = 90 - pos_angle;
                 case 'GCC-NLT'
-                    angles(i) = GCC_NLT(signal, fs, d);
+                    pos_angle = GCC_NLT(signal, fs, d);
+                    angles(i) = 90 - pos_angle;
                 otherwise
                     error('Incorrect algorithm');
             end
