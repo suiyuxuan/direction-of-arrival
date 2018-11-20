@@ -75,10 +75,10 @@ end
 legend(pR,legend_namesR);
 legend(pA,legend_namesA);
 
-print(hR, char(strcat("../results/", output_name, "/RMSE")),'-depsc');
-print(hA, char(strcat("../results/", output_name, "/AE")),'-depsc');
-print(hR, char(strcat("../results/", output_name, "/RMSE")),'-dpng');
-print(hA, char(strcat("../results/", output_name, "/AE")),'-dpng');
+print(hR, strcat("../results/", output_name, "/RMSE"),'-depsc');
+print(hA, strcat("../results/", output_name, "/AE"),'-depsc');
+print(hR, strcat("../results/", output_name, "/RMSE"),'-dpng');
+print(hA, strcat("../results/", output_name, "/AE"),'-dpng');
 
 
 end
