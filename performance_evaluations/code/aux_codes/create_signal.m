@@ -61,9 +61,9 @@ switch noise.model
         signal = sig;
         %signal.snr = 0; % FIXIT: think in a better solution for this
     case "gaussian real"
-        signal = gaussian_real_model(sig, snr);
+        signal = gaussian_model(sig, "real", snr);
     case "gaussian complex"
-        signal = gaussian_complex_model(sig, snr);
+        signal = gaussian_model(sig, "complex", snr);
     case "alpha-stable real"
         signal = sas_real_model(sig, noise.alpha, snr); % GSNR
     case "alpha-stable complex"
