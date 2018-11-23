@@ -18,7 +18,7 @@ signalPower_dB = 10*log10(signalPower);
 %for snr = snrValues
 noisePower_dB = signalPower_dB - snr;
 noisePower = 10^(noisePower_dB/10);
-switch noise
+switch model
     case "real"
         noise = sqrt(noisePower) * randn(size(x));
     case "complex"
