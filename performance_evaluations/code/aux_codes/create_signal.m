@@ -65,9 +65,9 @@ switch noise.model
     case "gaussian complex"
         signal = gaussian_model(sig, "complex", snr);
     case "alpha-stable real"
-        signal = sas_real_model(sig, noise.alpha, snr); % GSNR
+        signal = sas_model(sig, "real", noise.alpha, snr); % GSNR
     case "alpha-stable complex"
-        signal = sas_complex_model(sig, noise.alpha, snr); % GSNR
+        signal = sas_model(sig, "complex", noise.alpha, snr); % GSNR
     case "gaussian mixture"
         signal = gaussian_mixture_model(sig, noise.means, noise.variances);
     otherwise
