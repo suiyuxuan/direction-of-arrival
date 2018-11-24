@@ -43,7 +43,7 @@ switch type_of_simulation
         delay = round(tau*fs);
         sig_tmp = zeros(1,N);
         for i=1:N
-            sig_tmp(i) = exp(-1i*pi*R*(i-1)*(i)/N);
+            sig_tmp(i) = real(exp(-1i*pi*R*(i-1)*(i)/N));
         end
         for n = 1:M
             sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];

@@ -54,8 +54,8 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                     angles(i) = GCC_PHAT(signal, fs, d);
                 case 'GCC-NLT'
                     angles(i) = GCC_NLT(signal, fs, d);
-		case 'FLOS-PHAT'
-		    angles(i) = FLOS_PHAT(signal, fs, d);
+                case 'FLOS-PHAT'
+                    angles(i) = FLOS_PHAT(signal, fs, d);
                 otherwise
                     error('Incorrect algorithm');
             end
