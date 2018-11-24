@@ -43,7 +43,7 @@ half = length(x(2,:))/2;
 % end
 tau = -(argmax - 2*half - 1);
 %tau = argmax - 1;
-
+tau = gccphat(xt(2,:)',xt(1,:)');
 %tau = gccphat(x(2,:)', x(1,:)', 200000);
 tdoa = tau / fs;
 
