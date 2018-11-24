@@ -33,15 +33,13 @@ A = rms(x(1,:));
 % ruido - termo aditivo 
 switch model 
     case "real"
-        gam = sqrt( A^2 / ( 2 * 10^(GSNR_dB/10) * Cg^(2/alpha-1) ) ); % real noise
-        pd1 = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
-        n = random(pd1, size(x(i,:)));
+        gam = sqrt( A^2 / ( 2 * 10^(gsnr/10) * Cg^(2/alpha-1) ) ); % real noise
+        pd = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
+        n = random(pd, size(x));
     case "complex"
-        % Scale parameter, 0<gam<infty
-        gam = sqrt( A^2 / ( 4 * 10^(gsnr/10) * Cg^(2/alpha-1) ) );
-        % Configura a geracao da distribuicao alpha-estavel
-        pd1 = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
-        n = random(pd1,size(x)) + 1j*random(pd1,size(x));
+        gam = sqrt( A^2 / ( 4 * 10^(gsnr/10) * Cg^(2/alpha-1) ) ); % Scale parameter, 0<gam<infty
+        pd = makedist('Stable', 'alpha', alpha, 'gam', gam, 'beta', beta );
+        n = random(pd,size(x)) + 1j*random(pd,size(x));
     otherwise
         error("noise model incorrect.");
 end
