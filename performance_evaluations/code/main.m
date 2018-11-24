@@ -10,12 +10,12 @@ clear
 close all
 clc
 
-output_name = "teste";
+output_name = "teste_gmm";
 axis_x = "SNR"; % SNR/GSNR, d, M, ...
-algorithms = ["GCC-PHAT" "GCC-NLT" "FLOS-PHAT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
-type_of_data = "simulated-zadoff-chu"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
+algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
+type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
-number_of_sensors = 2;
+number_of_sensors = 6;
 distance_between_sensors = 0.08;
 source_frequency = [1000];
 sampling_frequency = 40000;
@@ -25,9 +25,13 @@ speed_propagation = 340;
 number_of_snapshots = 1;
 %noise{1}.model = "gaussian real"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"
 %noise{1}.snr = -20:40;
-noise{1}.model = "alpha-stable real";
-noise{1}.snr = -20:40; % GSNR
-noise{1}.alpha = 1.7;
+%noise{1}.model = "alpha-stable real";
+%noise{1}.snr = -20:40; % GSNR
+%noise{1}.alpha = 1.7;
+noise{1}.model = "gaussian complex";
+noise{1}.snr = -20:40;
+noise{2}.model = "gaussian mixture complex";
+noise{2}.snr = -20:40;
 deviation_of_angle = 6;
 
 % step 1 - selection of simulated or real signal and its parameters
