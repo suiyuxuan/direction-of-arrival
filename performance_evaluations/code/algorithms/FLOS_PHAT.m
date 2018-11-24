@@ -14,25 +14,42 @@ u = 340; % speed of sound
 p = 0.5;
 
 % Frequency domain
-X1 = fft(x(1,:).^p);
-X2 = fft(x(2,:).^p);
-%NUM = (X1 .* conj(X2)) .* (abs(exp(-1i*)).^p) .* conj(exp(-1i*));
-NUM = (X1 .* conj(X2));
-W = max(abs(NUM),0.01); % max(abs(X1.*X2c), epsilon)
-R = ifft(NUM./W);
+% X1 = fft(x(1,:).^p);
+% X2 = fft(x(2,:).^p);
+% %NUM = (X1 .* conj(X2)) .* (abs(exp(-1i*)).^p) .* conj(exp(-1i*));
+% NUM = (X1 .* conj(X2));
+% W = max(abs(NUM),0.01); % max(abs(X1.*X2c), epsilon)
+% R = ifft(NUM./W);
 
-%for n=1:N
-%for m=1:N
-%R(m) = (1/N)*sum( abs(x(1,n)).^(a-1) .* x(2,n+m).^(b-1) ); % Time domain
-%end
-%end
+xm = [x(2,:) x(2,:)];
 
-[argvalue, argmax] = max(abs(R));
+R = zeros(1,N);
+for m=1:N
+    for n=1:N
+        R(m) = R(m) + (1/N)*( abs(x(1,n)) .* conj(xm(1,n+m)).^(p-1) ); % Time domain
+    end
+end
 
-half = length(x(2,:))/2;
+% NUM = zeros(1,N);
+% DEN = zeros(1,N);
+% R = zeros(1,N);
+% for m=1:N
+%     for n=1:N
+%         if (n+m)<N
+%             NUM(n) = NUM(n) + x(1,n).*(abs(x(2,n+m)).^p-1).*sign(x(2,n+m));
+%             DEN(n) = DEN(n) + abs(x(2,n+m)).^p;
+%         end
+%     end
+%     R(m) = NUM(n) / DEN(n);
+% end
 
-%tau = argmax - 1;
-tau = -(argmax - 2*half - 1);
+[argvalue, argmax] = max(abs(R-mean(R)));
+
+%half = length(x(2,:))/2;
+%%tau = argmax - 1;
+%tau = -(argmax - 2*half - 1);
+tau = argmax;
+
 tdoa = tau / fs;
 theta = asin(tdoa / (d/u)) * (180/pi);
 
