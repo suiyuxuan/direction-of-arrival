@@ -6,7 +6,7 @@
 % x: steering vector signal
 % snrValues: All signal-to-noise ratios
 
-function [signal] = gaussian_complex_model(x, snr)
+function [signal] = gaussian_model(x, model, snr)
 
 N = length(x);
 %N_param = length(snrValues);
@@ -18,7 +18,14 @@ signalPower_dB = 10*log10(signalPower);
 %for snr = snrValues
 noisePower_dB = signalPower_dB - snr;
 noisePower = 10^(noisePower_dB/10);
-noise = sqrt(noisePower/2) * (randn(size(x)) + 1j*randn(size(x)));
+switch model
+    case "real"
+        noise = sqrt(noisePower) * randn(size(x));
+    case "complex"
+        noise = sqrt(noisePower/2) * (randn(size(x)) + 1j*randn(size(x)));
+    otherwise
+        error("noise model incorrect.");
+end
 
 signal = x + noise;
     %signal.snr{k} = snr;

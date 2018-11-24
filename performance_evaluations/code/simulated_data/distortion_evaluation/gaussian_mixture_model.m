@@ -8,7 +8,7 @@
 %
 % 
 
-function [signal] = gaussian_mixture_model(x, varargin)
+function [signal] = gaussian_mixture_model(x, model, snr)
 
 % Mu = [1 2;-3 -5];
 % Sigma = cat(3,[2 0;0 .5],[1 0;0 1]);
@@ -24,27 +24,33 @@ function [signal] = gaussian_mixture_model(x, varargin)
 mu1 = 0;
 mu2 = 0;
 
+p1 = 0.90;
+p2 = 1 - p1;
+
 [M,N] = size(x);
 signal = zeros(M,N);
 
 signalPower = (1/N)*x(1,:)*x(1,:)';
 signalPower_dB = 10*log10(signalPower);
 
-for snr = snrValues
-%for i=1:M
-    noisePower_dB = signalPower_dB - snr;
-    noisePower = 10^(noisePower_dB/10);
- 
-%    gm = gmdistribution(means, variances, p);
-%    n = random(gm,N)';
+noisePower_dB = signalPower_dB - snr;
+noisePower = 10^(noisePower_dB/10);
 
-    noise1 = normrnd(mu1, sigma1, [N,1]);
-    noise2 = normrnd(mu2, sigma2, [N,1]);
-    n = [noise1 noise2];
-    noise = n(randperm(N));
+sigma = noisePower;
+sigma1 = sigma / (p1 + 100*p2);
+sigma2 = 100*sigma1;
 
-    signal(i,:) = x(i,:) + noise;
-%end
-end
+%means = [0 0; 0 0];
+%variances = [sigma1 0; 0 sigma2];
+%p = [p1 p2];
+%gm = gmdistribution(means, variances, p);
+%n = random(gm,N)';
+
+noise1 = normrnd(mu1, sigma1, [N*p1,1]);
+noise2 = normrnd(mu2, sigma2, [N*p2,1]);
+n = [noise1 noise2];
+noise = n(randperm(N));
+
+signal = x + noise;
 
 end

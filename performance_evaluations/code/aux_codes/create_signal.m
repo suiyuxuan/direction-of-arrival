@@ -61,26 +61,28 @@ switch noise.model
         signal = sig;
         %signal.snr = 0; % FIXIT: think in a better solution for this
     case "gaussian real"
-        signal = gaussian_real_model(sig, snr);
+        signal = gaussian_model(sig, "real", snr);
     case "gaussian complex"
-        signal = gaussian_complex_model(sig, snr);
+        signal = gaussian_model(sig, "complex", snr);
     case "alpha-stable real"
-        signal = sas_real_model(sig, noise.alpha, snr); % GSNR
+        signal = sas_model(sig, "real", noise.alpha, snr); % GSNR
     case "alpha-stable complex"
-        signal = sas_complex_model(sig, noise.alpha, snr); % GSNR
-    case "gaussian mixture"
-        signal = gaussian_mixture_model(sig, noise.means, noise.variances);
+        signal = sas_model(sig, "complex", noise.alpha, snr); % GSNR
+    case "gaussian mixture real"
+        signal = gaussian_mixture_model(sig, "real", snr);
+    case "gaussian mixture complex"
+        signal = gaussian_mixture_model(sig, "complex", snr);
     otherwise
         error("noise model incorrect.");
 end
 
 switch channel.model
-    case 'none'
+    case "none"
         signal = signal;
-    case 'reverberation'
+    case "reverberation"
         signal = reverberation_model(signal, channel.a, channel.R);
     otherwise
-        error('channel model incorrect.');
+        error("channel model incorrect.");
 end
 
 end
