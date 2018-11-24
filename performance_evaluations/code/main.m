@@ -10,7 +10,7 @@ clear
 close all
 clc
 
-output_name = "teste";
+output_name = "teste2";
 axis_x = "SNR"; % SNR/GSNR, d, M, ...
 algorithms = ["GCC-PHAT" "GCC-NLT"]; % "MUSIC", "ESPRIT", "Capon", "Root MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT"
 type_of_data = "simulated-zadoff-chu"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
@@ -20,7 +20,7 @@ distance_between_sensors = 0.08;
 source_frequency = [1000];
 sampling_frequency = 40000;
 number_of_samples = 400;
-number_of_iterations = 10000;
+number_of_iterations = 1000;
 speed_propagation = 340;
 number_of_snapshots = 1;
 noise{1}.model = "gaussian complex"; % "deterministic", "gaussian real", "gaussian complex", "alpha-stable real", "alpha-stable complex", "gaussian mixture"

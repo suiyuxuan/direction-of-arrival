@@ -18,13 +18,13 @@ gsnr_step = 1;
 gsnr_max = 40;
 
 alpha = 1.7;
-n_iter = 10000;
+n_iter = 100;
 M = 2;
 d = 0.08;
 angle = 20;
 u = 340;
 fs = 40000;
-N = 278;
+N = 400; % N = 278;
 
 %load gong;
 %delay = 25;
@@ -33,7 +33,7 @@ tau = (d*sin(angle/180*pi)/u);
 delay = round(tau*fs);
 sig_tmp = zeros(1,N);
 for i=1:N
-    sig_tmp(i) = real(exp(-1i*pi*R*(i-1)*(i)/N));
+    sig_tmp(i) = exp(-1i*pi*R*(i-1)*(i)/N); % sig_tmp(i) = real(exp(-1i*pi*R*(i-1)*(i)/N));
 end
 s = zeros(M,N);
 for n = 1:M
@@ -90,37 +90,43 @@ for gsnr_i = gsnr_min:gsnr_step:gsnr_max
     for iter = 1:n_iter
         x_as = sas_real_model(s, alpha, gsnr_i);
         x_as_nlt = alpha_stable_sigmoid(s, alpha, gsnr_i, 4, -1);
-        x_as_mod = alpha_stable_sigmoid(s, alpha, gsnr_i, 1, -1);
-        x_as_ts = alpha_stable_sigmoid(s, alpha, gsnr_i, 3, -1);
-        x_as_erf = alpha_stable_sigmoid(s, alpha, gsnr_i, 5, -1);
-        x_as_gud = alpha_stable_sigmoid(s, alpha, gsnr_i, 7, -1);
-        x_as_ps = alpha_stable_sigmoid(s, alpha, gsnr_i, 10, -1);
+%         x_as_mod = alpha_stable_sigmoid(s, alpha, gsnr_i, 1, -1);
+%         x_as_ts = alpha_stable_sigmoid(s, alpha, gsnr_i, 3, -1);
+%         x_as_erf = alpha_stable_sigmoid(s, alpha, gsnr_i, 5, -1);
+%         x_as_gud = alpha_stable_sigmoid(s, alpha, gsnr_i, 7, -1);
+%         x_as_ps = alpha_stable_sigmoid(s, alpha, gsnr_i, 10, -1);
         tau_as(iter) = gccphat(x_as(2,:)',x_as(1,:)');
         tau_as_nlt(iter) = gccphat(x_as_nlt(2,:)',x_as_nlt(1,:)');
-        tau_as_mod(iter) = gccphat(x_as_mod(2,:)',x_as_mod(1,:)');
-        tau_as_ts(iter) = gccphat(x_as_ts(2,:)',x_as_ts(1,:)');
-        tau_as_erf(iter) = gccphat(x_as_erf(2,:)',x_as_erf(1,:)');
-        tau_as_gud(iter) = gccphat(x_as_gud(2,:)',x_as_gud(1,:)');
-        tau_as_ps(iter) = gccphat(x_as_ps(2,:)',x_as_ps(1,:)');
+%         tau_as_mod(iter) = gccphat(x_as_mod(2,:)',x_as_mod(1,:)');
+%         tau_as_ts(iter) = gccphat(x_as_ts(2,:)',x_as_ts(1,:)');
+%         tau_as_erf(iter) = gccphat(x_as_erf(2,:)',x_as_erf(1,:)');
+%         tau_as_gud(iter) = gccphat(x_as_gud(2,:)',x_as_gud(1,:)');
+%         tau_as_ps(iter) = gccphat(x_as_ps(2,:)',x_as_ps(1,:)');
+        tdoa_as(iter) = tau_as(iter) / fs;
+        theta_as(iter) = asin(tdoa_as(iter) / (d/u)) * (180/pi);
+        tdoa_as_nlt(iter) = tau_as_nlt(iter) / fs;
+        theta_as_nlt(iter) = asin(tdoa_as_nlt(iter) / (d/u)) * (180/pi);
     end
-    error_as(k) = sqrt( sum( (tau_as-delay).^2 )/n_iter );
-    error_as_nlt(k) = sqrt( sum( (tau_as_nlt-delay).^2 )/n_iter );
-    error_as_mod(k) = sqrt( sum( (tau_as_mod-delay).^2 )/n_iter );
-    error_as_ts(k) = sqrt( sum( (tau_as_ts-delay).^2 )/n_iter );
-    error_as_erf(k) = sqrt( sum( (tau_as_erf-delay).^2 )/n_iter );
-    error_as_gud(k) = sqrt( sum( (tau_as_gud-delay).^2 )/n_iter );
-    error_as_ps(k) = sqrt( sum( (tau_as_ps-delay).^2 )/n_iter );
+    error_as(k) = sqrt( sum( (theta_as - angle).^2 )/n_iter );
+    error_as_nlt(k) = sqrt( sum( (theta_as_nlt - angle).^2 )/n_iter );
+%     error_as(k) = sqrt( sum( (tau_as-delay).^2 )/n_iter );
+%     error_as_nlt(k) = sqrt( sum( (tau_as_nlt-delay).^2 )/n_iter );
+%     error_as_mod(k) = sqrt( sum( (tau_as_mod-delay).^2 )/n_iter );
+%     error_as_ts(k) = sqrt( sum( (tau_as_ts-delay).^2 )/n_iter );
+%     error_as_erf(k) = sqrt( sum( (tau_as_erf-delay).^2 )/n_iter );
+%     error_as_gud(k) = sqrt( sum( (tau_as_gud-delay).^2 )/n_iter );
+%     error_as_ps(k) = sqrt( sum( (tau_as_ps-delay).^2 )/n_iter );
 end
 
-plot(snr_min:snr_step:snr_max,error_awgn,'k-')
+%plot(snr_min:snr_step:snr_max,error_awgn,'k-')
 hold on
 plot(gsnr_min:gsnr_step:gsnr_max,error_as,'k-x')
 plot(gsnr_min:gsnr_step:gsnr_max,error_as_nlt,'k-o')
-plot(gsnr_min:gsnr_step:gsnr_max,error_as_mod,'k--+')
-plot(gsnr_min:gsnr_step:gsnr_max,error_as_ts,'k-.')
-plot(gsnr_min:gsnr_step:gsnr_max,error_as_erf,'k-d')
-plot(gsnr_min:gsnr_step:gsnr_max,error_as_gud,'k--^')
-plot(gsnr_min:gsnr_step:gsnr_max,error_as_ps,'k--^')
+%plot(gsnr_min:gsnr_step:gsnr_max,error_as_mod,'k--+')
+%plot(gsnr_min:gsnr_step:gsnr_max,error_as_ts,'k-.')
+%plot(gsnr_min:gsnr_step:gsnr_max,error_as_erf,'k-d')
+%plot(gsnr_min:gsnr_step:gsnr_max,error_as_gud,'k--^')
+%plot(gsnr_min:gsnr_step:gsnr_max,error_as_ps,'k--^')
 
 grid on
 legend('AWGN', 'alpha-stable', 'tanh transform', 'modulus transform', 'tansig', 'erf', 'Gudermannian', 'parameterized sigmoid')
