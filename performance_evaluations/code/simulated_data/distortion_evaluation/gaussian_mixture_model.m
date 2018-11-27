@@ -46,20 +46,15 @@ sigma2 = 100*sigma1;
 %gm = gmdistribution(means, variances, p);
 %n = random(gm,N)';
 
-noise1 = normrnd(mu1, sigma1, [N*p1,1]);
-noise2 = normrnd(mu2, sigma2, [N*p2,1]);
-n = [noise1' noise2'];
-noise = n(randperm(N));
-
 switch model
     case "real"
-        noise1 = normrnd(mu1, sqrt(sigma1), [N*p1,1]);
-        noise2 = normrnd(mu2, sqrt(sigma2), [N*p2,1]);
+        noise1 = normrnd(mu1, sqrt(sigma1), [int32(floor(N*p1)),1]);
+        noise2 = normrnd(mu2, sqrt(sigma2), [int32(N - (floor(N*p1))),1]);
         n = [noise1' noise2'];
         noise = n(randperm(N));
     case "complex"
-        noise1 = normrnd(mu1, sqrt(sigma1/2), [N*p1,1]);
-        noise2 = normrnd(mu2, sqrt(sigma2/2), [N*p2,1]);
+        noise1 = normrnd(mu1, sqrt(sigma1/2), [int32(floor(N*p1)),1]);
+        noise2 = normrnd(mu2, sqrt(sigma2/2), [int32(N - (floor(N*p1))),1]);
         n = [(noise1 + 1j*noise1)' (noise2 + 1j*noise2)'];
         noise = n(randperm(N));
     otherwise
