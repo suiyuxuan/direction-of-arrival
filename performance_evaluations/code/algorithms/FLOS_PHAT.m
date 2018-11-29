@@ -24,24 +24,23 @@ p = 0.5;
 xm = [x(2,:) x(2,:)];
 
 R = zeros(1,N);
-for m=1:N
-    for n=1:N
-        R(m) = R(m) + (1/N)*( abs(x(1,n)) .* conj(xm(1,n+m)).^(p-1) ); % Time domain
-    end
-end
 
-% NUM = zeros(1,N);
-% DEN = zeros(1,N);
-% R = zeros(1,N);
 % for m=1:N
 %     for n=1:N
-%         if (n+m)<N
-%             NUM(n) = NUM(n) + x(1,n).*(abs(x(2,n+m)).^p-1).*sign(x(2,n+m));
-%             DEN(n) = DEN(n) + abs(x(2,n+m)).^p;
-%         end
+%         R(m) = R(m) + (1/N)*( abs(x(1,n)) .* (xm(1,n+m)).^(p-1) ); % Time domain
 %     end
-%     R(m) = NUM(n) / DEN(n);
 % end
+
+NUM = zeros(1,N);
+DEN = zeros(1,N);
+R = zeros(1,N);
+for m=1:N
+    for n=1:N
+        NUM(n) = NUM(n) + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        DEN(n) = DEN(n) + abs(xm(1,n+m)).^p;
+    end
+    R(m) = NUM(n) / DEN(n);
+end
 
 [argvalue, argmax] = max(abs(R-mean(R)));
 
