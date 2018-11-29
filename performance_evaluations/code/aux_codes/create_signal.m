@@ -71,7 +71,7 @@ switch noise.model
     case "gaussian mixture real"
         signal = gaussian_mixture_model(sig, "real", snr);
     case "gaussian mixture complex"
-        signal = gaussian_mixture_model(sig, "complex", snr);
+        signal = gaussian_mixture_model(sig, "complex", noise.rel, snr);
     otherwise
         error("noise model incorrect.");
 end

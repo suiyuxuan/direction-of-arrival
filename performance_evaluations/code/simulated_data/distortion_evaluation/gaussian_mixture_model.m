@@ -8,7 +8,7 @@
 %
 % 
 
-function [signal] = gaussian_mixture_model(x, model, snr)
+function [signal] = gaussian_mixture_model(x, model, rel, snr)
 
 % Mu = [1 2;-3 -5];
 % Sigma = cat(3,[2 0;0 .5],[1 0;0 1]);
@@ -37,8 +37,8 @@ noisePower_dB = signalPower_dB - snr;
 noisePower = 10^(noisePower_dB/10);
 
 sigma = noisePower;
-sigma1 = sigma / (p1 + 100*p2);
-sigma2 = 100*sigma1;
+sigma1 = sigma / (p1 + rel*p2);
+sigma2 = rel*sigma1;
 
 %means = [0 0; 0 0];
 %variances = [sigma1 0; 0 sigma2];
