@@ -20,11 +20,11 @@ gsnr_max = 40;
 alpha = 1.7;
 n_iter = 100;
 M = 2;
-d = 0.08;
+d = 0.05;
 angle = 20;
 u = 340;
 fs = 40000;
-N = 400; % N = 278;
+N = 353; % N = 278;
 
 %load gong;
 %delay = 25;
