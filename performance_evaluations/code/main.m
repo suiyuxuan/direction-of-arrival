@@ -11,7 +11,6 @@ close all
 clc
 
 output_name = "teste_MUSIC_gmm_rel";
-axis_x = "SNR"; % SNR/GSNR, d, M, ...
 algorithms = ["MUSIC"]; % "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "GCC-PHAT", "GCC-NLT", "FLOS-PHAT", "NLT-MUSIC"
 type_of_data = "simulated-sine"; % "simulated-sine", "simulated-zadoff-chu", "simulated-voice", "demo-gong", "real"
 angles = [20]; % This should be a cell (combination of number of source)
@@ -55,6 +54,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 %print('test','-depsc');
 
 % step 3 - save outputs
-save_outputs(output_name, performance_metrics, axis_x);
+save_outputs(output_name, performance_metrics);
 
 %end

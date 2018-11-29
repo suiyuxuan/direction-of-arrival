@@ -4,7 +4,7 @@
 % Description: Save analysis of output
 % Parameters:
 
-function save_outputs(output_name, performance_metrics, axis_x)
+function save_outputs(output_name, performance_metrics)
 
 %if (nargin > 10), error('parameters number incorrect.');, end
 
@@ -14,10 +14,9 @@ inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
 addRequired(inputs, 'axis_x');
 
-parse(inputs, performance_metrics, axis_x);
+parse(inputs, performance_metrics);
 
 performance_metrics = inputs.Results.performance_metrics;
-axis_x = inputs.Results.axis_x;
 
 %% Creating the folder and saving the mat-file
 
@@ -32,6 +31,8 @@ end
 save(char(strcat("../results/", output_name, "/results.mat")), 'performance_metrics');
 
 %% Ploting
+
+axis_x = "SNR"; % TODO: Check the multidimensional vectors
 
 for k = 1:length(performance_metrics)
 
