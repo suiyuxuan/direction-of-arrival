@@ -43,11 +43,11 @@ for m=1:N
 end
 
 [argvalue, argmax] = max(abs(R-mean(R)));
-
-%half = length(x(2,:))/2;
-%%tau = argmax - 1;
-%tau = -(argmax - 2*half - 1);
-tau = argmax;
+%%[argvalue, argmax] = max(abs(fftshift(R)));
+%[argvalue, argmax] = max(fftshift(R));
+half = length(x(2,:))/2;
+tau = -(argmax - 2*half - 1);
+%tau = argmax - 1;
 
 tdoa = tau / fs;
 theta = asin(tdoa / (d/u)) * (180/pi);

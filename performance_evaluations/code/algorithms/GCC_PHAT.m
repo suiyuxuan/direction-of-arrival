@@ -39,10 +39,9 @@ half = length(x(2,:))/2;
 % elseif argmax<half
 %    tau = argmax - half - 1; % it's necessary subtract maxshift
 % end
-%tau = -(argmax - 2*half - 1);
+tau = -(argmax - 2*half - 1);
 %tau = argmax - 1;
-tau = gccphat(x(2,:)',x(1,:)');
-%tau = gccphat(x(2,:)', x(1,:)', 200000);
+%tau = gccphat(x(2,:)',x(1,:)');
 tdoa = tau / fs;
 
 theta = asin(tdoa / (d/u)) * (180/pi);
