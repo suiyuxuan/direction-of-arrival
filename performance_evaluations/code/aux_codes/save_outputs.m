@@ -12,7 +12,6 @@ function save_outputs(output_name, performance_metrics)
 
 inputs = inputParser;
 addRequired(inputs, 'performance_metrics');
-addRequired(inputs, 'axis_x');
 
 parse(inputs, performance_metrics);
 
