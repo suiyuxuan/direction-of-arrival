@@ -3,8 +3,7 @@
 % Author: Danilo Pena
 % Description: FLOS-PHAT
 % x: synthetic or real signal
-% P: source numbers
-% f: source frequency
+% fs: sampling frequency
 % d: distance between the elements
 
 function [theta] = FLOS_PHAT(x, fs, d)

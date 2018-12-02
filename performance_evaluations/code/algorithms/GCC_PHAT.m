@@ -3,7 +3,6 @@
 % Author: Danilo Pena
 % Description: Phase Transform
 % x: synthetic or real signal
-% P: source numbers
 % fs: sampling frequency
 % d: distance between the elements
 
