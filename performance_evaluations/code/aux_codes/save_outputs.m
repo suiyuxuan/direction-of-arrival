@@ -79,6 +79,7 @@ print(hR, strcat("../results/", output_name, "/RMSE"),'-depsc');
 print(hA, strcat("../results/", output_name, "/AE"),'-depsc');
 print(hR, strcat("../results/", output_name, "/RMSE"),'-dpng');
 print(hA, strcat("../results/", output_name, "/AE"),'-dpng');
-
+saveas(hR,strcat("../results/", output_name, "/RMSE.fig"))
+saveas(hA,strcat("../results/", output_name, "/AE.fig"))
 
 end
