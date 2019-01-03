@@ -30,23 +30,23 @@ R = zeros(1,N);
 %     end
 % end
 
-NUM = zeros(1,N);
-DEN = zeros(1,N);
 R = zeros(1,N);
 for m=1:N
+    NUM = 0;
+    DEN = 0;
     for n=1:N
-        NUM(n) = NUM(n) + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
-        DEN(n) = DEN(n) + abs(xm(1,n+m)).^p;
+        NUM = NUM + x(1,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+        %NUM(n) = NUM(n) + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN(n) = DEN(n) + abs(xm(1,n+m)).^p;
     end
-    R(m) = NUM(n) / DEN(n);
+    R(m) = NUM / DEN;
 end
 
 [argvalue, argmax] = max(abs(R-mean(R)));
-%%[argvalue, argmax] = max(abs(fftshift(R)));
-%[argvalue, argmax] = max(fftshift(R));
-half = length(x(2,:))/2;
-tau = -(argmax - 2*half - 1);
-%tau = argmax - 1;
+%half = length(x(2,:))/2;
+%tau = -(argmax - 2*half - 1);
+tau = argmax;
 
 tdoa = tau / fs;
 theta = asin(tdoa / (d/u)) * (180/pi);
