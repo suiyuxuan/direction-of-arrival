@@ -10,25 +10,9 @@ function [theta] = FLOS_PHAT(x, fs, d)
 
 [M,N] = size(x); % M - element number, N - number of samples
 u = 340; % speed of sound
-p = 0.5;
-
-% Frequency domain
-% X1 = fft(x(1,:).^p);
-% X2 = fft(x(2,:).^p);
-% %NUM = (X1 .* conj(X2)) .* (abs(exp(-1i*)).^p) .* conj(exp(-1i*));
-% NUM = (X1 .* conj(X2));
-% W = max(abs(NUM),0.01); % max(abs(X1.*X2c), epsilon)
-% R = ifft(NUM./W);
+%p = 0.5;
 
 xm = [x(2,:) x(2,:)];
-
-R = zeros(1,N);
-
-% for m=1:N
-%     for n=1:N
-%         R(m) = R(m) + (1/N)*( abs(x(1,n)) .* (xm(1,n+m)).^(p-1) ); % Time domain
-%     end
-% end
 
 R = zeros(1,N);
 for m=1:N
@@ -37,8 +21,8 @@ for m=1:N
     for n=1:N
         NUM = NUM + x(1,n).*sign(xm(1,n+m));
         DEN = DEN + abs(xm(1,n+m));
-        %NUM(n) = NUM(n) + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
-        %DEN(n) = DEN(n) + abs(xm(1,n+m)).^p;
+        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN = DEN + abs(xm(1,n+m)).^p;
     end
     R(m) = NUM / DEN;
 end
