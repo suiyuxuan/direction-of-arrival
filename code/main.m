@@ -3,6 +3,7 @@
 % Author: Danilo Pena
 % Description: Main function for performance evaluation
 %
+% Parameters
 % algorithms: % "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", 
 % "GCC-PHAT", "GCC-NLT", "FLOS-PHAT", "NLT-MUSIC"
 %
@@ -13,15 +14,21 @@
 % "alpha-stable real", "alpha-stable complex", 
 % "gaussian mixture real", "gaussian mixture complex"
 
-%% Clear and close
+%% Clear, close plots and add paths
 
 clear
 close all
 clc
 
-%% Param
+addpath(genpath('algorithms'));
+addpath(genpath('aux_codes'));
+addpath(genpath('distortion_models'));
+addpath(genpath('didactical_codes'));
 
-output_name = "teste_DOA";
+%% Parameters
+
+% Example 1 - DOA algorithms evaluation
+output_name = "test_DOA";
 algorithms = ["MUSIC" "NLT-MUSIC"];
 type_of_data = "simulated-sine";
 angles = [20];
@@ -43,7 +50,8 @@ noise{3}.snr = -20:40;
 noise{3}.alpha = 1.7;
 deviation_of_angle = 6;
 
-% output_name = "teste_TDOA";
+% Example 2 - TDOA algorithms evaluation
+% output_name = "test_TDOA";
 % algorithms = ["GCC-PHAT" "GCC-NLT" "FLOS-PHAT"];
 % type_of_data = "simulated-zadoff-chu";
 % angles = [20];
