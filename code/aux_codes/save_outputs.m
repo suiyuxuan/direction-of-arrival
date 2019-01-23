@@ -31,28 +31,15 @@ save(char(strcat("../results/", output_name, "/results.mat")), 'performance_metr
 
 %% Ploting
 
-axis_x = "SNR"; % TODO: Check the multidimensional vectors
-
 for k = 1:length(performance_metrics)
 
-if (axis_x ==  "SNR") || (axis_x == "GSNR")
-    axisX = performance_metrics(k).noise.snr;
-elseif (axis_x == "M")
-    axisX = performance_metrics(:).M;
-elseif (axis_x == "snapshots")
-    % TODO
-elseif (axis_x == "d")
-    % TODO
-else
-    error('Axis X invalid.');
-end
+axisX = performance_metrics(k).noise.snr;
 
 % Plots
 hR = figure (1);
 axisY = performance_metrics(k).RMSE;
 pR(k) = plot(axisX, axisY);
 title('Parametric Evaluation - RMSE');
-%xlabel(char(axis_x));
 xlabel('SNR - GSNR');
 ylabel('RMSE');
 grid on;
@@ -63,7 +50,6 @@ hA = figure (2);
 axisY = performance_metrics(k).absolute_error;
 pA(k) = plot(axisX, axisY);
 title('Parametric Evaluation - Absolute Error');
-%xlabel(char(axis_x));
 xlabel('SNR - GSNR');
 ylabel('Absolute Error');
 grid on;
