@@ -80,7 +80,7 @@ switch channel.model
     case "none"
         signal = signal;
     case "reverberation"
-        signal = reverberation_model(signal, channel.a, channel.R);
+        signal = reverberation_model(signal, fs, channel.D);
     otherwise
         error("channel model incorrect.");
 end
