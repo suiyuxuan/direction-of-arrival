@@ -10,9 +10,20 @@
 function [signal] = reverberation_model(x, fs, D)
 
 % Matlab Solution (https://www.mathworks.com/help/audio/ref/reverberator-system-object.html)
+
+[M,N] = size(x);
+signal = zeros(M,N);
+
 reverb = reverberator('PreDelay', D, 'SampleRate', fs);
-signal = step(reverb, x); 
-%signal = reverb(x); % older versions
+
+for ii=1:M
+    tmp = step(reverb, x(ii,:)'); 
+    tmp = tmp';
+    signal(ii,:) = tmp(1,:);
+    %signal = reverb(x); % older versions
+end
+
+signal = signal';
 
 % My simple solution
 %H = (alpha + z^(-R))/(1 + alpha*z^(-R)); % alpha < 1, alpha=0.8 R=4
