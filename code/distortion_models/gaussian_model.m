@@ -2,6 +2,7 @@
 % Title: Noise Gaussian Model
 % Author: Danilo Pena
 % Description: Signal generator for known SNR
+%
 % Parameters:
 % x: steering vector signal
 % snrValues: All signal-to-noise ratios
