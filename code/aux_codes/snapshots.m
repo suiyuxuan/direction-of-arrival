@@ -56,6 +56,8 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                     angles(i) = GCC_NLT(signal, fs, d);
                 case 'FLOS-PHAT'
                     angles(i) = FLOS_PHAT(signal, fs, d);
+                case 'GFLOS-PHAT'
+                    angles(i) = GFLOS_PHAT(signal, fs, d);
                 case 'NLT-MUSIC'
                     [theta, result(i,:)] = NLT_MUSIC(signal, P, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
