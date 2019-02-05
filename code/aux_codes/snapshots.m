@@ -38,14 +38,18 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                     [theta, result(i,:)] = MUSIC(signal, P, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
                     angles(i) = (pos_angle-1)/2;
+                case 'NLT-MUSIC'
+                    [theta, result(i,:)] = NLT_MUSIC(signal, P, f, d, u);
+                    [Max,pos_angle] = max(result(i,:));
+                    angles(i) = (pos_angle-1)/2;
+                case 'Root-MUSIC'
+                    angles(i) = Root_MUSIC(signal, P, f, d, u);
                 case 'ESPRIT'
                     angles(i) = ESPRIT(signal, P, f, d, u);
                 case 'Capon'
                     [theta, result(i,:)] = Capon(signal, P, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
                     angles(i) = 90 - ((pos_angle-1)/2);
-                case 'Root-MUSIC'
-                    angles(i) = Root_MUSIC(signal, P, f, d, u);
                 case 'Beamscan'
                     angles(i) = BeamScan(signal, P, f, d, u);
                 case 'Root MVDR'
@@ -58,10 +62,6 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                     angles(i) = FLOS_PHAT(signal, fs, d);
                 case 'GFLOS-PHAT'
                     angles(i) = GFLOS_PHAT(signal, fs, d);
-                case 'NLT-MUSIC'
-                    [theta, result(i,:)] = NLT_MUSIC(signal, P, f, d, u);
-                    [Max,pos_angle] = max(result(i,:));
-                    angles(i) = (pos_angle-1)/2;
                 otherwise
                     error('Incorrect algorithm');
             end
