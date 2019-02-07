@@ -1,0 +1,40 @@
+noise_m6
+audioinfo_noise_m6
+-e Creating information file ...
+
+
+-e 
+ Audio Info noise_m6 
+================================
+
+
+
+Input File     : 'noise_m6.wav'
+Channels       : 4
+Sample Rate    : 48000
+Precision      : 32-bit
+Duration       : 00:00:05.00 = 240000 samples ~ 375 CDDA sectors
+File Size      : 3.84M
+Bit Rate       : 6.14M
+Sample Encoding: 32-bit Signed Integer PCM
+
+-e 
+
+Detail audio information: 
+Samples read:            960000
+Length (seconds):      5.000000
+Scaled by:         2147483647.0
+Maximum amplitude:     0.744742
+Minimum amplitude:    -0.586758
+Midline amplitude:     0.078992
+Mean    norm:          0.029588
+Mean    amplitude:     0.000030
+RMS     amplitude:     0.048799
+Maximum delta:         0.607569
+Minimum delta:         0.000000
+Mean    delta:         0.031732
+RMS     delta:         0.051416
+Rough   frequency:         8049
+Volume adjustment:        1.343
+
+
