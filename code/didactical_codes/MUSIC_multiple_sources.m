@@ -36,8 +36,8 @@ signalPower_dB = 10*log10(signalPower);
 noisePower_dB = signalPower_dB - snrValue;   % Ruido
 noisePower = 10^(noisePower_dB/10);
 noise = sqrt(noisePower/2) * (randn(size(s)) + 1j*randn(size(s)));
-%x = s + noise;                          % Adicionando ruido
-x = s + awgn(s,snrValue);
+x = s + noise;                          % Adicionando ruido
+%x = s + awgn(s,snrValue);
 
 %%
 % Encontrando o angulo
