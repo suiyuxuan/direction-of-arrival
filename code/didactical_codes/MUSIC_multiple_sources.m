@@ -16,9 +16,7 @@ M = 10;                         % Numero de elementos no arranjo
 % Parametros
 doa = [20 60]/180*pi;           % Angulos
 N = 200;                     % O numero de samples
-%fs = 200000;                    % Frequencia de amostragem (200kHz)
-wn = [pi/2 pi/2]';                 % Frequencia normalizada dos sinais (1kHz)
-%fs = (fs*wn)./(2*pi);            % Frequencia dos sinais  em Hz
+wn = [pi/3 pi/4]';                 % Frequencia normalizada dos sinais (1kHz)
 P = length(doa);                 % Numero de fontes de sinais
 snrValue = 20;                        % Relacao sinal ruido
 
