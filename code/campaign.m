@@ -9,7 +9,7 @@
 % output_name: name of the saved folder
 
 clear
-close all
 clc
+close all
 
 main("param_TDOA", "TDOA_test");

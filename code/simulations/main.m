@@ -17,12 +17,6 @@
 
 function main(parameters, output_name)
 
-%% Clear, close plots and add paths
-
-clear
-close all
-clc
-
 addpath(genpath('../algorithms'));
 addpath(genpath('../aux_codes'));
 addpath(genpath('../distortion_models'));

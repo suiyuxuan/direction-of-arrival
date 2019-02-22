@@ -4,7 +4,6 @@
 % Description: TDOA
 
 %% Parameters
-output_name = "TDOA";
 algorithms = ["GCC-PHAT" "GCC-NLT" "FLOC" "GFLOC"];
 type_of_data = "simulated-zadoff-chu";
 angles = [20];
@@ -13,7 +12,7 @@ distance_between_sensors = 0.05;
 source_frequency = [1000];
 sampling_frequency = 40000;
 number_of_samples = 353; %139
-number_of_iterations = 10000;
+number_of_iterations = 1;
 speed_propagation = 340;
 number_of_snapshots = 1;
 noise{1}.model = "gaussian real";

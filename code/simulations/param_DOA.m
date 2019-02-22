@@ -4,7 +4,6 @@
 % Description: DOA
 
 %% Parameters
-output_name = "DOA";
 algorithms = ["MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "NLT-MUSIC"];
 type_of_data = "simulated-sine";
 angles = [18];
