@@ -4,8 +4,9 @@
 % Description: Main function for performance evaluation
 %
 % Parameters
-% algorithms: % "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", 
-% "GCC-PHAT", "GCC-NLT", "FLOS-PHAT", "NLT-MUSIC"
+% algorithms:
+% DOA - "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "NLT-MUSIC"
+% TDOA - "GCC-PHAT", "GCC-NLT", "FLOS-PHAT", "GFLOS-PHAT"
 %
 % type_of_data: "simulated-sine", "simulated-zadoff-chu",
 % "simulated-voice", "real", "demo-gong"
@@ -20,10 +21,11 @@ clear
 close all
 clc
 
-addpath(genpath('algorithms'));
-addpath(genpath('aux_codes'));
-addpath(genpath('distortion_models'));
-addpath(genpath('didactical_codes'));
+addpath(genpath('../algorithms'));
+addpath(genpath('../aux_codes'));
+addpath(genpath('../distortion_models'));
+addpath(genpath('../didactical_codes'));
+addpath(genpath('../simulations'));
 
 %% Parameters
 
