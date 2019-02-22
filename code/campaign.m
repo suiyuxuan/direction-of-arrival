@@ -2,9 +2,14 @@
 % Title: Campaign
 % Author: Danilo Pena
 % Description: Campaign
+%
+% main(input_param, output_name);
+%
+% input_param list: "param_DOA", "param_TDOA", ...
+% output_name: name of the saved folder
 
 clear
 close all
 clc
 
-% TODO: call of the simulations
+main("param_TDOA", "TDOA_test");
