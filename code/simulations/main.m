@@ -6,7 +6,7 @@
 % Parameters
 % algorithms:
 % DOA - "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "NLT-MUSIC"
-% TDOA - "GCC-PHAT", "GCC-NLT", "FLOS-PHAT", "GFLOS-PHAT"
+% TDOA - "GCC-PHAT", "GCC-NLT", "FLOC", "GFLOC"
 %
 % type_of_data: "simulated-sine", "simulated-zadoff-chu",
 % "simulated-voice", "real", "demo-gong"
@@ -54,7 +54,7 @@ addpath(genpath('../simulations'));
 
 % Example 2 - TDOA algorithms evaluation
 output_name = "TDOA_test";
-algorithms = ["GCC-NLT" "FLOS-PHAT" "GFLOS-PHAT"];
+algorithms = ["GCC-NLT" "FLOC" "GFLOC"];
 type_of_data = "simulated-zadoff-chu";
 angles = [20];
 number_of_sensors = 2;
