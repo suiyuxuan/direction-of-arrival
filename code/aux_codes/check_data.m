@@ -52,9 +52,21 @@ parse(inputs, type_of_data, output_name, varargin{:});
 
 output_name = inputs.Results.output_name;
 
-if exist(strcat("../results/", output_name, "/results.mat"), 'file') == 2 %Initial step, 2 (file), 7 (folder)
-    error('The output name already exist, please choose another name.');
+%if exist(strcat("../results/", output_name, "/results.mat"), 'file') == 2 %Initial step, 2 (file), 7 (folder)
+%    error('The output name already exist, please choose another name.');
+%end
+
+i=1;
+if exist(strcat("../results/", output_name, "/results.mat"), 'file') == 2
+    while(exist(strcat("../results/", output_name, "_", num2str(i), "/results.mat"), 'file') == 2)
+        i = i+1;
+    end
+    output_name = strcat(output_name, "_", num2str(i));
 end
+
+% if ~exist(strcat("../results/", output_name), 'dir') %Initial step, 2 (file), 7 (folder)
+%     mkdir(char(strcat("../results/", output_name)));
+% end
 
 %% Creating structure for data
 
@@ -67,6 +79,7 @@ data.fs = inputs.Results.sampling_frequency;
 data.N = inputs.Results.number_of_samples;
 data.u = inputs.Results.speed_propagation;
 data.snapshots = inputs.Results.length_snapshots;
+data.output_name = output_name;
 
 % substruct
 data.noise = inputs.Results.noise;

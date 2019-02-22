@@ -19,12 +19,8 @@ performance_metrics = inputs.Results.performance_metrics;
 
 %% Creating the folder and saving the mat-file
 
-%current_directory = pwd;
-%folders = dir;
-%addpath(genpath(fullfile(current_directory,folders);s
-
 if ~exist(strcat("../results/", output_name), 'dir') %Initial step, 2 (file), 7 (folder)
-    mkdir(char(strcat("../results/", output_name)));
+   mkdir(char(strcat("../results/", output_name)));
 end
 
 save(char(strcat("../results/", output_name, "/results.mat")), 'performance_metrics');
