@@ -36,6 +36,6 @@ performance_metrics = evaluation(data, algorithms, angles, deviation_of_angle, '
 
 %% Save outputs and plot
 
-save_outputs(output_name, performance_metrics);
+save_outputs(data.output_name, performance_metrics);
 
 end
