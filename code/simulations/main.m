@@ -16,12 +16,7 @@
 % "gaussian mixture real", "gaussian mixture complex"
 
 function main(parameters, output_name)
-
-addpath(genpath('../algorithms'));
-addpath(genpath('../aux_codes'));
-addpath(genpath('../distortion_models'));
-addpath(genpath('../didactical_codes'));
-addpath(genpath('../simulations'));
+close all
 
 %% Parameters
 eval(parameters);

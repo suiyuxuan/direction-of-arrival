@@ -12,6 +12,13 @@
 
 clear
 clc
-close all
 
-main("param_TDOA", "TDOA");
+addpath(genpath('algorithms'));
+addpath(genpath('aux_codes'));
+addpath(genpath('distortion_models'));
+addpath(genpath('didactical_codes'));
+addpath(genpath('simulations'));
+addpath(genpath('simulations'));
+
+main("param_TDOA_GMM_analysis", "TDOAgmm");
+main("param_TDOA_GMM_analysis", "TDOAgmm");
