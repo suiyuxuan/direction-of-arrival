@@ -7,7 +7,9 @@
 % main(input_param, output_name);
 %
 % Parameters:
-% input_param list: "param_DOA", "param_TDOA", "param_TDOA_GMM_analysis", "param_TDOA_alpha_stable_analysis", "param_TDOA_samples_number_analysis"
+% input_param list:
+% DOA - "param_DOA", "param_DOA_GMM_analysis", "param_DOA_alpha_stable_analysis", "param_DOA_samples_number_analysis"
+% TDOA - "param_TDOA", "param_TDOA_GMM_analysis", "param_TDOA_alpha_stable_analysis", "param_TDOA_samples_number_analysis"
 % output_name: output name
 
 clear
@@ -20,5 +22,8 @@ addpath(genpath('didactical_codes'));
 addpath(genpath('simulations'));
 addpath(genpath('simulations'));
 
-main("param_TDOA_GMM_analysis", "TDOAgmm");
-main("param_TDOA_GMM_analysis", "TDOAgmm");
+main("param_DOA", "DOA");
+main("param_DOA_alpha_stable_analysis", "DOA_alpha");
+main("param_DOA_GMM_analysis", "DOA_GMM");
+main("param_DOA_samples_number_analysis", "DOA_samples_number");
+
