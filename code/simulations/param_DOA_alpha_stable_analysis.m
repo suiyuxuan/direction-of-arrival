@@ -4,7 +4,7 @@
 % Description: DOA evaluation for alpha-stable noise
 
 %% Parameters
-algorithms = ["MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "NLT-MUSIC"];
+algorithms = ["MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "NLT-MUSIC"];
 type_of_data = "simulated-sine";
 angles = [18];
 number_of_sensors = 8;
