@@ -20,10 +20,8 @@ addpath(genpath('aux_codes'));
 addpath(genpath('distortion_models'));
 addpath(genpath('didactical_codes'));
 addpath(genpath('simulations'));
-addpath(genpath('simulations'));
 
 main("param_DOA", "DOA");
 main("param_DOA_alpha_stable_analysis", "DOA_alpha");
 main("param_DOA_GMM_analysis", "DOA_GMM");
 main("param_DOA_samples_number_analysis", "DOA_samples_number");
-
