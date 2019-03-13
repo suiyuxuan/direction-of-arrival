@@ -51,12 +51,50 @@ switch type_of_simulation
     case "voice"
         % TODO: Find a demo voice signal
     case "gong"
-        % TODO: load gong
+        gong = load('gong');
+        sig_tmp = gong.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*gong.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
     case "chirp"
         chirp = load('chirp');
         sig_tmp = chirp.y(1:N)';
         tau = (d*sin(angles/180*pi)/u);
         delay = round(tau*chirp.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
+    case "handel"
+        handel = load('handel');
+        sig_tmp = handel.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*handel.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
+    case "splat"
+        splat = load('splat');
+        sig_tmp = splat.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*splat.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
+    case "laughter"
+        laughter = load('laughter');
+        sig_tmp = laughter.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*laughter.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
+    case "train"
+        train = load('train');
+        sig_tmp = train.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*train.Fs);
         for n = 1:M
             sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
         end
