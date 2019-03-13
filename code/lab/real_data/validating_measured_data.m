@@ -2,9 +2,11 @@
 
 load('../../../data/respeaker/indoor/speech/data.mat');
 
-x = (data.channel_1(75001:150000,2));
+window = 75001:150000;
+
+x = (data.channel_1(window,2));
 plot(x)
-x(:,2) = (data.channel_2(75001:150000,2));
+x(:,2) = (data.channel_2(window,2));
 x = x';
 
 X = abs(fft(x(1,:)));
@@ -20,7 +22,8 @@ X_f(2,:) = angle(fft(x(2,:)));
 % test
 d = 0.05;
 angle = 20;
-f = (index*48000)/75000;
+fs = 48000;
+f = (index*fs)/length(window);
 u = 340;
 
 delta = (d * 2 * pi * f * sin(angle*(pi/180))) / u
