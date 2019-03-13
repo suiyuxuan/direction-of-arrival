@@ -3,6 +3,7 @@
 load('../../../data/respeaker/indoor/speech/data.mat');
 
 window = 75001:150000;
+window = 78001:88000;
 
 x = (data.channel_1(window,2));
 plot(x)
@@ -14,7 +15,7 @@ X = abs(fft(x(1,:)));
 X(2,:) = abs(fft(x(2,:)));
 %plot(X(2,:))
 
-X_f = angle(fft(x(1,:)));
+X_f(1,:) = angle(fft(x(1,:)));
 %plot(X_f(1,:))
 X_f(2,:) = angle(fft(x(2,:)));
 %plot(X_f(2,:))
@@ -28,6 +29,7 @@ u = 340;
 
 delta = (d * 2 * pi * f * sin(angle*(pi/180))) / u
 
+[maximum,index] = max(X(1,:));
 X_f(1,index)
 X_f(2,index)
 
