@@ -52,6 +52,14 @@ switch type_of_simulation
         % TODO: Find a demo voice signal
     case "gong"
         % TODO: load gong
+    case "chirp"
+        chirp = load('chirp');
+        sig_tmp = chirp.y(1:N)';
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*chirp.Fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
     otherwise
         error("Type of simulation invalid");
 end

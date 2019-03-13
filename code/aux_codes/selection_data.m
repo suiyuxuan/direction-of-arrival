@@ -19,6 +19,8 @@ switch type_of_data
         signal = create_signal("voice", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "demo-gong"
         signal = create_signal("gong", angles, M, d, f, fs, N, u, noise, channel, snr);
+    case "demo-chirp"
+        signal = create_signal("chirp", angles, M, d, f, fs, N, u, noise, channel, snr);
     otherwise
         error("Type of data invalid");
 end
