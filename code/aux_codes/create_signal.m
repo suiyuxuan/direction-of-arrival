@@ -48,6 +48,13 @@ switch type_of_simulation
         for n = 1:M
             sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
         end
+    case "random"
+        sig_tmp = randn(1,N);
+        tau = (d*sin(angles/180*pi)/u);
+        delay = round(tau*fs);
+        for n = 1:M
+            sig(n,:) = [zeros(1,delay*(n-1)) sig_tmp(1:end-(n-1)*delay)];
+        end
     case "voice"
         % TODO: Find a demo voice signal
     case "gong"

@@ -15,6 +15,8 @@ switch type_of_data
         signal = load_data(angles, M, d, fs, N, noise, channel); % missing implement
     case "simulated-zadoff-chu"
         signal = create_signal("zadoff-chu", angles, M, d, f, fs, N, u, noise, channel, snr);
+    case "random"
+        signal = create_signal("random", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "simulated-voice"
         signal = create_signal("voice", angles, M, d, f, fs, N, u, noise, channel, snr);
     case "demo-gong"
