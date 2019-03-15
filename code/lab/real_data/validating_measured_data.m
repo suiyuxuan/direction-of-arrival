@@ -8,8 +8,8 @@ load('../../../data/respeaker/outdoor/speech/data.mat');
 
 window = 75001:150000; % indoor
 %window = 78001:88000; % indoor
-%window = 55001:120000; % outdoor
 %window = 70001:150000; % hall
+%window = 55001:120000; % outdoor
 
 x = (data.channel_1(window,2));
 plot(x)
@@ -62,3 +62,16 @@ h2 = subplot(2,1,2);
 plot(X(1,:))
 linkaxes([h2 h1],'x')
 
+% GCC-PHAT
+
+[M,N] = size(x);
+X1 = fft(x(1,:));
+X2 = fft(x(2,:));
+NUM = (X1 .* conj(X2));
+W = max(abs(NUM),0.01);
+R = ifft(NUM./W);
+[argvalue, argmax] = max(abs(R));
+half = length(x(2,:))/2;
+tau = -(argmax - 2*half - 1);
+tdoa = tau / fs;
+theta = asin(tdoa / (d/u)) * (180/pi);
