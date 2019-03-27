@@ -14,29 +14,40 @@ close all
 %load('../../../data/respeaker/outdoor/no_source/data.mat');
 
 % 1 kHz source
-load('../../../data/respeaker/indoor/source/data.mat');
-load('../../../data/respeaker/hall/source/data.mat');
-load('../../../data/respeaker/outdoor/source/data.mat');
+%load('../../../data/respeaker/indoor/source/data.mat');
+%load('../../../data/respeaker/hall/source/data.mat');
+%load('../../../data/respeaker/outdoor/source/data.mat');
 
 % Speech signal source
-load('../../../data/respeaker/indoor/speech/data.mat');
-load('../../../data/respeaker/hall/speech/data.mat');
+%load('../../../data/respeaker/indoor/speech/data.mat');
+%load('../../../data/respeaker/hall/speech/data.mat');
 load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % window if necessary
-window_sel = 1:length(data.channel_1(:,2));
+%window_sel = 10:length(data.channel_1(:,2));
 %window_sel = 75001:150000; % indoor
 %window_sel = 78001:88000; % indoor
 %window_sel = 70001:150000; % hall
 %window_sel = 55001:120000; % outdoor
 %window_sel = 108001:116000; % outdoor
+window_sel = 1501:3000;
 
 % Time domain
-x(:,1) = (data.channel_1(:,2));
-x(:,2) = (data.channel_2(:,2));
-x(:,3) = (data.channel_3(:,2));
-x(:,4) = (data.channel_4(:,2));
+% x(:,1) = (data.channel_1(:,2));
+% x(:,2) = (data.channel_2(:,2));
+% x(:,3) = (data.channel_3(:,2));
+% x(:,4) = (data.channel_4(:,2));
+% x = x';
+x(:,1) = (data.channel_3(window_sel,2));
+x(:,2) = (data.channel_4(window_sel,2));
+x(:,3) = (data.channel_1(window_sel,2));
+x(:,4) = (data.channel_2(window_sel,2));
 x = x';
+
+x(1,:) = x(1,:)/max(x(1,:));
+x(2,:) = x(2,:)/max(x(2,:));
+x(3,:) = x(3,:)/max(x(3,:));
+x(4,:) = x(4,:)/max(x(4,:));
 
 % Plots
 plot(x(1,:))
@@ -65,6 +76,7 @@ X_f(4,:) = angle(fft(x(4,:)));
 
 % TDOA parameters
 d = 0.0575;
+dl = sqrt(2*d^2);
 angles = 20;
 fs = 48000;
 u = 340;
@@ -77,23 +89,27 @@ X_f(2,indice)
 X_f(3,indice)
 X_f(4,indice)
 
-delta_1 = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
+delta_1_far_field = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
 delta_1_real = (0.01868124*2*pi*f)/u; % triangular
 delta_1_measured = X_f(1,indice)-X_f(2,indice); % measured
 
-tau_1 = ((d * sin(angles*(pi/180))) / u)*fs;
+tau_1_far_field = ((d * sin(angles*(pi/180))) / u)*fs; % far-field
 tau_1_real = ((0.01868124)/u)*fs; % triangular
-tau_1_measured = ((X_f(1,indice)-X_f(2,indice))/(2*pi*f))*fs; % measured
+tau_2_far_field = ((d * cos(angles*(pi/180))) / u)*fs; % far-field
+tau_2_real = ((0.060347)/u)*fs; % triangular
+tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
+tau_3_real = ((0.058194)/u)*fs; % triangular
 
-tdoa_1_measured = tau_1_measured/fs;
-theta_1_fourier = asin(tdoa_1 / (d/u)) * (180/pi);
+%tau_1_measured = ((X_f(2,indice)-X_f(1,indice))/(2*pi*f))*fs; % measured
+%tdoa_1_measured = tau_1_measured/fs;
+%theta_1_fourier = asin(tdoa_1_measured / (d/u)) * (180/pi);
 
 % Plot Fourier analysis
-h1 = subplot(2,1,1);
-plot(X_f(2,:)-X_f(1,:))
-h2 = subplot(2,1,2);
-plot(X(1,:))
-linkaxes([h2 h1],'x')
+% h1 = subplot(2,1,1);
+% plot(X_f(2,:)-X_f(1,:))
+% h2 = subplot(2,1,2);
+% plot(X(1,:))
+% linkaxes([h2 h1],'x')
 
 %% Methods validation
 
@@ -107,16 +123,16 @@ linkaxes([h2 h1],'x')
 % [argvalue, argmax] = max(abs(R));
 % half = length(x(2,:))/2;
 % tau_GCC = -(argmax - 2*half - 1);
-tau_1_GCC = gccphat(x(2,:)',x(1,:)');
-tdoa_1_GCC = tau_1_GCC / fs;
-theta_1_GCC = asin(tdoa_1_GCC / (d/u)) * (180/pi);
+tau_1_GCC = gccphat(x(1,:)',x(2,:)');
+theta_1_GCC = 90 - acos( (1.5/(2*d)) + (d/(2*1.5)) - ((1.5*fs-tau_1_GCC*u)/(fs*sqrt(2*d*1.5)))^2 )*(180/pi);
 
-tau_2_GCC = gccphat(x(1,:)',x(3,:)');
-theta_2_GCC = acos((tau_2_GCC*u) / (fs*d)) * (180/pi);
+tau_2_GCC = gccphat(x(3,:)',x(1,:)');
+%theta_2_GCC = 180 - acos( (1.5/(2*d)) + (d/(2*1.5)) - ((1.5*fs-tau_2_GCC*u)/(fs*sqrt(2*d*1.5)))^2 )*(180/pi);
+theta_2_GCC = acos( ((1.5*fs+tau_2_GCC*u)/(fs*sqrt(2*d*1.5)))^2 - (1.5/(2*d)) - (d/(2*1.5)) )*(180/pi);
 
-tau_3_GCC = gccphat(x(1,:)',x(4,:)');
-tdoa_3_GCC = tau_3_GCC / fs;
-theta_3_GCC = 45 + acos((tau_3_GCC*u) / (fs*d)) * (180/pi);
+tau_3_GCC = gccphat(x(4,:)',x(1,:)');
+theta_3_GCC = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_GCC*u)/(fs*sqrt(2*dl*1.5)))^2 )*(180/pi);
+%theta_3_GCC = -45 + acos( ((1.5*fs+tau_3_GCC*u)/(fs*sqrt(2*dl*1.5)))^2 - (1.5/(2*dl)) - (dl/(2*1.5)) )*(180/pi);
 
 % GCC-NLT
 xt = tanh(x);
@@ -129,35 +145,37 @@ xt = tanh(x);
 % [argvalue, argmax] = max(abs(R));
 % half = length(x(2,:))/2;
 % tau_NLT = -(argmax - 2*half - 1);
-tau_1_NLT = gccphat(xt(2,:)',xt(1,:)');
-tdoa_1_NLT = tau_1_NLT / fs;
-theta_1_NLT = asin(tdoa_1_NLT / (d/u)) * (180/pi);
+tau_1_NLT = gccphat(xt(1,:)',xt(2,:)');
+%theta_1_NLT = asin((tau_1_NLT/fs) / (d/u)) * (180/pi);
+theta_1_NLT = 90 - acos( (1.5/(2*d)) + (d/(2*1.5)) - ((1.5*fs-tau_1_NLT*u)/(fs*sqrt(2*d*1.5)))^2 )*(180/pi);
 
-tau_2_NLT = gccphat(xt(1,:)',xt(3,:)');
-tdoa_2_NLT = tau_2_NLT / fs;
-theta_2_NLT = asin(tdoa_2_NLT / (d/u)) * (180/pi);
+tau_2_NLT = gccphat(xt(3,:)',xt(1,:)');
+%theta_2_NLT = acos((tau_2_NLT/fs) / (d/u)) * (180/pi);
+%theta_2_NLT = 180 - acos( (1.5/(2*d)) + (d/(2*1.5)) - ((1.5*fs-tau_2_NLT*u)/(fs*sqrt(2*d*1.5)))^2 )*(180/pi);
+theta_2_NLT = acos( ((1.5*fs+tau_2_NLT*u)/(fs*sqrt(2*d*1.5)))^2 - (1.5/(2*d)) - (d/(2*1.5)) )*(180/pi);
 
-tau_3_NLT = gccphat(xt(1,:)',xt(4,:)');
-tdoa_3_NLT = tau_3_NLT / fs;
-theta_3_NLT = asin(tdoa_3_NLT / (d/u)) * (180/pi);
+tau_3_NLT = gccphat(xt(4,:)',xt(1,:)');
+%theta_3_NLT = 45+acos((tau_3_NLT/fs) / (d/u)) * (180/pi);
+theta_3_NLT = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_NLT*u)/(fs*sqrt(2*dl*1.5)))^2 )*(180/pi);
+%theta_3_NLT = -45 + acos( ((1.5*fs+tau_3_NLT*u)/(fs*sqrt(2*dl*1.5)))^2 - (1.5/(2*dl)) - (dl/(2*1.5)) )*(180/pi);
 
-% FLOC
-[M,N] = size(x);
-%p = 0.5;
-xm = [x(2,:) x(2,:)];
-R = zeros(1,N);
-for m=1:N
-    NUM = 0;
-    DEN = 0;
-    for n=1:N
-        NUM = NUM + x(1,n).*sign(xm(1,n+m));
-        DEN = DEN + abs(xm(1,n+m));
-        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
-        %DEN = DEN + abs(xm(1,n+m)).^p;
-    end
-    R(m) = NUM / DEN;
-end
-[argvalue, argmax] = max(abs(R-mean(R)));
-tau_FLOC = argmax;
-tdoa_FLOC = tau_FLOC / fs;
-theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+% % FLOC
+% [M,N] = size(x);
+% %p = 0.5;
+% xm = [x(2,:) x(2,:)];
+% R = zeros(1,N);
+% for m=1:N
+%     NUM = 0;
+%     DEN = 0;
+%     for n=1:N
+%         NUM = NUM + x(1,n).*sign(xm(1,n+m));
+%         DEN = DEN + abs(xm(1,n+m));
+%         %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+%         %DEN = DEN + abs(xm(1,n+m)).^p;
+%     end
+%     R(m) = NUM / DEN;
+% end
+% [argvalue, argmax] = max(abs(R-mean(R)));
+% tau_FLOC = argmax;
+% tdoa_FLOC = tau_FLOC / fs;
+% theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
