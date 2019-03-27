@@ -2,14 +2,21 @@
 
 clear
 
+%load('../../../data/respeaker/indoor/no_source/data.mat');
+%load('../../../data/respeaker/hall/no_source/data.mat');
+%load('../../../data/respeaker/outdoor/no_source/data.mat');
+load('../../../data/respeaker/indoor/source/data.mat');
+load('../../../data/respeaker/hall/source/data.mat');
+load('../../../data/respeaker/outdoor/source/data.mat');
 load('../../../data/respeaker/indoor/speech/data.mat');
 load('../../../data/respeaker/hall/speech/data.mat');
 load('../../../data/respeaker/outdoor/speech/data.mat');
 
-window = 75001:150000; % indoor
+%window = 75001:150000; % indoor
 %window = 78001:88000; % indoor
 %window = 70001:150000; % hall
 %window = 55001:120000; % outdoor
+%window = 108001:116000; % outdoor
 
 x = (data.channel_1(window,2));
 plot(x)
