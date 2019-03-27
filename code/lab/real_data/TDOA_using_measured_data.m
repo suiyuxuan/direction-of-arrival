@@ -24,16 +24,16 @@ load('../../../data/respeaker/hall/speech/data.mat');
 load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % window if necessary
-%window = 75001:150000; % indoor
-%window = 78001:88000; % indoor
-%window = 70001:150000; % hall
-%window = 55001:120000; % outdoor
-%window = 108001:116000; % outdoor
+%window_sel = 75001:150000; % indoor
+%window_sel = 78001:88000; % indoor
+%window_sel = 70001:150000; % hall
+%window_sel = 55001:120000; % outdoor
+%window_sel = 108001:116000; % outdoor
 
 % Time domain
-x(:,1) = (data.channel_1(window,2));
+x(:,1) = (data.channel_1(:,2));
 plot(x)
-x(:,2) = (data.channel_2(window,2));
+x(:,2) = (data.channel_2(:,2));
 x = x';
 
 % Fourier analysis
@@ -54,8 +54,10 @@ X_f(2,:) = angle(fft(x(2,:)));
 d = 0.05;
 angles = 20;
 fs = 48000;
-f = (indice*fs)/length(window);
 u = 340;
+%f = (indice*fs)/length(window_sel);
+
+%% Fourier validation
 
 delta = (d * 2 * pi * f * sin(angles*(pi/180))) / u
 
@@ -76,16 +78,16 @@ sin_x = .78/.8
 asin_x = asin(sin_x)*(180/pi)
 delta_margin_sup = (d * 2 * pi * f * sin((90-asin_x)*(pi/180))) / u
 
-% Plot analysis
-
+% Plot Fourier analysis
 h1 = subplot(2,1,1);
 plot(X_f(2,:)-X_f(1,:))
 h2 = subplot(2,1,2);
 plot(X(1,:))
 linkaxes([h2 h1],'x')
 
-% GCC-PHAT
+%% Methods
 
+% GCC-PHAT
 [M,N] = size(x);
 X1 = fft(x(1,:));
 X2 = fft(x(2,:));
