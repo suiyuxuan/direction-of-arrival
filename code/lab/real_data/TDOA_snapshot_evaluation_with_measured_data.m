@@ -31,7 +31,7 @@ u = 340;
 % 200/400/500/700/2000/4000 (outdoor - source)
 
 kk = 1;
-for lag = 10000:10000:80000
+for lag = 1000:1000:80000
 
 [rmse_GCC(kk), rmse_NLT(kk), rmse_FLOC(kk)] = TDOA_evaluation_with_measured_data(data, lag);
 
@@ -47,3 +47,8 @@ end
 % plot(media_GCC)
 % hold on
 % plot(media_NLT,'r')
+
+plot(rmse_GCC)
+hold on
+plot(rmse_NLT,'r')
+plot(rmse_FLOC,'k')
