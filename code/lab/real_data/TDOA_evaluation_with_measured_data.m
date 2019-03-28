@@ -3,8 +3,8 @@
 % Author: Danilo Pena
 % Description: TDOA methods evaluation using measured data (source and speech signals)
 
-clear
-close all
+% clear
+% close all
 
 %% Load data
 
@@ -15,20 +15,28 @@ close all
 % Speech signal source
 %load('../../../data/respeaker/indoor/speech/data.mat');
 %load('../../../data/respeaker/hall/speech/data.mat');
-load('../../../data/respeaker/outdoor/speech/data.mat');
+%load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % TDOA parameters
-d = 0.0575;
-dl = sqrt(2*d^2);
-angles = 20;
-fs = 48000;
-u = 340;
-lag = 1000;
+% d = 0.0575;
+% dl = sqrt(2*d^2);
+% angles = 20;
+% fs = 48000;
+% u = 340;
+%lag = 1000;
 
 % scenarios
 % 55000:lag:127000-lag lag=1000 (outdoor - speech)
 % 50/100/700/1000/20000/40000/80000 (outdoor - speech)
 % 200/400/500/700/2000/4000 (outdoor - source)
+
+function [rmse_GCC, rmse_NLT, rmse_FLOC] = TDOA_evaluation_with_measured_data(data, lag)
+
+d = 0.0575;
+dl = sqrt(2*d^2);
+angles = 20;
+fs = 48000;
+u = 340;
 
 k = 1;
 for window_current = 1:lag:length(data.channel_1(:,2))-lag
@@ -75,32 +83,59 @@ tau_3_NLT(k) = abs(gccphat(xt(4,:)',xt(1,:)'));
 theta_3_NLT(k) = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_NLT(k)*u)/(fs*sqrt(2*dl*1.5)))^2 )*(180/pi);
 %theta_3_NLT(k) = -45 + acos( ((1.5*fs+tau_3_NLT(k)*u)/(fs*sqrt(2*dl*1.5)))^2 - (1.5/(2*dl)) - (dl/(2*1.5)) )*(180/pi);
 
-% % FLOC
-% [M,N] = size(x);
-% %p = 0.5;
-% xm = [x(2,:) x(2,:)];
-% R = zeros(1,N);
-% for m=1:N
-%     NUM = 0;
-%     DEN = 0;
-%     for n=1:N
-%         NUM = NUM + x(1,n).*sign(xm(1,n+m));
-%         DEN = DEN + abs(xm(1,n+m));
-%         %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
-%         %DEN = DEN + abs(xm(1,n+m)).^p;
-%     end
-%     R(m) = NUM / DEN;
-% end
-% [argvalue, argmax] = max(abs(R-mean(R)));
-% tau_FLOC = argmax;
-% tdoa_FLOC = tau_FLOC / fs;
-% theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+% FLOC
+[M,N] = size(x);
+xm = [x(2,:) x(2,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(1,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_1_FLOC(k) = argmax;
+theta_1_FLOC(k) = asin((tau_1_FLOC(k)/fs) / (d/u)) * (180/pi);
+[M,N] = size(x);
+xm = [x(1,:) x(1,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(3,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_2_FLOC(k) = argmax;
+theta_2_FLOC(k) = asin((tau_2_FLOC(k)/fs) / (d/u)) * (180/pi);
+[M,N] = size(x);
+xm = [x(1,:) x(1,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(4,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_3_FLOC(k) = argmax;
+theta_3_FLOC(k) = asin((tau_3_FLOC(k)/fs) / (d/u)) * (180/pi);
 
 k = k + 1;
 end
 
-rmse_GCC = sqrt( mean( (20-real(theta_1_GCC)).^2 ) );
-rmse_NLT = sqrt( mean( (20-real(theta_1_NLT)).^2 ) );
+rmse_GCC = sqrt( mean( (angles-real(theta_1_GCC)).^2 ) );
+rmse_NLT = sqrt( mean( (angles-real(theta_1_NLT)).^2 ) );
+rmse_FLOC = sqrt( mean( (angles-real(theta_1_FLOC)).^2 ) );
 
 % plot(real(theta_1_GCC))
 % hold on
@@ -111,3 +146,5 @@ rmse_NLT = sqrt( mean( (20-real(theta_1_NLT)).^2 ) );
 % plot(media_GCC)
 % hold on
 % plot(media_NLT,'r')
+
+end
