@@ -4,7 +4,7 @@
 % Description: TDOA
 
 %% Parameters
-algorithms = ["GCC-PHAT" "GCC-NLT" "FLOC" "GFLOC"];
+algorithms = ["GCC-PHAT" "GCC-NLT" "FLOC"];
 type_of_data = "simulated-zadoff-chu";
 angles = [20];
 number_of_sensors = 2;
