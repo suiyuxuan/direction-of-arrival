@@ -23,4 +23,7 @@ noise{2}.rel = 1000;
 noise{3}.model = "alpha-stable real";
 noise{3}.snr = -20:40;
 noise{3}.alpha = 1.7;
+noise{4}.model = "alpha-stable real";
+noise{4}.snr = -20:40;
+noise{4}.alpha = 1.3;
 deviation_of_angle = 6;
