@@ -25,7 +25,7 @@ noisy_signal = sas_model(s, "complex", alpha0, GSNR_dB);
 % https://en.wikipedia.org/wiki/File:Gjl-t(x).svg
 switch(s_function)
     case 1 % modulus transformation
-        lambda = s_parameter; %-1 parece ser o melhorkurtosis(v)
+        lambda = s_parameter; %-1 parece ser o melhor kurtosis(v)
         if(lambda==0)
             v=sign(noisy_signal).*( log10( abs(noisy_signal) + 1) );
         else
