@@ -19,7 +19,7 @@ function v = alpha_stable_sigmoid(s, alpha0, GSNR_dB, s_function, s_parameter)
 % % additive lpha-stable noise
 % noisy_signal = s + imp_noise;
 
-noisy_signal = sas_model(s, "complex", alpha0, GSNR_dB);
+noisy_signal = sas_model(s, "real", alpha0, GSNR_dB);
 
 % See https://en.wikipedia.org/wiki/Sigmoid_function
 % https://en.wikipedia.org/wiki/File:Gjl-t(x).svg
