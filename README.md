@@ -1,33 +1,35 @@
-# direction-of-arrival
-direction-of-arrival is my doctoral project. A collection of DOA algorithms implemented in Matlab, with noise and channel models implemented. It's analyzed the performance of synthetic and real data.
+# SimPatico
+Simulation PlAtform for PosiTIon LoCatiOn evaluation (SimPatico) is a simulator from my PhD. A collection of DOA algorithms implemented in Matlab, with noise and channel models implemented. It's analyzed the performance of synthetic and real data.
 
 ## Getting Started
-Main code in performance_evaluations.
+Main code in: /code/campaign.m
 
 ### Prerequisites
 Matlab (Min: R2007a)
 
 ### Directories
-- performance_evaluations
+
+![directories](https://i.ibb.co/71r6Cjc/direction-of-arrival-v0-3-0.png)
+
+- /code
 
 DOA algorithms and performance evaluation.
 
-- lab
+- /code/lab
 
 Experimental codes for development of new algorithms.
 
-- tests
+- /code/tests
 
 Test environment.
 
-## Running the Tests
-Automatic tests.
+- /data
 
-### Simulation Data Test
-example:
+Measured data.
 
-### Real Data Test
-example:
+- /results
+
+Performance evaluation of algorithms.
 
 ## Authors
 
@@ -37,15 +39,17 @@ Prof. Dr. Allan Martins (doctoral advisor)
 
 Prof. Dr. Vicente Sousa (doctoral advisor)
 
+Mário Guilherme (collaborator)
+
 Carlos Lima (collaborator)
 
 Matheus Dória (collaborator)
 
-Mário Guilherme (collaborator)
-
 Luan Pena (collaborator)
 
 ## License
+
+MIT License
 
 ## Acknowledgments
 
