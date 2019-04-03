@@ -34,9 +34,9 @@ switch(s_function)
     case 2 % spatial signal
         v=noisy_signal./abs(noisy_signal);
     case 3 
-        v = tansig(noisy_signal);
+        v = tansig(noisy_signal); % a = tansig(n) = 2/(1+exp(-2*n))-1
     case 4
-        v = tanh(noisy_signal);       
+        v = tanh(noisy_signal); 
     case 5
         v = erf(noisy_signal * sqrt(pi) / 2 );
     case 6
