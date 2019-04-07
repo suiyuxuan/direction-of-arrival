@@ -4,7 +4,7 @@
 % Description: TDOA with gong demo signal
 
 %% Parameters
-algorithms = ["GCC-PHAT" "FLOC"];
+algorithms = ["GCC-PHAT" "GCC-ROTH" "GCC-SCOT" "GCC-NLT" "FLOC"];
 type_of_data = "demo-gong";
 angles = [20];
 number_of_sensors = 2;

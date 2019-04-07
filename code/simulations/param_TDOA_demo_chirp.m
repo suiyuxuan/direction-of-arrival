@@ -4,7 +4,7 @@
 % Description: TDOA with chirp demo signal
 
 %% Parameters
-algorithms = ["GCC-PHAT" "FLOC"];
+algorithms = ["GCC-PHAT" "GCC-ROTH" "GCC-SCOT" "GCC-NLT" "FLOC"];
 type_of_data = "demo-chirp";
 angles = [20];
 number_of_sensors = 2;
