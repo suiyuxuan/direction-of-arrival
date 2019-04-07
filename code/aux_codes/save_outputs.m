@@ -31,6 +31,14 @@ for k = 1:length(performance_metrics)
 
 axisX = performance_metrics(k).noise.snr;
 
+if ((performance_metrics(k).noise.model == "alpha-stable real")||(performance_metrics(k).noise.model == "alpha-stable complex"))
+    complement = strcat("\alpha = ", num2str(performance_metrics(k).noise.alpha));
+elseif ((performance_metrics(k).noise.model == "gaussian mixture real")||(performance_metrics(k).noise.model == "gaussian mixture real"))
+    complement = strcat("REL = ", num2str(performance_metrics(k).noise.rel));
+else
+    complement = "AWGN";
+end
+
 % Plots
 hR = figure (1);
 axisY = performance_metrics(k).RMSE;
@@ -39,7 +47,7 @@ title('Parametric Evaluation - RMSE');
 xlabel('SNR - GSNR');
 ylabel('RMSE');
 grid on;
-legend_namesR{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
+legend_namesR{k} = char(strcat(performance_metrics(k).algorithms, " - ", complement));
 hold on
 
 hA = figure (2);
@@ -49,7 +57,7 @@ title('Parametric Evaluation - Absolute Error');
 xlabel('SNR - GSNR');
 ylabel('Absolute Error');
 grid on;
-legend_namesA{k} = char(strcat(performance_metrics(k).algorithms, " - ", performance_metrics(k).noise.model));
+legend_namesA{k} = char(strcat(performance_metrics(k).algorithms, " - ", complement));
 hold on
 
 end
