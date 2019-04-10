@@ -16,6 +16,7 @@
 
 clear
 clc
+close all
 
 addpath(genpath('algorithms'));
 addpath(genpath('aux_codes'));
