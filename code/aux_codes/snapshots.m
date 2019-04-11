@@ -48,11 +48,11 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                 case 'ESPRIT'
                     angles(i) = ESPRIT(signal, P, f, d, u);
                 case 'Capon'
-                    [theta, result(i,:)] = Capon(signal, P, f, d, u);
+                    [theta, result(i,:)] = Capon(signal, f, d, u);
                     [Max,pos_angle] = max(result(i,:));
                     angles(i) = 90 - ((pos_angle-1)/2);
                 case 'Beamscan'
-                    angles(i) = BeamScan(signal, P, f, d, u);
+                    angles(i) = BeamScan(signal, f, d, u);
                 case 'Root MVDR'
                     angles(i) = Root_MVDR(signal, P, d, u);
                 case 'GCC-PHAT'

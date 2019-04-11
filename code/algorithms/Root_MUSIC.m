@@ -22,7 +22,7 @@ NN = AV(:,P+1:M);
 C = NN*NN';
 
 % Root-MUSIC
-for kk = 1:2*M-1,
+for kk = 1:2*M-1
     a(kk,1) = sum(diag(C,kk-M));
 end
 ra = roots(a);

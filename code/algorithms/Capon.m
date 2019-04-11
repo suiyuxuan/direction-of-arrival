@@ -9,7 +9,7 @@
 % fc: source frequency
 % d: distance between the elements
 
-function [theta,result] = Capon(x, P, f, d, u)
+function [theta,result] = Capon(x, f, d, u)
 
 [M,N] = size(x); % M - element number, N - number of samples
 
@@ -19,8 +19,8 @@ INVR = inv(Rx);
 L = 361; % -pi/2:0.5:pi/2 -> L = 361
 phi = zeros(L,1);
 
-for i = 1 : L,
-   a = exp(-j*2*pi*f*d*sin(-pi/2 + pi*(i-1)/L)/u*[0:M-1].');
+for i = 1:L
+   a = exp(-1i*2*pi*f*d*sin(-pi/2 + pi*(i-1)/L)/u*[0:M-1].');
    phi(i) = 1/real(a'*INVR*a);
 end
 
