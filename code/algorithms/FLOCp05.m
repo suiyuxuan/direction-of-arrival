@@ -6,7 +6,7 @@
 % fs: sampling frequency
 % d: distance between the elements
 
-function [theta] = FLOC(x, fs, d)
+function [theta] = FLOCp05(x, fs, d)
 
 [M,N] = size(x); % M - element number, N - number of samples
 u = 340; % speed of sound
