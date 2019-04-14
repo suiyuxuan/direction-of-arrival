@@ -78,6 +78,7 @@ X_f(4,:) = angle(fft(x(4,:)));
 d = 0.0575;
 dl = sqrt(2*d^2);
 angles = 20;
+f = 1000;
 fs = 48000;
 u = 340;
 f = ((indice-1)*fs)/length(window_sel);
@@ -101,6 +102,7 @@ tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
 tau_3_real = ((0.058194)/u)*fs; % triangular
 
 %tau_1_measured = ((X_f(2,indice)-X_f(1,indice))/(2*pi*f))*fs; % measured
+tau_1_measured = (angdiff(X_f(2,indice), X_f(1,indice))/((2*pi*f)/fs)); % measured
 %tdoa_1_measured = tau_1_measured/fs;
 %theta_1_fourier = asin(tdoa_1_measured / (d/u)) * (180/pi);
 
