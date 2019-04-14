@@ -14,14 +14,14 @@ close all
 %load('../../../data/respeaker/outdoor/no_source/data.mat');
 
 % 1 kHz source
-%load('../../../data/respeaker/indoor/source/data.mat');
+load('../../../data/respeaker/indoor/source/data.mat');
 %load('../../../data/respeaker/hall/source/data.mat');
 %load('../../../data/respeaker/outdoor/source/data.mat');
 
 % Speech signal source
 %load('../../../data/respeaker/indoor/speech/data.mat');
 %load('../../../data/respeaker/hall/speech/data.mat');
-load('../../../data/respeaker/outdoor/speech/data.mat');
+%load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % window if necessary
 %window_sel = 10:length(data.channel_1(:,2));
@@ -30,18 +30,20 @@ load('../../../data/respeaker/outdoor/speech/data.mat');
 %window_sel = 70001:150000; % hall
 %window_sel = 55001:120000; % outdoor
 %window_sel = 108001:116000; % outdoor
-window_sel = 1501:3000;
+%window_sel = 1501:3000;
 
 % Time domain
-% x(:,1) = (data.channel_1(:,2));
-% x(:,2) = (data.channel_2(:,2));
-% x(:,3) = (data.channel_3(:,2));
-% x(:,4) = (data.channel_4(:,2));
+x(:,1) = (data.channel_1(:,2));
+x(:,2) = (data.channel_2(:,2));
+x(:,3) = (data.channel_3(:,2));
+x(:,4) = (data.channel_4(:,2));
 % x = x';
-x(:,1) = (data.channel_3(window_sel,2));
-x(:,2) = (data.channel_4(window_sel,2));
-x(:,3) = (data.channel_1(window_sel,2));
-x(:,4) = (data.channel_2(window_sel,2));
+% x(:,1) = (data.channel_3(:,2));
+% x(:,2) = (data.channel_4(:,2));
+% x(:,3) = (data.channel_2(:,2));
+% x(:,4) = (data.channel_1(:,2));
+% %x(:,3) = (data.channel_1(:,2));
+% %x(:,4) = (data.channel_2(:,2));
 x = x';
 
 x(1,:) = x(1,:)/max(x(1,:));
@@ -55,6 +57,7 @@ hold on
 plot(x(2,:),'r')
 plot(x(3,:),'g')
 plot(x(4,:),'k')
+legend('1','2','3','4')
 
 % Fourier analysis
 X(1,:) = abs(fft(x(1,:)));
@@ -81,7 +84,7 @@ angles = 20;
 f = 1000;
 fs = 48000;
 u = 340;
-f = ((indice-1)*fs)/length(window_sel);
+%f = ((indice-1)*fs)/length(window_sel);
 
 %% Fourier validation
 
