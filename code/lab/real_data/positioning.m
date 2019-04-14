@@ -25,3 +25,24 @@ x1 = sqrt( t2^2 + t1^2 );
 delta1 = z1 - x1;
 tau1 = (delta1/u)*fs;
 
+%% Mic 1-4
+
+t1 = cos(theta*(pi/180))*d;
+t2 = sin(theta*(pi/180))*d;
+
+y1 = sqrt( (z1+t1)^2 + t2^2 );
+
+delta2 = y1 - z1;
+tau2 = (delta2/u)*fs;
+
+%% Mic 1-3
+
+dl = sqrt(2*d^2);
+t1 = cos((theta+45)*(pi/180))*dl;
+t2 = sin((theta+45)*(pi/180))*dl;
+
+w1 = sqrt( (z1+t1)^2 + t2^2 );
+
+delta3 = w1 - z1;
+tau3 = (delta3/u)*fs;
+
