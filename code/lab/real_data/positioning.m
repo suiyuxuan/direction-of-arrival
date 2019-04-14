@@ -37,12 +37,12 @@ tau2 = (delta2/u)*fs;
 
 %% Mic 1-3
 
-dl = sqrt(2*d^2);
-t1 = cos((theta+45)*(pi/180))*dl;
-t2 = sin((theta+45)*(pi/180))*dl;
-
-w1 = sqrt( (z1+t1)^2 + t2^2 );
-
-delta3 = w1 - z1;
-tau3 = (delta3/u)*fs;
+% dl = sqrt(2*d^2);
+% t1 = cos((theta+45)*(pi/180))*dl;
+% t2 = sin((theta+45)*(pi/180))*dl;
+% 
+% w1 = sqrt( (z1+t1)^2 + t2^2 );
+% 
+% delta3 = w1 - z1;
+% tau3 = (delta3/u)*fs;
 

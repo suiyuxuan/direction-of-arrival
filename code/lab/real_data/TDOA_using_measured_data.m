@@ -86,23 +86,23 @@ fs = 48000;
 u = 340;
 %f = ((indice-1)*fs)/length(window_sel);
 
-%% Fourier validation
+%% Fourier Method
 
 X_f(1,indice)
 X_f(2,indice)
 X_f(3,indice)
 X_f(4,indice)
 
-delta_1_far_field = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
-delta_1_real = (0.01868124*2*pi*f)/u; % triangular
-delta_1_measured = X_f(1,indice)-X_f(2,indice); % measured
-
-tau_1_far_field = ((d * sin(angles*(pi/180))) / u)*fs; % far-field
-tau_1_real = ((0.01868124)/u)*fs; % triangular
-tau_2_far_field = ((d * cos(angles*(pi/180))) / u)*fs; % far-field
-tau_2_real = ((0.060347)/u)*fs; % triangular
-tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
-tau_3_real = ((0.058194)/u)*fs; % triangular
+% delta_1_far_field = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
+% delta_1_real = (0.01868124*2*pi*f)/u; % triangular
+% delta_1_measured = X_f(1,indice)-X_f(2,indice); % measured
+% 
+% tau_1_far_field = ((d * sin(angles*(pi/180))) / u)*fs; % far-field
+% tau_1_real = ((0.01868124)/u)*fs; % triangular
+% tau_2_far_field = ((d * cos(angles*(pi/180))) / u)*fs; % far-field
+% tau_2_real = ((0.060347)/u)*fs; % triangular
+% tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
+% tau_3_real = ((0.058194)/u)*fs; % triangular
 
 %tau_1_measured = ((X_f(2,indice)-X_f(1,indice))/(2*pi*f))*fs; % measured
 tau_1_measured = (angdiff(X_f(2,indice), X_f(1,indice))/((2*pi*f)/fs)); % measured
