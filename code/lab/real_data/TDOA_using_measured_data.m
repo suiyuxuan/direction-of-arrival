@@ -35,8 +35,8 @@ load('../../../data/respeaker/indoor/source/data.mat');
 % Time domain
 x(:,1) = (data.channel_1(:,2));
 x(:,2) = (data.channel_2(:,2));
-x(:,3) = (data.channel_3(:,2));
-x(:,4) = (data.channel_4(:,2));
+x(:,3) = (data.channel_4(:,2));
+x(:,4) = (data.channel_3(:,2));
 % x = x';
 % x(:,1) = (data.channel_3(:,2));
 % x(:,2) = (data.channel_4(:,2));
