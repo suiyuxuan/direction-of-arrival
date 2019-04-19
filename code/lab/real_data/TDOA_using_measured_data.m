@@ -14,14 +14,14 @@ close all
 %load('../../../data/respeaker/outdoor/no_source/data.mat');
 
 % 1 kHz source
-%load('../../../data/respeaker/indoor/source/data.mat');
+load('../../../data/respeaker/indoor/source/data.mat');
 %load('../../../data/respeaker/hall/source/data.mat');
 %load('../../../data/respeaker/outdoor/source/data.mat');
 
 % Speech signal source
 %load('../../../data/respeaker/indoor/speech/data.mat');
 %load('../../../data/respeaker/hall/speech/data.mat');
-load('../../../data/respeaker/outdoor/speech/data.mat');
+%load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % window if necessary
 %window_sel = 10:length(data.channel_1(:,2));
@@ -30,18 +30,20 @@ load('../../../data/respeaker/outdoor/speech/data.mat');
 %window_sel = 70001:150000; % hall
 %window_sel = 55001:120000; % outdoor
 %window_sel = 108001:116000; % outdoor
-window_sel = 1501:3000;
+%window_sel = 1501:3000;
 
 % Time domain
-% x(:,1) = (data.channel_1(:,2));
-% x(:,2) = (data.channel_2(:,2));
-% x(:,3) = (data.channel_3(:,2));
-% x(:,4) = (data.channel_4(:,2));
+x(:,1) = (data.channel_1(:,2));
+x(:,2) = (data.channel_2(:,2));
+x(:,3) = (data.channel_4(:,2));
+x(:,4) = (data.channel_3(:,2));
 % x = x';
-x(:,1) = (data.channel_3(window_sel,2));
-x(:,2) = (data.channel_4(window_sel,2));
-x(:,3) = (data.channel_1(window_sel,2));
-x(:,4) = (data.channel_2(window_sel,2));
+% x(:,1) = (data.channel_3(:,2));
+% x(:,2) = (data.channel_4(:,2));
+% x(:,3) = (data.channel_2(:,2));
+% x(:,4) = (data.channel_1(:,2));
+% %x(:,3) = (data.channel_1(:,2));
+% %x(:,4) = (data.channel_2(:,2));
 x = x';
 
 x(1,:) = x(1,:)/max(x(1,:));
@@ -55,6 +57,7 @@ hold on
 plot(x(2,:),'r')
 plot(x(3,:),'g')
 plot(x(4,:),'k')
+legend('1','2','3','4')
 
 % Fourier analysis
 X(1,:) = abs(fft(x(1,:)));
@@ -78,29 +81,31 @@ X_f(4,:) = angle(fft(x(4,:)));
 d = 0.0575;
 dl = sqrt(2*d^2);
 angles = 20;
+f = 1000;
 fs = 48000;
 u = 340;
-f = ((indice-1)*fs)/length(window_sel);
+%f = ((indice-1)*fs)/length(window_sel);
 
-%% Fourier validation
+%% Fourier Method
 
 X_f(1,indice)
 X_f(2,indice)
 X_f(3,indice)
 X_f(4,indice)
 
-delta_1_far_field = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
-delta_1_real = (0.01868124*2*pi*f)/u; % triangular
-delta_1_measured = X_f(1,indice)-X_f(2,indice); % measured
-
-tau_1_far_field = ((d * sin(angles*(pi/180))) / u)*fs; % far-field
-tau_1_real = ((0.01868124)/u)*fs; % triangular
-tau_2_far_field = ((d * cos(angles*(pi/180))) / u)*fs; % far-field
-tau_2_real = ((0.060347)/u)*fs; % triangular
-tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
-tau_3_real = ((0.058194)/u)*fs; % triangular
+% delta_1_far_field = (d * 2 * pi * f * sin(angles*(pi/180))) / u; % far-field
+% delta_1_real = (0.01868124*2*pi*f)/u; % triangular
+% delta_1_measured = X_f(1,indice)-X_f(2,indice); % measured
+% 
+% tau_1_far_field = ((d * sin(angles*(pi/180))) / u)*fs; % far-field
+% tau_1_real = ((0.01868124)/u)*fs; % triangular
+% tau_2_far_field = ((d * cos(angles*(pi/180))) / u)*fs; % far-field
+% tau_2_real = ((0.060347)/u)*fs; % triangular
+% tau_3_far_field = -((dl * cos((90-angles+45)*(pi/180))) / u)*fs; % far-field
+% tau_3_real = ((0.058194)/u)*fs; % triangular
 
 %tau_1_measured = ((X_f(2,indice)-X_f(1,indice))/(2*pi*f))*fs; % measured
+tau_1_measured = (angdiff(X_f(2,indice), X_f(1,indice))/((2*pi*f)/fs)); % measured
 %tdoa_1_measured = tau_1_measured/fs;
 %theta_1_fourier = asin(tdoa_1_measured / (d/u)) * (180/pi);
 
