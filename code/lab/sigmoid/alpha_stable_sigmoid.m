@@ -1,4 +1,4 @@
-function v = alpha_stable_sigmoid(s, alpha0, GSNR_dB, s_function, s_parameter)
+function y = alpha_stable_sigmoid(s, alpha0, GSNR_dB, s_function, s_parameter)
 
 % s: input signal
 % s_function: sigmoid function
@@ -19,35 +19,35 @@ function v = alpha_stable_sigmoid(s, alpha0, GSNR_dB, s_function, s_parameter)
 % % additive lpha-stable noise
 % noisy_signal = s + imp_noise;
 
-noisy_signal = sas_model(s, "real", alpha0, GSNR_dB);
+x = sas_model(s, "real", alpha0, GSNR_dB);
 
 % See https://en.wikipedia.org/wiki/Sigmoid_function
 % https://en.wikipedia.org/wiki/File:Gjl-t(x).svg
 switch(s_function)
     case 1 % modulus transformation
         lambda = s_parameter; %-1 parece ser o melhor kurtosis(v)
-        if(lambda==0)
-            v=sign(noisy_signal).*( log10( abs(noisy_signal) + 1) );
+        if(lambda == 0)
+            y = sign(x).*( log10( abs(x) + 1) );
         else
-            v=sign(noisy_signal).*( (abs(noisy_signal)+1).^lambda - 1  )./lambda;
+            y = sign(x).*( (abs(x)+1).^lambda - 1  )./lambda;
         end
     case 2 % spatial signal
-        v=noisy_signal./abs(noisy_signal);
-    case 3 
-        v = tansig(noisy_signal); % a = tansig(n) = 2/(1+exp(-2*n))-1
-    case 4
-        v = tanh(noisy_signal); 
-    case 5
-        v = erf(noisy_signal * sqrt(pi) / 2 );
-    case 6
-        v = noisy_signal ./ sqrt( 1 + noisy_signal.^2 );
-    case 7
-        v = 2 / pi * asin( tanh(noisy_signal * pi /2) ); % Gudermannian
-    case 8    
-        v = 2/pi * atan(pi/2 * noisy_signal);
+        y = x./abs(x);
+    case 3 % algebric
+        y = x ./ sqrt(1 + x.^2);
+    case 4 % hyberbolic
+        y = tanh(x); 
+    case 5 % error function
+        y = erf(x * sqrt(pi) / 2 );
+    case 6 % algebric
+        y = x ./ sqrt( 1 + x.^2 );
+    case 7 % Gudermannian
+        y = (2/pi) * asin( tanh(x * pi /2) );
+    case 8  % arctan
+        y = (2/pi) * atan(pi/2 * x);
     case 9
-        v = noisy_signal ./ (1 + abs(noisy_signal));
+        y = x ./ (1 + abs(x));
     case 10 % parameterized sigmoid
         nn = s_parameter;
-        v = 2 ./ (1 + exp( -nn * noisy_signal) ) - 1;
+        y = 2 ./ (1 + exp( -nn * x) ) - 1;
 end
