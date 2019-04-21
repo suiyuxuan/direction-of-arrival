@@ -8,8 +8,9 @@
 % DOA - "MUSIC", "ESPRIT", "Capon", "Root-MUSIC", "Beamscan", "NLT-MUSIC"
 % TDOA - "GCC-PHAT", "GCC-NLT", "FLOC", "GFLOC"
 %
-% type_of_data: "simulated-sine", "simulated-zadoff-chu",
-% "simulated-voice", "real", "demo-gong"
+% type_of_data: "simulated-sine", "simulated-zadoff-chu", "random",
+% "simulated-voice", "real", "demo-gong", "demo-chirp", "demo-handel",
+% "demo-splat", "demo-laughter", "demo-train"
 %
 % noise{n}.model = "gaussian real", "gaussian complex",
 % "alpha-stable real", "alpha-stable complex", 
