@@ -25,7 +25,7 @@ end
 
 save(char(strcat("../results/", output_name, "/results.mat")), 'performance_metrics');
 
-T = table(performance_metrics(1).type_of_data, performance_metrics(1).M, performance_metrics(1).d, performance_metrics(1).f, performance_metrics(1).fs, performance_metrics(1).N, performance_metrics(1).u, length(performance_metrics(1).noise), 'VariableNames', { 'Type_of_data', 'M', 'd', 'f', 'fs', 'N', 'u', 'total_noise_models'} );
+T = table(performance_metrics(1).type_of_data, performance_metrics(1).M, performance_metrics(1).d, performance_metrics(1).f, performance_metrics(1).fs, performance_metrics(1).N, performance_metrics(1).u, performance_metrics(1).iterations, length(performance_metrics(1).noise), 'VariableNames', { 'Type_of_data', 'M', 'd', 'f', 'fs', 'N', 'u', 'iterations', 'total_noise_models'} );
 writetable(T, char(strcat("../results/", output_name, "/parameters.txt")));
 
 %% Ploting
