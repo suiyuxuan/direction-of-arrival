@@ -1,2 +1,2 @@
-Type_of_data,M,d,f,fs,N,u,total_noise_models
-simulated-zadoff-chu,2,0.05,1000,48000,353,340,1
+Type_of_data,M,d,f,fs,N,u,iterations,total_noise_models
+simulated-zadoff-chu,2,0.05,1000,48000,353,340,10000,1

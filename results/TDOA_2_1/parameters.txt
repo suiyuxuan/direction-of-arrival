@@ -1,2 +1,0 @@
-Type_of_data,M,d,f,fs,N,u,total_noise_models
-simulated-zadoff-chu,2,0.05,1000,400000,353,340,1
