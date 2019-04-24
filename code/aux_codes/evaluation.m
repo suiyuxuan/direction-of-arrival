@@ -73,6 +73,7 @@ for n_channel = 1:numel(data.channel)
     performance_metrics(k).snapshots = data.snapshots(n_s);
     performance_metrics(k).noise = data.noise{n_noise};
     performance_metrics(k).channel = data.channel{n_channel};
+    performance_metrics(k).iterations = data.iterations;
     
     % Metrics
     performance_metrics(k).RMSE = RMSE;
