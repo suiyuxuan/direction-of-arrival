@@ -17,7 +17,7 @@ gsnr_min = -20;
 gsnr_step = 1;
 gsnr_max = 20;
 
-alpha = 1.3;
+alpha = 1.7;
 n_iter = 10000;
 M = 2;
 d = 0.05;
