@@ -13,9 +13,9 @@ close all
 %load('../../../data/respeaker/hall/source/data.mat');
 %load('../../../data/respeaker/outdoor/source/data.mat');
 % Speech signal source
-%load('../../../data/respeaker/indoor/speech/data.mat');
+load('../../../data/respeaker/indoor/speech/data.mat');
 %load('../../../data/respeaker/hall/speech/data.mat');
-load('../../../data/respeaker/outdoor/speech/data.mat');
+%load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % TDOA parameters
 d = 0.0575;
@@ -30,32 +30,27 @@ u = 340;
 % 50/100/700/1000/20000/40000/80000 (outdoor - speech)
 % 200/400/500/700/2000/4000 (outdoor - source)
 
-window_sel = 75001:150000;
+%window_sel = 10:length(data.channel_1(:,2));
+window_sel = 75001:150000; % indoor
+%window_sel = 70001:150000; % hall
+%window_sel = 55001:120000; % outdoor
+%window_sel = 1501:3000;
 
 x(1,:) = (data.channel_3(window_sel,2))';
 x(2,:) = (data.channel_4(window_sel,2))';
 x(3,:) = (data.channel_1(window_sel,2))';
 x(4,:) = (data.channel_2(window_sel,2))';
 
-kk = 1;
-for lag = 1000:1000:50000
+lag = 5000;
 
-[rmse_GCC(kk), rmse_NLT(kk), rmse_FLOC(kk)] = TDOA_evaluation_with_measured_data(x, lag);
+[theta_1_GCC, theta_1_FLOC, theta_1_NLT] = TDOA_theta_measured_data(x, lag);
 
-kk = kk + 1;
-end
+rmse_GCC = sqrt( mean( (angles-real(theta_1_GCC)).^2 ) )
+rmse_NLT = sqrt( mean( (angles-real(theta_1_NLT)).^2 ) )
+rmse_FLOC = sqrt( mean( (angles-real(theta_1_FLOC)).^2 ) )
 
-% plot(real(theta_1_GCC))
-% hold on
-% plot(real(theta_1_NLT),'r')
-%
-% media_GCC = (real(theta_1_GCC) + real(theta_2_GCC) + real(theta_3_GCC))./3;
-% media_NLT = (real(theta_1_NLT) + real(theta_2_NLT) + real(theta_3_NLT))./3;
-% plot(media_GCC)
-% hold on
-% plot(media_NLT,'r')
-
-plot(rmse_GCC)
+plot(theta_1_GCC)
 hold on
-plot(rmse_NLT,'r')
-plot(rmse_FLOC,'k')
+plot(theta_1_FLOC,'r')
+plot(theta_1_NLT,'k')
+legend('GCC', 'FLOC', 'NLT')

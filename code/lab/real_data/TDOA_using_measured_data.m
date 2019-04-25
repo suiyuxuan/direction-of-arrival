@@ -14,18 +14,18 @@ close all
 %load('../../../data/respeaker/outdoor/no_source/data.mat');
 
 % 1 kHz source
-load('../../../data/respeaker/indoor/source/data.mat');
+%load('../../../data/respeaker/indoor/source/data.mat');
 %load('../../../data/respeaker/hall/source/data.mat');
 %load('../../../data/respeaker/outdoor/source/data.mat');
 
 % Speech signal source
-%load('../../../data/respeaker/indoor/speech/data.mat');
+load('../../../data/respeaker/indoor/speech/data.mat');
 %load('../../../data/respeaker/hall/speech/data.mat');
 %load('../../../data/respeaker/outdoor/speech/data.mat');
 
 % window if necessary
 %window_sel = 10:length(data.channel_1(:,2));
-%window_sel = 75001:150000; % indoor
+window_sel = 75001:150000; % indoor
 %window_sel = 78001:88000; % indoor
 %window_sel = 70001:150000; % hall
 %window_sel = 55001:120000; % outdoor
@@ -165,22 +165,66 @@ theta_3_NLT = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_NLT*u)/(f
 %theta_3_NLT = -45 + acos( ((1.5*fs+tau_3_NLT*u)/(fs*sqrt(2*dl*1.5)))^2 - (1.5/(2*dl)) - (dl/(2*1.5)) )*(180/pi);
 
 % % FLOC
-% [M,N] = size(x);
-% %p = 0.5;
-% xm = [x(2,:) x(2,:)];
-% R = zeros(1,N);
-% for m=1:N
-%     NUM = 0;
-%     DEN = 0;
-%     for n=1:N
-%         NUM = NUM + x(1,n).*sign(xm(1,n+m));
-%         DEN = DEN + abs(xm(1,n+m));
-%         %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
-%         %DEN = DEN + abs(xm(1,n+m)).^p;
-%     end
-%     R(m) = NUM / DEN;
-% end
-% [argvalue, argmax] = max(abs(R-mean(R)));
-% tau_FLOC = argmax;
-% tdoa_FLOC = tau_FLOC / fs;
-% theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+[M,N] = size(x);
+%p = 0.5;
+xm = [x(2,:) x(2,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(1,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN = DEN + abs(xm(1,n+m)).^p;
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_1_FLOC = argmax;
+%tdoa_FLOC = tau_FLOC / fs;
+%theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+theta_1_FLOC = 90 - acos( (1.5/(2*d)) + (d/(2*1.5)) - ((1.5*fs-tau_1_FLOC*u)/(fs*sqrt(2*d*1.5)))^2 )*(180/pi);
+
+[M,N] = size(x);
+%p = 0.5;
+xm = [x(1,:) x(1,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(3,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN = DEN + abs(xm(1,n+m)).^p;
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_2_FLOC = argmax;
+%tdoa_FLOC = tau_FLOC / fs;
+%theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+theta_2_FLOC = acos( ((1.5*fs+tau_2_FLOC*u)/(fs*sqrt(2*d*1.5)))^2 - (1.5/(2*d)) - (d/(2*1.5)) )*(180/pi);
+
+[M,N] = size(x);
+%p = 0.5;
+xm = [x(1,:) x(1,:)];
+R = zeros(1,N);
+for m=1:N
+    NUM = 0;
+    DEN = 0;
+    for n=1:N
+        NUM = NUM + x(4,n).*sign(xm(1,n+m));
+        DEN = DEN + abs(xm(1,n+m));
+        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN = DEN + abs(xm(1,n+m)).^p;
+    end
+    R(m) = NUM / DEN;
+end
+[argvalue, argmax] = max(abs(R-mean(R)));
+tau_3_FLOC = argmax;
+%tdoa_FLOC = tau_FLOC / fs;
+%theta_FLOC = asin(tdoa_FLOC / (d/u)) * (180/pi);
+theta_3_FLOC = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_FLOC*u)/(fs*sqrt(2*dl*1.5)))^2 )*(180/pi);
+
