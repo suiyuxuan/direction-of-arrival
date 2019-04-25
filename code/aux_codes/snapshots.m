@@ -71,6 +71,8 @@ for snr_i = noise.snr(1):noise.snr(end) % SNR or GSNR
                     angles(i) = FLOCp08(signal, fs, d);
                 case 'FLOCp15'
                     angles(i) = FLOCp15(signal, fs, d);
+                case 'Fourier'
+                    angles(i) = Fourier(signal, f, fs, d);
                 otherwise
                     error('Incorrect algorithm');
             end
