@@ -41,16 +41,21 @@ x(2,:) = (data.channel_4(window_sel,2))';
 x(3,:) = (data.channel_1(window_sel,2))';
 x(4,:) = (data.channel_2(window_sel,2))';
 
-lag = 5000;
+lag = 1000;
+N = length(x(1,:));
 
 [theta_1_GCC, theta_1_FLOC, theta_1_NLT] = TDOA_theta_measured_data(x, lag);
 
-rmse_GCC = sqrt( mean( (angles-real(theta_1_GCC)).^2 ) )
-rmse_NLT = sqrt( mean( (angles-real(theta_1_NLT)).^2 ) )
-rmse_FLOC = sqrt( mean( (angles-real(theta_1_FLOC)).^2 ) )
+rmse_GCC = sqrt( mean( (angles-real(theta_1_GCC)).^2 ) );
+rmse_FLOC = sqrt( mean( (angles-real(theta_1_FLOC)).^2 ) );
+rmse_NLT = sqrt( mean( (angles-real(theta_1_NLT)).^2 ) );
 
-plot(theta_1_GCC)
+PR_GCC = sum((angles-real(theta_1_GCC)) < 6) / length(theta_1_GCC);
+PR_FLOC = sum((angles-real(theta_1_FLOC)) < 6) / length(theta_1_FLOC);
+PR_NLT = sum((angles-real(theta_1_NLT)) < 6) / length(theta_1_NLT);
+
+plot(real(theta_1_GCC))
 hold on
-plot(theta_1_FLOC,'r')
-plot(theta_1_NLT,'k')
+plot(real(theta_1_FLOC),'r')
+plot(real(theta_1_NLT),'k')
 legend('GCC', 'FLOC', 'NLT')
