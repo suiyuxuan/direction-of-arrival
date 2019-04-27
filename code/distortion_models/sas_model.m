@@ -22,12 +22,7 @@ beta = 0;
 Cg = 1.7810724179901979852365041031071795491696452143034302053;
 
 [M,N] = size(x);
-%y = zeros(M,N);
 
-%k = 1;
-%for gsnr = gsnrValues_dB
-
-%    for i=1:M
 A = rms(x(1,:));
 
 % ruido - termo aditivo 
@@ -44,12 +39,6 @@ switch model
         error("noise model incorrect.");
 end
 
-% sinal ruidoso
 signal = x + n;
-%signal.snr{k} = gsnr;
-%k = k + 1;
-%    end
-
-%end
 
 end

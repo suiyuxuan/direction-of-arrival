@@ -117,7 +117,7 @@ for m=1:N
     R(m) = NUM / DEN;
 end
 [argvalue, argmax] = max(abs(R-mean(R)));
-tau_2_FLOC(k) = argmax;
+tau_2_FLOC(k) = min((N-argmax),argmax);
 %theta_2_FLOC(k) = asin((tau_2_FLOC(k)/fs) / (d/u)) * (180/pi);
 theta_2_FLOC(k) = acos( ((1.5*fs+tau_2_FLOC(k)*u)/(fs*sqrt(2*d*1.5)))^2 - (1.5/(2*d)) - (d/(2*1.5)) )*(180/pi);
 
@@ -134,7 +134,7 @@ for m=1:N
     R(m) = NUM / DEN;
 end
 [argvalue, argmax] = max(abs(R-mean(R)));
-tau_3_FLOC(k) = argmax;
+tau_3_FLOC(k) = min((N-argmax),argmax);
 %theta_3_FLOC(k) = asin((tau_3_FLOC(k)/fs) / (d/u)) * (180/pi);
 theta_3_FLOC(k) = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_FLOC(k)*u)/(fs*sqrt(2*dl*1.5)))^2 )*(180/pi);
 

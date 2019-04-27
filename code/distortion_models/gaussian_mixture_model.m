@@ -3,23 +3,10 @@
 % Gaussian Mixture Model
 % Descricao: Realiza a modelagem de misturas de Gaussianas
 % 
-% mean, variance, p
-% SNR
-%
-% 
+% Parameters:
+% p, SNR
 
 function [signal] = gaussian_mixture_model(x, model, rel, snr)
-
-% Mu = [1 2;-3 -5];
-% Sigma = cat(3,[2 0;0 .5],[1 0;0 1]);
-% P = ones(1,2)/2;
-% gm = gmdistribution(Mu,Sigma,P);
-% 
-% X = random(gm,1000);
-% 
-% hist3(X)
-% histogram(X(:,1)')
-% histogram(X(:,2)')
 
 mu1 = 0;
 mu2 = 0;

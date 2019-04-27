@@ -30,7 +30,8 @@ u = 340;
 % 50/100/700/1000/20000/40000/80000 (outdoor - speech)
 % 200/400/500/700/2000/4000 (outdoor - source)
 
-window_sel = 75001:150000;
+%window_sel = 75001:150000; % indoor
+window_sel = 55001:120000; % outdoor
 
 x(1,:) = (data.channel_3(window_sel,2))';
 x(2,:) = (data.channel_4(window_sel,2))';
@@ -40,7 +41,7 @@ x(4,:) = (data.channel_2(window_sel,2))';
 kk = 1;
 for lag = 1000:1000:50000
 
-[rmse_GCC(kk), rmse_NLT(kk), rmse_FLOC(kk)] = TDOA_evaluation_with_measured_data(x, lag);
+[rmse_GCC(kk), rmse_NLT(kk), rmse_FLOC(kk)] = TDOA_snapshot_function_measured_data(x, lag);
 
 kk = kk + 1;
 end

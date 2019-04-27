@@ -49,10 +49,10 @@ x(2,:) = (sinal(2,window_sel))';
 x(3,:) = (sinal(3,window_sel))';
 x(4,:) = (sinal(4,window_sel))';
 
-x(1,:) = x(1,:)/max(abs(x(1,:)));
-x(2,:) = x(2,:)/max(abs(x(2,:)));
-x(3,:) = x(3,:)/max(abs(x(3,:)));
-x(4,:) = x(4,:)/max(abs(x(4,:)));
+%x(1,:) = x(1,:)/max(abs(x(1,:)));
+%x(2,:) = x(2,:)/max(abs(x(2,:)));
+%x(3,:) = x(3,:)/max(abs(x(3,:)));
+%x(4,:) = x(4,:)/max(abs(x(4,:)));
 
 %% Methods validation
 
@@ -85,14 +85,17 @@ theta_3_NLT(k) = 135 - acos( (1.5/(2*dl)) + (dl/(2*1.5)) - ((1.5*fs-tau_3_NLT(k)
 
 % FLOC
 [M,N] = size(x);
-xm = [x(2,:) x(2,:)];
+xm = [x(2,:) zeros(1,length(x(2,:)))];
 R = zeros(1,N);
+%p=0.8;
 for m=1:N
     NUM = 0;
     DEN = 0;
     for n=1:N
         NUM = NUM + x(1,n).*sign(xm(1,n+m));
         DEN = DEN + abs(xm(1,n+m));
+        %NUM = NUM + x(1,n).*(abs(xm(1,n+m)).^p-1).*sign(xm(1,n+m));
+        %DEN = DEN + abs(xm(1,n+m)).^p;
     end
     R(m) = NUM / DEN;
 end

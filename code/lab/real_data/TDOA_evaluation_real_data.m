@@ -41,7 +41,7 @@ x(2,:) = (data.channel_4(window_sel,2))';
 x(3,:) = (data.channel_1(window_sel,2))';
 x(4,:) = (data.channel_2(window_sel,2))';
 
-lag = 1000;
+lag = 10000;
 N = length(x(1,:));
 
 [theta_1_GCC, theta_1_FLOC, theta_1_NLT] = TDOA_theta_measured_data(x, lag);
