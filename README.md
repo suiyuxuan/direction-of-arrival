@@ -35,9 +35,9 @@ Performance evaluation of algorithms.
 
 Danilo Pena (PhD student)
 
-Prof. Dr. Allan Martins (doctoral advisor)
+Prof. Dr. Allan Martins (advisor)
 
-Prof. Dr. Vicente Sousa (doctoral advisor)
+Prof. Dr. Vicente Sousa (co-advisor)
 
 Mário Guilherme (collaborator)
 
